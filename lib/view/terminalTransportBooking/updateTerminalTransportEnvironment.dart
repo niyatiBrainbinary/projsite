@@ -935,7 +935,8 @@ import 'package:uuid/uuid.dart';
 
 class UpdateTerminalTransportEnviroment extends StatefulWidget {
   Map shipmentMap;
-  UpdateTerminalTransportEnviroment(this.shipmentMap);
+  String projectId;
+  UpdateTerminalTransportEnviroment(this.shipmentMap, this.projectId);
 
   @override
   State<UpdateTerminalTransportEnviroment> createState() => _UpdateTerminalTransportEnviromentState();
@@ -1503,8 +1504,7 @@ class _UpdateTerminalTransportEnviromentState extends State<UpdateTerminalTransp
   void initState() {
     shipmentCub = BlocProvider.of<ShipmentCubit>(context);
     calendarCub = BlocProvider.of<CalendarCubit>(context);
-    shipmentCub.ShipmentSupplierList(
-        projectIdMain);
+    shipmentCub.ShipmentSupplierList(widget.projectId);
     _enviromentalCubit = BlocProvider.of<EnviromentalCubit>(context);
     _enviromentalCubit.Euroclass();
     _enviromentalCubit.Vehicle();

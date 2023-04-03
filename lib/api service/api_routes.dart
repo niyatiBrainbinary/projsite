@@ -8,7 +8,6 @@ class ApiRoutes{
   static const String Image_URL = '$_BASE_URL/rental_images/';
   static const String ShipmentImage_URL = 'https://dev.projsite.com/patterns/';
 
-
   static const String postSignIn = '/validate_user_login';
   static const String postProfileDetails = '/get_user';
   static const String postEditProfile = '/edit_profile';

@@ -20,7 +20,8 @@ import 'package:proj_site/view/terminalTransportBooking/updateTerminalTransportE
 
 class UpdateTerminalTransportShipment extends StatefulWidget {
   String requestId;
-  UpdateTerminalTransportShipment(this.requestId);
+  String projectId;
+  UpdateTerminalTransportShipment(this.requestId, this.projectId);
 
   @override
   State<UpdateTerminalTransportShipment> createState() => _UpdateTerminalTransportShipmentState();
@@ -239,7 +240,7 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
 
     Map shipmentMap = {
       "_id": calendarCub.requestData!.result!.id,
-      "project_id": projectIdMain,
+      "project_id": widget.projectId,
       "request_from_date_time": "${fromDate} ${fromTimeApi}",
       "request_to_date_time": "${toDate} ${toTimeApi}",
       "resource_array": _resourceId,
@@ -266,7 +267,7 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
 
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return UpdateTerminalTransportEnviroment(shipmentMap);
+        return UpdateTerminalTransportEnviroment(shipmentMap, widget.projectId);
       },
     ));
     //}

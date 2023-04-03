@@ -802,7 +802,7 @@ class _FancyCardState extends State<FancyCard> {
                             calendarCub.eventList[widget.index].requestType == "terminal"?
                             Navigator.push(
                                 context, MaterialPageRoute(builder: (context) {
-                              return UpdateTerminalTransportShipment(calendarCub.eventList[widget.index].id);
+                              return UpdateTerminalTransportShipment(calendarCub.eventList[widget.index].id, calendarCub.eventList[widget.index].projectId);
                             },)):Navigator.push(
                                 context, MaterialPageRoute(builder: (context) {
                               return UpdateShipment(calendarCub.eventList[widget.index].id, calendarCub.eventList[widget.index].projectId);

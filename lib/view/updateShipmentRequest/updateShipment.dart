@@ -501,7 +501,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
 
                         for (int i = 0; i < dropDownCub.resourcesId.length; i++) {
                             for (int j = 0; j < calendarCub.requestData!.result!.resourceArray!.length; j++) {
-                              if(dropDownCub.resourcesId[i]==calendarCub.requestData!.result!.resourceArray![j]){
+                              if(dropDownCub.resourcesId[i]==calendarCub.requestData?.result?.resourceArray?[j]){
                                 _resource.add(dropDownCub.resourcesName[i]);
                                 _resourceId.add(dropDownCub.resourcesId[i]);
                                 _resourceIndex.add(i);
@@ -510,7 +510,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
                         }
 
                         for (int i = 0; i < dropDownCub.zoneName.length; i++) {
-                          if (calendarCub.requestData!.result!.unloadingZoneId == dropDownCub.zoneId[i]) {
+                          if (calendarCub.requestData?.result?.unloadingZoneId == dropDownCub.zoneId[i]) {
                             _unloadingZone = dropDownCub.zoneName[i];
                             _unloadingZoneId=dropDownCub.zoneId[i];
                             setState(() {});
@@ -519,16 +519,16 @@ class _UpdateShipmentState extends State<UpdateShipment> {
                         for (int i = 0;
                         i < dropDownCub.organization.length;
                         i++) {
-                          if (calendarCub.requestData!.result!.contractorId == dropDownCub.companyList![i].id) {
-                            _contractor = dropDownCub.companyList![i].companyName;
-                            _contractorId = dropDownCub.companyList![i].id;
+                          if (calendarCub.requestData?.result?.contractorId == dropDownCub.companyList?[i].id) {
+                            _contractor = dropDownCub.companyList?[i].companyName;
+                            _contractorId = dropDownCub.companyList?[i].id;
                             setState(() {});
                           }
                         }
 
                         for (int i = 0; i < dropDownCub.subProjects!.length; i++) {
-                          if (calendarCub.requestData!.result!.subProjectId == dropDownCub.subProjects![i].id) {
-                            _subProjectId = dropDownCub.subProjects![i].id;
+                          if (calendarCub.requestData?.result?.subProjectId == dropDownCub.subProjects?[i].id) {
+                            _subProjectId = dropDownCub.subProjects?[i].id;
                             setState(() {});
                           }
                         }

@@ -61,6 +61,8 @@ dependencies:
   geocoder:
   flutter_swiper_null_safety_flutter3: ^3.0.0
   flutter_svg: ^2.0.0+1
+  syncfusion_flutter_pdfviewer: 20.4.44
+  syncfusion_flutter_core: 20.4.44
 
 dev_dependencies:
   flutter_test:

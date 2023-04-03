@@ -76,7 +76,6 @@ class _DashBoardCardState extends State<DashBoardCard> {
                                 context);
                           }),
 
-
                       dashBoardCub.pendingShipmentList[widget.index].shipmentType=="To Terminal Transport"?
                       BlocBuilder<TerminalCubit, TerminalState>(
                         builder: (context, state) {
@@ -113,8 +112,6 @@ class _DashBoardCardState extends State<DashBoardCard> {
                           }
                         },
                       ),
-
-
                     ],
                   )
                 ],
@@ -468,7 +465,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
                           } else if (dashBoardCub.pendingShipmentList[widget.index].shipmentType=="To Terminal Transport"){
                             Navigator.push(
                                 context, MaterialPageRoute(builder: (context) {
-                              return UpdateTerminalTransportShipment(dashBoardCub.pendingShipmentList[widget.index].requestId!);
+                              return UpdateTerminalTransportShipment(dashBoardCub.pendingShipmentList[widget.index].requestId!,  dashBoardCub.pendingShipmentList[widget.index].projectId??"");
                             },));
                           } else {
                             Navigator.push(

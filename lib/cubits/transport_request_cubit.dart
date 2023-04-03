@@ -117,7 +117,7 @@ class TransportRequestCubit extends Cubit<TransportRequestState> {
 
     if (response != null) {
       if (response.success == true) {
-        snackBar("Request closed successfully", false);
+        snackBar("Request closed successfully", true);
         Navigator.pop(context);
         Navigator.pop(context,"Success");
         emit(CloseTransportRequestSuccess());

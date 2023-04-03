@@ -923,7 +923,7 @@ class Repository {
   }
 
   static Future<CommonModel?> postCloseTransportRequest(String requestId) async {
-    Map<String, dynamic> body = {
+   /* Map<String, dynamic> body = {
       "request_id":requestId,
       "is_hidden":true,
     };
@@ -940,7 +940,31 @@ class Repository {
       print(e);
       return null;
     }
-    return null;
+    return null;*/
+
+    var headers = {
+      'token': accessToken,
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/close_checkout_request'));
+    request.body = json.encode({
+      "request_id": requestId,
+      "is_hidden": true,
+      "close_all_recurring": true
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return CommonModel.fromJson(dataData);
+    }
+    else {
+
+    }
   }
 
   static Future<OrganizationsModel?> postOrganizations({required String organization_id}) async {
@@ -1216,7 +1240,7 @@ class Repository {
 
   static Future<CommonModel?> postCloseShipment(String requestId) async {
 
-    Map<String, dynamic> body = {
+   /* Map<String, dynamic> body = {
       "request_id":requestId,
       "is_hidden":true,
       "close_all_recurring":true,
@@ -1234,7 +1258,32 @@ class Repository {
       print(e);
       return null;
     }
-    return null;
+    return null;*/
+
+    var headers = {
+      'token': accessToken,
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/close_request'));
+    request.body = json.encode({
+      "request_id": requestId,
+      "is_hidden": true,
+      "close_all_recurring": true
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return CommonModel.fromJson(dataData);
+    }
+    else {
+
+    }
+
   }
 
   static Future<AddTerminalModel?> postAddTerminal(Map finalMap) async {
@@ -1277,7 +1326,7 @@ class Repository {
   }
 
   static Future<CommonModel?> postCloseTerminal(String requestId) async {
-    Map<String, dynamic> body = {
+    /*Map<String, dynamic> body = {
       "request_id":requestId,
       "is_hidden":true,
       "delete_logistics":true
@@ -1295,7 +1344,32 @@ class Repository {
       print(e);
       return null;
     }
-    return null;
+    return null;*/
+
+    var headers = {
+      'token': accessToken,
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/close_terminal_request'));
+    request.body = json.encode({
+      "request_id": requestId,
+      "is_hidden": true,
+      "delete_logistics": true
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return CommonModel.fromJson(dataData);
+    }
+    else {
+
+    }
+
   }
 
   static Future<CommonModel?> postUpdateApprovalStatus(String status, String requestId) async {

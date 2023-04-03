@@ -326,12 +326,12 @@ class _UpdateTransportRequestShipmentState extends State<UpdateTransportRequestS
 
     dropDownCub.resourcesList(widget.projectId,orgId);
     dropDownCub.Organizations(organization_id: orgId);
-    dropDownCub.UserSubProjectList(user_id: authCub.userInfo!.user!.id!, project_id: widget.projectId, organization_id: orgId);
-    _description.text=transportRequestCub.transportRequestData!.result!.description!;
-    fromDate=DateFormat('yyyy-MM-dd').format(transportRequestCub.transportRequestData!.result!.requestFromDateTime!);
-    toDate=DateFormat('yyyy-MM-dd').format(transportRequestCub.transportRequestData!.result!.requestToDateTime!);
-    fromTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData!.result!.requestFromDateTime!);
-    toTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData!.result!.requestToDateTime!);
+    dropDownCub.UserSubProjectList(user_id: authCub.userInfo?.user?.id ?? "", project_id: widget.projectId, organization_id: orgId);
+    _description.text=transportRequestCub.transportRequestData?.result?.description ?? "";
+    fromDate=DateFormat('yyyy-MM-dd').format(transportRequestCub.transportRequestData?.result?.requestFromDateTime ?? DateTime.now());
+    toDate=DateFormat('yyyy-MM-dd').format(transportRequestCub.transportRequestData?.result?.requestToDateTime ?? DateTime.now());
+    fromTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestFromDateTime ??  DateTime.now());
+    toTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestToDateTime ?? DateTime.now());
 
     super.initState();
   }

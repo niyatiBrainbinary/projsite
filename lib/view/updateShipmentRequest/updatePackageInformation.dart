@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
+import 'package:proj_site/cubits/booking_cubit.dart';
 import 'package:proj_site/cubits/calendar_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:proj_site/cubits/package_information_cubit.dart';
 import 'package:proj_site/cubits/shipment_cubit.dart';
+
+import '../../api service/models/shipment_models/update_shipment_model.dart';
 
 
 class UpdatePackageInformation extends StatefulWidget {
@@ -36,6 +39,8 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
   List _id=["eu_pall","sjo_pall","langgods","bunts","paket","stycke_gods"];
   late CalendarCubit calendarCub;
   late ShipmentCubit shipmentCub;
+  late BookingCubit bookingCub;
+
   Map <dynamic, dynamic> finalMap = {};
 
   List updatedThirdValues=[];
@@ -101,6 +106,8 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
       finalUpdatedValue = false;
     }
     shipmentCub.UpdateShipment(finalMap,context,finalUpdatedValue);
+
+   bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString());
   }
 
   initThird(){
@@ -113,6 +120,9 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
     calendarCub = BlocProvider.of<CalendarCubit>(context);
     shipmentCub = BlocProvider.of<ShipmentCubit>(context);
     _packageInformationCub.PackageInformation();
+
+    bookingCub = BlocProvider.of<BookingCubit>(context);
+
 
     if(calendarCub.requestData!.result!.kollis!=null){
       for(int i=0;i<_id.length;i++){
