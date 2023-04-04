@@ -80,8 +80,8 @@ class CalendarCubit extends Cubit<CalendarState> {
             description: eventList[i].description,
             startTime:eventList[i].requestFromDateTime,
             endTime:eventList[i].requestToDateTime,
-
-          ),);
+          ),
+          );
         }
         // shipmentSuppName=[];
         // shipmentSuppId=[];

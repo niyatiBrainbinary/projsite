@@ -52,6 +52,7 @@ class _UpdateTransportRequestShipmentState extends State<UpdateTransportRequestS
   String? _unloadingZoneId;
   String? _subProject;
   String? _subProjectId;
+  List firstPageUpdatedData=[];
 
   late ShipmentCubit shipmentCub;
   late DropDownCubit dropDownCub;
@@ -239,10 +240,11 @@ class _UpdateTransportRequestShipmentState extends State<UpdateTransportRequestS
     // else if(photo == null){
     //   snackBar("Please Select Picture", false);
     // } else {
+
     List checkOutListId=[];
 
     for(int i=0;i<transportRequestCub.transportRequestData!.result!.checkoutsList!.length;i++){
-      checkOutListId.add(transportRequestCub.transportRequestData?.result?.checkoutsList?[i].id ?? "");
+      checkOutListId.add(transportRequestCub.transportRequestData!.result!.checkoutsList![i].id);
     }
 
     Map shipmentMap = {
@@ -262,9 +264,34 @@ class _UpdateTransportRequestShipmentState extends State<UpdateTransportRequestS
     };
     print(shipmentMap);
 
+    List updatedData =[
+      fromDate,
+      fromTime,
+      toDate,
+      toTime,
+      _resourceId.toString(),
+      _unloadingZoneId,
+      _subProjectId,
+      _description.text,
+    ];
+
+    bool isUpdated = false;
+    for(int i=0;i< firstPageUpdatedData.length;i++)
+    {
+      if(firstPageUpdatedData[i] != updatedData[i])
+      {
+        isUpdated = false;
+        break;
+      }
+      else
+      {
+        isUpdated = true;
+      }
+    }
+
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return UpdateTransportRequestEnviromental(shipmentMap,widget.projectId);
+        return UpdateTransportRequestEnviromental(shipmentMap,widget.projectId, isUpdated);
       },
     ));
     //}
@@ -333,6 +360,16 @@ class _UpdateTransportRequestShipmentState extends State<UpdateTransportRequestS
     fromTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestFromDateTime ??  DateTime.now());
     toTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestToDateTime ?? DateTime.now());
 
+    firstPageUpdatedData =[
+      fromDate,
+      fromTime,
+      toDate,
+      toTime,
+      _resourceId.toString(),
+      _unloadingZoneId,
+      _subProjectId,
+      _description.text,
+    ];
     super.initState();
   }
 

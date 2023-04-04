@@ -24,9 +24,10 @@ import 'package:uuid/uuid.dart';
 class UpdateTransportRequestEnviromental extends StatefulWidget {
   Map shipmentMap;
   String projectId;
+  bool isUpdated;
 
   UpdateTransportRequestEnviromental(
-      this.shipmentMap, this.projectId
+      this.shipmentMap, this.projectId, this.isUpdated
       );
 
   @override
@@ -79,6 +80,7 @@ class _UpdateTransportRequestEnviromentalState extends State<UpdateTransportRequ
   List<double> _addSecondtlat = [];
   List<double> _addSecondtlon = [];
   List addDrivingRouteList = [];
+  List secondPageUpdatedList = [];
   bool isReturn = false;
   String token = '123456';
   bool _visible = false;
@@ -935,7 +937,45 @@ class _UpdateTransportRequestEnviromentalState extends State<UpdateTransportRequ
     };
 
     finalMap = {...widget.shipmentMap,...enviromentMap};
-    BlocProvider.of<TransportRequestCubit>(context).UpdateTransportRequest(finalMap,context);
+
+    List updatedSecondList =[
+      _supplierId,
+      _loadWeightCon.text,
+      _startLocationCon.text,
+      _vehicleId,
+      _fuelId,
+      _euroClassId,
+      _vehicleCapacity,
+      _distanceCon.text,
+      _destinationLocationCon.text,
+      isReturn,
+      isHidden,
+    ];
+    bool isUpdatedSecond = false;
+    for(int i=0;i< updatedSecondList.length;i++)
+    {
+      if(updatedSecondList[i] != secondPageUpdatedList[i])
+      {
+        isUpdatedSecond = false;
+        break;
+      }
+      else
+      {
+        isUpdatedSecond = true;
+      }
+    }
+
+    bool finalUpdatedValue = false;
+
+    if(widget.isUpdated ==true && isUpdatedSecond ==true)
+    {
+      finalUpdatedValue =true;
+    }
+    else{
+      finalUpdatedValue = false;
+    }
+
+    BlocProvider.of<TransportRequestCubit>(context).UpdateTransportRequest(finalMap,context,finalUpdatedValue);
   }
 
   @override
@@ -959,6 +999,20 @@ class _UpdateTransportRequestEnviromentalState extends State<UpdateTransportRequ
     googlePlace = GooglePlace(apiKey);
 
     isHidden=bool.hasEnvironment(transportRequestCub.transportRequestData!.result!.isHidden.toString());
+
+    secondPageUpdatedList = [
+      _supplierId,
+      _loadWeightCon.text,
+      _startLocationCon.text,
+      _vehicleId,
+      _fuelId,
+      _euroClassId,
+      _vehicleCapacity,
+      _distanceCon.text,
+      _destinationLocationCon.text,
+      isReturn,
+      isHidden,
+    ];
     super.initState();
   }
 

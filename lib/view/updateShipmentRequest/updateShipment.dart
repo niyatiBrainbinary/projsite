@@ -23,7 +23,6 @@ class UpdateShipment extends StatefulWidget {
   String projectId;
   UpdateShipment(this.requestId, this.projectId);
 
-
   @override
   State<UpdateShipment> createState() => _UpdateShipmentState();
 }
@@ -347,7 +346,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
             isUpdated = true;
           }
       }
-  
+
 
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {

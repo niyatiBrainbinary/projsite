@@ -889,10 +889,9 @@ class Repository {
         options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
         data: body,
       );
-
       if (res.statusCode == 200) {
-        final data = Map<String, dynamic>.from(res.data) as Map<String, dynamic>;
-        return CommonModel.fromJson(data);
+
+        return CommonModel.fromJson(res.data);
       }
     } catch (e) {
       print(e);
@@ -1219,7 +1218,7 @@ class Repository {
     //   "unloaded_at": "2022-11-30T10:59",
     //   "api": true
     // };
-    log("${body}");
+    log(jsonEncode(body));
      try {
       final res = await _dio.post(
         ApiRoutes.postUpdateShipmentRequest,
@@ -1235,6 +1234,29 @@ class Repository {
       print(e);
       return null;
     }
+
+
+    /*var headers = {
+      'token': accessToken,
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/update_request'));
+    request.body = json.encode(body);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return UpdateShipmentModel.fromJson(dataData);
+    }
+    else {
+      print(response.reasonPhrase);
+    }*/
+
+
     return null;
   }
 

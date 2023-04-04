@@ -936,7 +936,8 @@ import 'package:uuid/uuid.dart';
 class UpdateTerminalTransportEnviroment extends StatefulWidget {
   Map shipmentMap;
   String projectId;
-  UpdateTerminalTransportEnviroment(this.shipmentMap, this.projectId);
+  bool isUpdated;
+  UpdateTerminalTransportEnviroment(this.shipmentMap, this.projectId, this.isUpdated);
 
   @override
   State<UpdateTerminalTransportEnviroment> createState() => _UpdateTerminalTransportEnviromentState();
@@ -978,6 +979,7 @@ class _UpdateTerminalTransportEnviromentState extends State<UpdateTerminalTransp
   List fuel = [];
   List euroClass = [];
   List vehicleCapacity = [];
+  List secondPageUpdatedList = [];
   List<TextEditingController> addLocationCon = [];
   List<TextEditingController> addFirstLocationCon = [];
   List<TextEditingController> addLastLocationCon = [];
@@ -1096,7 +1098,45 @@ class _UpdateTerminalTransportEnviromentState extends State<UpdateTerminalTransp
     };
     finalMap = {...widget.shipmentMap,...enviromentMap};
 
-    BlocProvider.of<TerminalCubit>(context).UpdateTerminal(finalMap,context);
+    List updatedSecondList =[
+      _supplierId,
+      _loadWeightCon.text,
+      _startLocationCon.text,
+      _vehicleId,
+      _fuelId,
+      _euroClassId,
+      _vehicleCapacity,
+      _distanceCon.text,
+      _destinationLocationCon.text,
+      isReturn,
+      isHidden,
+    ];
+    bool isUpdatedSecond = false;
+    for(int i=0;i< updatedSecondList.length;i++)
+    {
+      if(updatedSecondList[i] != secondPageUpdatedList[i])
+      {
+        isUpdatedSecond = false;
+        break;
+      }
+      else
+      {
+        isUpdatedSecond = true;
+      }
+    }
+
+    bool finalUpdatedValue = false;
+
+    if(widget.isUpdated ==true && isUpdatedSecond ==true)
+    {
+      finalUpdatedValue =true;
+    }
+    else{
+      finalUpdatedValue = false;
+    }
+
+
+    BlocProvider.of<TerminalCubit>(context).UpdateTerminal(finalMap,context, finalUpdatedValue);
   }
 
   Widget getDrivingRoute(int index) {
@@ -1511,8 +1551,24 @@ class _UpdateTerminalTransportEnviromentState extends State<UpdateTerminalTransp
     _enviromentalCubit.Fuel();
     String apiKey = 'AIzaSyDtFavTh7_aJL9D3XGEmoFlIImXsibuREY';
     googlePlace = GooglePlace(apiKey);
-    super.initState();
     getData();
+
+    secondPageUpdatedList = [
+      _supplierId,
+      _loadWeightCon.text,
+      _startLocationCon.text,
+      _vehicleId,
+      _fuelId,
+      _euroClassId,
+      _vehicleCapacity,
+      _distanceCon.text,
+      _destinationLocationCon.text,
+      isReturn,
+      isHidden,
+    ];
+
+    super.initState();
+
   }
 
   @override

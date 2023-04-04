@@ -14,6 +14,7 @@ import 'package:proj_site/cubits/auth_cubit.dart';
 import 'package:proj_site/cubits/calendar_cubit.dart';
 import 'package:proj_site/cubits/drop_down_cubit.dart';
 import 'package:proj_site/cubits/shipment_cubit.dart';
+import 'package:proj_site/cubits/terminal_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 import 'package:proj_site/view/terminalTransportBooking/terminalTransportEnviromental.dart';
 import 'package:proj_site/view/terminalTransportBooking/updateTerminalTransportEnvironment.dart';
@@ -44,7 +45,7 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
   String recurringToDate = "Select Date";
   DateTime? arriveDate;
   DateTime? dueDate;
-
+   List firstPageUpdatedData = [];
   List _resource = [];
   List _resourceId = [];
   List<int> _resourceIndex = [];
@@ -58,10 +59,33 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
   late DropDownCubit dropDownCub;
   late CalendarCubit calendarCub;
   late AuthCubit authCub;
+
+  late TerminalCubit terminalCubit;
+
   TimeOfDay selectedFromTime = TimeOfDay(hour: 00, minute: 00);
   TimeOfDay selectedToTime = TimeOfDay(hour: 00, minute: 00);
   int fromTimeMinute=0;
   int toTimeMinute=0;
+
+  init() {
+
+    firstPageUpdatedData =[
+      fromDate,
+      fromTime,
+      toDate,
+      toTime,
+      _resourceId.toString(),
+      _contractorId,
+      _person,
+      _subProjectId,
+      _palletCon.text,
+      _itemName.text,
+      _description.text,
+    ];
+
+
+  }
+
   Widget resourcesDropDown() {
     return GFMultiSelect(
       items: dropDownCub.resourcesName,
@@ -265,16 +289,43 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
     };
     print(shipmentMap);
 
+    List updatedData =[
+      fromDate,
+      fromTime,
+      toDate,
+      toTime,
+      _resourceId.toString(),
+      _contractorId,
+      _person,
+      _subProjectId,
+      _palletCon.text,
+      _itemName.text,
+      _description.text,
+    ];
+
+    bool isUpdated = false;
+    for(int i=0;i< firstPageUpdatedData.length;i++)
+    {
+      if(firstPageUpdatedData[i] != updatedData[i])
+      {
+        isUpdated = false;
+        break;
+      }
+      else
+      {
+        isUpdated = true;
+      }
+    }
+
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return UpdateTerminalTransportEnviroment(shipmentMap, widget.projectId);
+        return UpdateTerminalTransportEnviroment(shipmentMap, widget.projectId, isUpdated);
       },
     ));
     //}
   }
 
-  @override
-  void initState() {
+  initFirstData()async{
     shipmentCub = BlocProvider.of<ShipmentCubit>(context);
     dropDownCub = BlocProvider.of<DropDownCubit>(context);
     authCub = BlocProvider.of<AuthCubit>(context);
@@ -282,9 +333,25 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
     calendarCub.RequestData(widget.requestId);
     dropDownCub.Organizations(organization_id: orgId);
     dropDownCub.UserSubProjectList(user_id: authCub.userInfo!.user!.id!, project_id: projectIdMain, organization_id: orgId);
+    dropDownCub.resourcesList(widget.projectId,orgId);
     dropDownCub.resourcesList(projectIdMain,orgId);
+
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  @override
+  void initState() {
+
+    loadData();
     super.initState();
   }
+  loadData()async{
+    await initFirstData();
+    init();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

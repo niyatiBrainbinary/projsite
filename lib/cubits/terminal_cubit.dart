@@ -61,24 +61,35 @@ class TerminalCubit extends Cubit<TerminalState> {
   }
 
 
-  void UpdateTerminal(Map finalMap,BuildContext context) async {
+  void UpdateTerminal(Map finalMap,BuildContext context, bool statusUpdated) async {
     emit(UpdateTerminalLoading());
 
     UpdateTerminalModel? response = await Repository.postUpdateTerminal(finalMap);
 
+
     if (response != null) {
       if (response.success == true) {
-        snackBar("Terminal Update Successfully", true);
+        if(statusUpdated == false)
+        {
+
+          snackBar("Terminal Update Successfully", true);
+        }
+        else
+        {
+          snackBar("No change has been made", true);
+
+        }
+
         Navigator.of(context)..pop()..pop();
         Navigator.pop(context,"Success");
         emit(UpdateTerminalSuccess());
       } else {
         snackBar("Something Went Wrong", false);
-        emit(UpdateTerminalError());
+        emit(UpdateTerminalSuccess());
       }
     } else {
       snackBar("Error to Load Data", false);
-      emit(UpdateTerminalError());
+      emit(UpdateTerminalSuccess());
     }
   }
 

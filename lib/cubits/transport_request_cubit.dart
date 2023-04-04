@@ -70,22 +70,34 @@ class TransportRequestCubit extends Cubit<TransportRequestState> {
     }
   }
 
-  void UpdateTransportRequest(Map finalMap,BuildContext context) async {
+  void UpdateTransportRequest(Map finalMap,BuildContext context,bool statusUpdated) async {
     emit(UpdateTransportRequestLoading());
     CommonModel? response = await Repository.postUpdateTransportRequest(finalMap);
+
+
     if (response != null) {
       if (response.success == true) {
+        if(statusUpdated == false)
+        {
+
+          snackBar("Request updated successfully", true);
+        }
+        else
+        {
+          snackBar("No change has been made", true);
+
+        }
+
         Navigator.of(context)..pop()..pop();
         Navigator.pop(context,"Success");
-        snackBar("Request Updated Successfully", true);
         emit(UpdateTransportRequestSuccess());
       } else {
         snackBar("Something Went Wrong", false);
-        emit(UpdateTransportRequestError());
+        emit(UpdateTransportRequestSuccess());
       }
     } else {
       snackBar("Error to Load Data", false);
-      emit(UpdateTransportRequestError());
+      emit(UpdateTransportRequestSuccess());
     }
   }
 
