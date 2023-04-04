@@ -79,9 +79,6 @@ class Response {
 
 import 'dart:convert';
 
-AddBookingModel addBookingModelFromJson(String str) => AddBookingModel.fromJson(json.decode(str));
-
-String addBookingModelToJson(AddBookingModel data) => json.encode(data.toJson());
 
 class AddBookingModel {
   AddBookingModel({

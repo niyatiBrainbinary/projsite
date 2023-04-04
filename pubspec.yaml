@@ -63,6 +63,7 @@ dependencies:
   flutter_svg: ^2.0.0+1
   syncfusion_flutter_pdfviewer: 20.4.44
   syncfusion_flutter_core: 20.4.44
+  dropdown_button2: ^2.0.0
 
 dev_dependencies:
   flutter_test:

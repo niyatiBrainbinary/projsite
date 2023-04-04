@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
 import 'package:proj_site/cubits/auth_cubit.dart';
+import 'package:proj_site/cubits/booking_cubit.dart';
 import 'package:proj_site/cubits/calendar_cubit.dart';
 import 'package:proj_site/cubits/dashboard_cubit.dart';
 import 'package:proj_site/cubits/drop_down_cubit.dart';
@@ -85,6 +86,8 @@ class _DashBoardCardState extends State<DashBoardCard> {
                           else {
                             return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
                               BlocProvider.of<TerminalCubit>(context).CloseTerminal(context,dashBoardCub.pendingShipmentList[widget.index].requestId!);
+
+
                             });
                           }
                         },
@@ -108,6 +111,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
                           else {
                             return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
                               transportRequestCub.CloseTransportRequest(context, dashBoardCub.pendingShipmentList[widget.index].requestId!);
+                              //BlocProvider.of<BookingCubit>(context).AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
                             });
                           }
                         },

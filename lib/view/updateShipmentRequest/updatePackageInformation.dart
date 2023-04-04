@@ -107,7 +107,7 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
     }
     shipmentCub.UpdateShipment(finalMap,context,finalUpdatedValue);
 
-    //bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
+   //bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
   }
 
   initThird(){
@@ -122,7 +122,6 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
     _packageInformationCub.PackageInformation();
 
     bookingCub = BlocProvider.of<BookingCubit>(context);
-
 
     if(calendarCub.requestData!.result!.kollis!=null){
       for(int i=0;i<_id.length;i++){

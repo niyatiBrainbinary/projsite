@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,6 +17,15 @@ import 'package:proj_site/cubits/drop_down_cubit.dart';
 import 'package:proj_site/cubits/shipment_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 import 'package:proj_site/view/newShipmentRequest/enviroment.dart';
+
+_dropDownItems(List<String> list) {
+  return list
+      .map((String val) => DropdownMenuItem<String>(
+    value: val,
+    child: Text(val),
+  ))
+      .toList();
+}
 
 class Shipment extends StatefulWidget {
 
@@ -57,6 +67,8 @@ class _ShipmentState extends State<Shipment> {
   String? _personId;
   String? _subProject;
   String? _subProjectId;
+
+
 
     late ShipmentCubit shipmentCub;
   late DropDownCubit dropDownCub;
@@ -643,6 +655,7 @@ class _ShipmentState extends State<Shipment> {
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12),
                                 verticalSpaces(context, height: 80),
+
                                 getDropDownButton(
                                     ctx: context,
                                     items: dropDownCub.organization,
@@ -658,7 +671,7 @@ class _ShipmentState extends State<Shipment> {
                                           dropDownCub.organizationCompanyId = dropDownCub.companyList![i].companyName;
                                         }
                                       }
-                                      //dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
+                                      dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
                                       setState(() {});
                                     }),
                                 verticalSpaces(context, height: 40),
@@ -668,7 +681,43 @@ class _ShipmentState extends State<Shipment> {
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12),
                                 verticalSpaces(context, height: 80),
-                                getDropDownButton(
+                                Container(
+                                  height: screenHeight(context, dividedBy: 15),
+                                  width: screenWidth(context),
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      border:
+                                      Border.all(color: HexColor.Gray53.withOpacity(0.6), width: 1.5)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2(
+                                      hint: Text(
+                                        "Select responsible person".tr(),
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: LexendRegular,
+                                          color: HexColor.Gray53,
+                                        ),
+                                      ),
+
+                                      //icon: Image.asset(icons.ic_downArrow, height: 7),
+                                      items: _dropDownItems(dropDownCub.userName),
+                                      onChanged: (val) {
+                                        _person = val;
+                                        for (int i = 0; i < dropDownCub.userName.length; i++) {
+                                          if (val == dropDownCub.userName[i]) {
+                                            _personId = dropDownCub.userId[i];
+                                          }
+                                        }
+                                        setState(() {});
+                                      },
+                                      isExpanded: true,
+                                      value: _person,
+                                    ),
+                                  ),
+                                ),
+                                /*getDropDownButton(
                                     ctx: context,
                                     items: dropDownCub.userName,//_dropdownValues,
                                     hitText: "Select responsible person",
@@ -681,7 +730,8 @@ class _ShipmentState extends State<Shipment> {
                                         }
                                       }
                                       setState(() {});
-                                    }),
+                                    }
+                                    ),*/
 
                                 verticalSpaces(context, height: 40),
                                 commonText("Sub Project",

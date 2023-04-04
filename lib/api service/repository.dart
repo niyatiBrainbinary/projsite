@@ -1921,7 +1921,7 @@ log("mybody$body");
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         log("addbookings=${res.data}");
-        return addBookingModelFromJson(res.data);
+        return AddBookingModel.fromJson(res.data);
       }
     } catch (e) {
       print(e);

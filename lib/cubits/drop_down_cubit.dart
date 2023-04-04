@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj_site/api%20service/models/calender_models/filter_status_model.dart';
 import 'package:proj_site/api%20service/models/calender_models/filter_transport_type_model.dart';
@@ -47,6 +48,14 @@ class FilterTransportTypeError extends DropDownState {}
 
 class DropDownCubit extends Cubit<DropDownState> {
   DropDownCubit() : super(DropDownInitial());
+
+  List<String> contractor = ["1", "2", "3"];
+
+  List<String> person1 = ["rtgs", "ergs", "rtert"];
+
+  List<String> person2 = ["gdg", "dgf", "rgt"];
+
+  List<String> person3 = ["dsfd", "rttfg", "dfgg"];
 
   ResourceListModel? resourceListData;
   ZoneListModel? zoneListData;
@@ -134,7 +143,6 @@ class DropDownCubit extends Cubit<DropDownState> {
         for (int i = 0; i < userListData!.users!.length; i++) {
           if(organizationCompanyId == userListData!.users![i].companyName){
             userName.add("${userListData!.users?[i].firstName ?? ""} ${userListData?.users?[i].lastName ?? ""}");
-            userId.add(userListData?.users?[i].id);
           }
         }
         emit(UserListSuccess());
