@@ -23,9 +23,9 @@ class BookingCubit extends Cubit<BookingState> {
 
   List<BookingHistoryModel>? bookingHistoryList;
 
-  void AddBooking(String requestId) async {
+  void AddBooking(String requestId, String responsiblePerson) async {
     emit(AddBookingLoading());
-    AddBookingModel? response = await Repository.postAddBooking(requestId);
+    AddBookingModel? response = await Repository.postAddBooking(requestId, responsiblePerson);
 
     if (response != null) {
       if (response.success == true) {

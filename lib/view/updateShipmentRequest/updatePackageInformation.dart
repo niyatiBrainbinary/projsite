@@ -107,7 +107,7 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
     }
     shipmentCub.UpdateShipment(finalMap,context,finalUpdatedValue);
 
-   bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString());
+    //bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
   }
 
   initThird(){
@@ -128,7 +128,7 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
       for(int i=0;i<_id.length;i++){
         values.add(bool.hasEnvironment(calendarCub.requestData!.result!.kollis![i].value.toString()));
         _amountCon.add(TextEditingController());
-        _amountCon[i].text=calendarCub.requestData!.result!.kollis![i].amount;
+        _amountCon[i].text=calendarCub.requestData!.result!.kollis![i].amount.toString();
       }
     }
   }

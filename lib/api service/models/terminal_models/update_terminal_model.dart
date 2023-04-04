@@ -1,3 +1,4 @@
+/*
 // To parse this JSON data, do
 //
 //     final addTerminalModel = addTerminalModelFromJson(jsonString);
@@ -8,31 +9,32 @@ import 'package:proj_site/api%20service/models/logistic_list_models/logistic_lis
 
 import '../enviromental_models/vehicle_model.dart';
 
-UpdateTerminalModel addTerminalModelFromJson(String str) => UpdateTerminalModel.fromJson(json.decode(str));
+UpdateTerminalModel updateTerminalModelFromJson(String str) => UpdateTerminalModel.fromJson(json.decode(str));
 
-String addTerminalModelToJson(UpdateTerminalModel data) => json.encode(data.toJson());
+String updateTerminalModelToJson(UpdateTerminalModel data) => json.encode(data.toJson());
 
 class UpdateTerminalModel {
   UpdateTerminalModel({
-    required this.success,
-    required this.result,
-    required this.requestIds,
+     this.success,
+     this.result,
+     this.requestIds,
   });
 
-  bool success;
-  Result? result;
-  String requestIds;
+  bool? success;
+  dynamic result;
+  //Result? result;
+  List<dynamic>? requestIds;
 
   factory UpdateTerminalModel.fromJson(Map<String, dynamic> json) => UpdateTerminalModel(
     success: json["success"] == null ? null : json["success"],
     result: json["result"] == null ? null : Result.fromJson(json["result"]),
-    requestIds: json["request_ids"] == null ? null : json["request_ids"],
+    requestIds: List<dynamic>.from(json["request_ids"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
     "success": success == null ? null : success,
     "result": result == null ? null : result?.toJson(),
-    "request_ids": requestIds == null ? null : requestIds,
+    "request_ids":(requestIds ==null)?null: List<dynamic>.from(requestIds!.map((x) => x)),
   };
 }
 
@@ -434,3 +436,39 @@ class NtmDataFullRouteFuel {
 //     return reverseMap;
 //   }
 // }
+*/
+
+// To parse this JSON data, do
+//
+//     final updateTerminalModel = updateTerminalModelFromJson(jsonString);
+
+// import 'dart:convert';
+//
+// UpdateTerminalModel updateTerminalModelFromJson(String str) => UpdateTerminalModel.fromJson(json.decode(str));
+//
+// String updateTerminalModelToJson(UpdateTerminalModel data) => json.encode(data.toJson());
+
+class UpdateTerminalModel {
+  UpdateTerminalModel({
+    required this.success,
+    required this.result,
+    required this.requestIds,
+  });
+
+  bool success;
+  int result;
+  List<dynamic> requestIds;
+
+  factory UpdateTerminalModel.fromJson(Map<String, dynamic> json) => UpdateTerminalModel(
+    success: json["success"],
+    result: json["result"],
+    requestIds: List<dynamic>.from(json["request_ids"].map((x) => x)),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "success": success,
+    "result": result,
+    "request_ids": List<dynamic>.from(requestIds.map((x) => x)),
+  };
+}
+

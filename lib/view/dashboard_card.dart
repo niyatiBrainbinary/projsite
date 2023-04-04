@@ -365,7 +365,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
     dropDownCub = BlocProvider.of<DropDownCubit>(context);
 
     if(dashBoardCub.pendingShipmentList[widget.index].shipmentType=="From Terminal Transport"){
-      transportRequestCub.GetTransportRequest(dashBoardCub.pendingShipmentList[widget.index].requestId!, projectIdMain,context);
+      transportRequestCub.GetTransportRequest(dashBoardCub.pendingShipmentList[widget.index].requestId!, dashBoardCub.pendingShipmentList[widget.index].projectId??"",context);
     }
     super.initState();
   }

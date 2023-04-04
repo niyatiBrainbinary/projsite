@@ -242,7 +242,7 @@ class _UpdateTransportRequestShipmentState extends State<UpdateTransportRequestS
     List checkOutListId=[];
 
     for(int i=0;i<transportRequestCub.transportRequestData!.result!.checkoutsList!.length;i++){
-      checkOutListId.add(transportRequestCub.transportRequestData!.result!.checkoutsList![i].id);
+      checkOutListId.add(transportRequestCub.transportRequestData?.result?.checkoutsList?[i].id ?? "");
     }
 
     Map shipmentMap = {

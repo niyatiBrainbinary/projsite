@@ -66,8 +66,8 @@ class Result {
   String? subProjectId;
   String? unloadingZoneId;
   String? description;
-  bool? isHidden;
-  bool? unbooked;
+  dynamic isHidden;
+  dynamic unbooked;
   String? updatedAt;
   String? createdAt;
   String? transportStatus;

@@ -347,14 +347,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
             isUpdated = true;
           }
       }
-    // if(firstPageUpdatedData == updatedData)
-    //   {
-    //     isUpdated = true;
-    //   }
-    // else
-    //   {
-    //     isUpdated = false;
-    //   }
+  
 
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {

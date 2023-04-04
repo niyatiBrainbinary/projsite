@@ -1323,6 +1323,31 @@ class Repository {
       return null;
     }
     return null;
+
+
+
+    /*var headers = {
+      'token': accessToken,
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json',
+      'Cookie': 'XSRF-TOKEN=$accessToken',
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/update_terminal_request'));
+    request.body = json.encode(finalMap);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return UpdateTerminalModel.fromJson(dataData);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+*/
   }
 
   static Future<CommonModel?> postCloseTerminal(String requestId) async {
@@ -1860,7 +1885,7 @@ log("mybody$body");
     return null;
   }
 
-  static Future<AddBookingModel?> postAddBooking(String requestId) async {
+  static Future<AddBookingModel?> postAddBooking(String requestId, String responsiblePerson) async {
     Map<String, dynamic> body = {
       "request_id": requestId,
       "event": "Pending",
@@ -1874,7 +1899,7 @@ log("mybody$body");
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         log("addbookings=${res.data}");
-        return AddBookingModel.fromJson(res.data);
+        return addBookingModelFromJson(res.data);
       }
     } catch (e) {
       print(e);
