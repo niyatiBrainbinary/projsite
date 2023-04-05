@@ -719,7 +719,9 @@ bool isBox = false;
                                                 fontWeight: FontWeight.w400,
                                                 fontFamily: LexendRegular,
                                                 color: HexColor.Gray53,
-                                              ),) : Text("$_person"),
+                                              ),) : Text("$_person", style: TextStyle(fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: LexendRegular,),),
                                               Icon(Icons.keyboard_arrow_down_rounded, color: HexColor.Gray53,),
                                             ],
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -801,12 +803,17 @@ bool isBox = false;
                                               }
 
                                             },
-                                            child: Padding(
-                                                child: Text("${dropDownCub.userName[index]}", style: TextStyle(fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: LexendRegular,),),
-                                                padding : EdgeInsets.only(left: 20, top: 10, bottom: 10)
-                                            )
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                    child: Text("${dropDownCub.userName[index]}", style: TextStyle(fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                      fontFamily: LexendRegular,),
+                                                    ),
+                                                    padding : EdgeInsets.only(left: 20, top: 10, bottom: 10)
+                                                ),
+                                              ],
+                                            ),
                                         )
                                         ),
 
