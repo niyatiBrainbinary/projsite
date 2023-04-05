@@ -26,6 +26,8 @@ class _ApdPlanListState extends State<ApdPlanList> {
   late ApdPlanCubit _apdPlanCub;
   late AuthCubit _authCub;
 
+  static const String _BASE_URL = 'https://dev.projsite.com/delivery_management_api/public';
+
 
   _apdList({required String file_name,required int index}){
     return Column(
@@ -125,9 +127,9 @@ class _ApdPlanListState extends State<ApdPlanList> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))
             ),
-            contentPadding: EdgeInsets.only(left: 18,right: 18,top: 18,bottom: 18),
+            contentPadding: EdgeInsets.only(left: 15,right: 15,top: 18,bottom: 18),
             content: Container(
-              height: screenHeight(context,dividedBy: 1.45),
+              height: screenHeight(context,dividedBy: 1),
               width: screenWidth(context),
               color: Colors.transparent,
               child: SingleChildScrollView(
@@ -136,50 +138,30 @@ class _ApdPlanListState extends State<ApdPlanList> {
                   children: [
                     Text("APD Plan - ${_apdPlanCub.ApdPlanList[index].fileName}"),
                     Container(
-                        height: screenHeight(context,dividedBy: 1.7),
+                        height: screenHeight(context,dividedBy: 1.4),
                         width: screenWidth(context),
                         decoration: BoxDecoration(
                             color: Colors.white,
                         ),
                         padding:const EdgeInsets.all(15),
                         child:  SfPdfViewer.network(
-                         _apdPlanCub.ApdPlanList[index].filePath,
+                          "${_BASE_URL}/apd_attachments/${_apdPlanCub.ApdPlanList[index].filePath}",
                         )
-                      /*SfPdfViewer.file(
-                             File(_apdPlanCub.ApdPlanList[index].filePath),
-                        )*/
+
                     ),
-                    Row(
-                      children: [
-                        commonButton(
-                            context: context,
-                            buttonName:
-                            "close",
-                            width: 95,
-                            buttonColor: HexColor
-                                .Gray53
-                                .withOpacity(
-                                0.5),
-                            onTap: () {
-                              Navigator.pop(
-                                  context);
-                            }),
-                       /* BlocBuilder<ApdPlanCubit, ApdPlanState>(
-                          builder: (context, state) {
-                            if(state is DeleteApdPlanLoading){
-                              return commonLoadingButton(context: context,width: 95);
-                            }
-                            else {
-                              return commonButton(context: context, buttonName: "Delete",width: 95,onTap: (){
-                                _apdPlanCub.DeleteApdPlan(context: context, id: _apdPlanCub.ApdPlanList[index].id,);
-                              });
-                            }
-                          },
-                        ),*/
-
-
-                      ],mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    )
+                    commonButton(
+                        context: context,
+                        buttonName:
+                        "close",
+                        width: 95,
+                        buttonColor: HexColor
+                            .Gray53
+                            .withOpacity(
+                            0.5),
+                        onTap: () {
+                          Navigator.pop(
+                              context);
+                        }),
                   ],
                 ),
               ),
