@@ -129,7 +129,7 @@ class _ApdPlanListState extends State<ApdPlanList> {
             ),
             contentPadding: EdgeInsets.only(left: 15,right: 15,top: 18,bottom: 18),
             content: Container(
-              height: screenHeight(context,dividedBy: 1),
+              height: screenHeight(context,dividedBy: 1.7),
               width: screenWidth(context),
               color: Colors.transparent,
               child: SingleChildScrollView(
@@ -138,7 +138,7 @@ class _ApdPlanListState extends State<ApdPlanList> {
                   children: [
                     Text("APD Plan - ${_apdPlanCub.ApdPlanList[index].fileName}"),
                     Container(
-                        height: screenHeight(context,dividedBy: 1.4),
+                        height: screenHeight(context,dividedBy: 2),
                         width: screenWidth(context),
                         decoration: BoxDecoration(
                             color: Colors.white,

@@ -514,7 +514,7 @@ class _CalenderViewState extends State<CalenderView>
     calenderCub.isCalender=true;
    // calenderCub.EventList(projectIdMain, authCub.userInfo!.user!.organizationId!,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
     dropDownCub.Organizations(organization_id: orgId);
-    dropDownCub.UserSubProjectList(user_id: authCub.userInfo!.user!.id!, project_id: projectIdMain, organization_id: orgId);
+    dropDownCub.UserSubProjectList(user_id: authCub.userInfo?.user?.id??"", project_id: projectIdMain, organization_id: orgId);
     dropDownCub.resourcesList(projectIdMain,orgId);
     dropDownCub.filterStatus(projectIdMain);
     dropDownCub.filterTransportType(projectIdMain);

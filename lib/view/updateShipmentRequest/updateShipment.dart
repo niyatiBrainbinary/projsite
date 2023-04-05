@@ -368,6 +368,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
     dropDownCub.UserSubProjectList(user_id: authCub.userInfo!.user!.id!, project_id: projectIdMain, organization_id: orgId);
     dropDownCub.resourcesList(projectIdMain,orgId);
 
+
    await Future.delayed(Duration(seconds: 2));
   }
 
@@ -522,6 +523,13 @@ class _UpdateShipmentState extends State<UpdateShipment> {
                           if (calendarCub.requestData?.result?.subProjectId == dropDownCub.subProjects?[i].id) {
                             _subProjectId = dropDownCub.subProjects?[i].id;
                             setState(() {});
+                          }
+                        }
+
+                        for (int i =0; i< dropDownCub.userId.length; i++){
+                          if(calendarCub.requestData?.result?.responsiblePersonId == dropDownCub.userId[i]){
+                            _person = dropDownCub.userName[i];
+                            _personId = dropDownCub.userId[i];
                           }
                         }
 

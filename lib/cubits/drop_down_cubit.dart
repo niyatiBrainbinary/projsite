@@ -143,6 +143,7 @@ class DropDownCubit extends Cubit<DropDownState> {
         for (int i = 0; i < userListData!.users!.length; i++) {
           if(organizationCompanyId == userListData!.users![i].companyName){
             userName.add("${userListData!.users?[i].firstName ?? ""} ${userListData?.users?[i].lastName ?? ""}");
+            userId.add("${userListData!.users?[i].userId ?? ""}");
           }
         }
         emit(UserListSuccess());

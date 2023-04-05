@@ -292,7 +292,7 @@ bool isBox = false;
       "resource_array": _resourceId,
       "unloading_zone_id": _unloadingZoneId,
       "contractor_id": _contractorId,
-      "responsible_person_id": "",
+      "responsible_person_id": _personId,
       "sub_project_id": _subProjectId == null?"":_subProjectId,
       "description": _description.text,
       "instruction": _instruction.text,
