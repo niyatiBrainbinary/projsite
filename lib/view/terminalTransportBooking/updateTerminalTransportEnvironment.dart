@@ -9,6 +9,7 @@ import 'package:google_place/google_place.dart';
 import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/image_constant/image_constant.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
+import 'package:proj_site/cubits/booking_cubit.dart';
 import 'package:proj_site/cubits/calendar_cubit.dart';
 import 'package:proj_site/cubits/terminal_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
@@ -937,7 +938,9 @@ class UpdateTerminalTransportEnviroment extends StatefulWidget {
   Map shipmentMap;
   String projectId;
   bool isUpdated;
-  UpdateTerminalTransportEnviroment(this.shipmentMap, this.projectId, this.isUpdated);
+  String responsiblePersonId;
+  String requestId;
+  UpdateTerminalTransportEnviroment(this.shipmentMap, this.projectId, this.isUpdated, this.requestId, this.responsiblePersonId);
 
   @override
   State<UpdateTerminalTransportEnviroment> createState() => _UpdateTerminalTransportEnviromentState();
@@ -1137,6 +1140,8 @@ class _UpdateTerminalTransportEnviromentState extends State<UpdateTerminalTransp
 
 
     BlocProvider.of<TerminalCubit>(context).UpdateTerminal(finalMap,context, finalUpdatedValue);
+
+    BlocProvider.of<BookingCubit>(context).AddBooking(widget.requestId, widget.responsiblePersonId);
   }
 
   Widget getDrivingRoute(int index) {

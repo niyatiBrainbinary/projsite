@@ -133,7 +133,7 @@ class DropDownCubit extends Cubit<DropDownState> {
     }
   }
 
-  void userList(String projectId, String organizationId, String comapnyId) async {
+   userList(String projectId, String organizationId, String comapnyId) async {
     emit(UserListLoading());
     userName = [];
     userId = [];

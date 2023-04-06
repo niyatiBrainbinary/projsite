@@ -13,6 +13,7 @@ import 'package:proj_site/api%20service/models/shipment_models/monthly_shipments
 import 'package:proj_site/api%20service/models/shipment_models/update_shipment_model.dart';
 import 'package:proj_site/api%20service/repository.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
+import 'package:proj_site/cubits/booking_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 import 'package:proj_site/services/sharedpreference_service.dart';
 
@@ -71,9 +72,13 @@ class ShipmentCubit extends Cubit<ShipmentState> {
     AddShipmentModel? response = await Repository.postAddShipment(finalMap);
     if (response != null) {
       if (response.success == true) {
+
         Navigator.of(context)..pop()..pop();
         Navigator.pop(context,"Success");
         snackBar("Shipment Request Saved Successfully", true);
+
+        BlocProvider.of<BookingCubit>(context).AddBooking(response.requestIds?[0], response.result?.responsiblePersonId);
+
         emit(AddShipmentSuccess());
       } else {
         snackBar("Something Went Wrong", false);
@@ -105,6 +110,8 @@ class ShipmentCubit extends Cubit<ShipmentState> {
 
         Navigator.of(context)..pop()..pop()..pop();
         Navigator.pop(context,"Success");
+
+
         emit(UpdateShipmentSuccess());
       } else {
         snackBar("Something Went Wrong", false);
@@ -126,6 +133,7 @@ class ShipmentCubit extends Cubit<ShipmentState> {
         snackBar("Request closed successfully", true);
         Navigator.pop(context);
         Navigator.pop(context,"Success");
+
         emit(CloseShipmentSuccess());
       } else {
         snackBar("Something Went Wrong", false);

@@ -668,7 +668,7 @@ bool isBox = false;
                                       items: dropDownCub.organization,
                                       hitText: "Select contractor",
                                       value: _contractor,
-                                      onChnaged: (val) {
+                                      onChnaged: (val) async{
                                         _contractor = val;
 
                                         dropDownCub.organizationCompanyId = "";
@@ -678,7 +678,7 @@ bool isBox = false;
                                             dropDownCub.organizationCompanyId = dropDownCub.companyList![i].companyName;
                                           }
                                         }
-                                        dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
+                                        await dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
                                         setState(() {});
                                       }),
                                   verticalSpaces(context, height: 40),

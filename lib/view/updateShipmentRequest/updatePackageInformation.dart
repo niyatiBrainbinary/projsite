@@ -15,14 +15,19 @@ import '../../api service/models/shipment_models/update_shipment_model.dart';
 class UpdatePackageInformation extends StatefulWidget {
   Map shipmentMap;
   Map enviromentMap;
+  String responsiblePersonId;
+  String requestId;
   bool isUpdated;
   bool isUpdatedSecond;
   UpdatePackageInformation(
       {
+        required  this.requestId,
         required  this.shipmentMap,
         required  this.enviromentMap,
+        required this.responsiblePersonId,
   required this.isUpdated,
   required this.isUpdatedSecond,
+
       }
       );
 
@@ -107,7 +112,8 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
     }
     shipmentCub.UpdateShipment(finalMap,context,finalUpdatedValue);
 
-   bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
+   bookingCub.AddBooking(widget.requestId, widget.responsiblePersonId);
+
   }
 
   initThird(){

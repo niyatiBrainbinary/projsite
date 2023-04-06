@@ -937,8 +937,11 @@ import 'package:http/http.dart' as http;
 class UpdateEnviroment extends StatefulWidget {
   Map shipmentMap;
   String project_id;
+  String responsiblePersonId;
+
   bool isUpdated;
-  UpdateEnviroment(this.shipmentMap, this.project_id,this.isUpdated);
+  String requestId;
+  UpdateEnviroment(this.shipmentMap, this.project_id,this.isUpdated, this.requestId, this.responsiblePersonId);
 
   @override
   State<UpdateEnviroment> createState() => _UpdateEnviromentState();
@@ -1152,6 +1155,8 @@ initSecondPage(){
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return UpdatePackageInformation(
+          responsiblePersonId: widget.responsiblePersonId,
+          requestId: widget.requestId,
           enviromentMap: enviromentMap,
           shipmentMap: widget.shipmentMap,
           isUpdated: widget.isUpdated,

@@ -66,7 +66,8 @@ class _PackageInformationState extends State<PackageInformation> {
 
     shipmentCub.AddShipment(finalMap,context);
 
-    bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
+   // bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
+
   }
   @override
   Widget build(BuildContext context) {

@@ -16,7 +16,7 @@ class AddShipmentModel {
   });
 
   bool? success;
-  dynamic? result;
+  Result? result;
   List<dynamic?>? requestIds;
 
   factory AddShipmentModel.fromJson(Map<dynamic, dynamic> json) => AddShipmentModel(

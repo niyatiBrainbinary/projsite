@@ -9,6 +9,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/image_constant/image_constant.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
+import 'package:proj_site/cubits/booking_cubit.dart';
 import 'package:proj_site/cubits/calendar_cubit.dart';
 import 'package:proj_site/cubits/drop_down_cubit.dart';
 import 'package:proj_site/cubits/shipment_cubit.dart';
@@ -197,6 +198,7 @@ class _FancyCardState extends State<FancyCard> {
   late ShipmentCubit shipmentCub;
   late CalendarCubit calendarCub;
   late DropDownCubit dropDownCub;
+  late BookingCubit bookingCub;
   int currentIndex=-1;
   bool isApprove= false;
 
@@ -217,7 +219,8 @@ class _FancyCardState extends State<FancyCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Center(child:Text("Are you sure you want to close this request?",style: TextStyle(color: Colors.black,fontFamily: LexendRegular,fontSize: 16,))),
+                  Center(
+                      child:Text("Are you sure you want to close this request?",style: TextStyle(color: Colors.black,fontFamily: LexendRegular,fontSize: 16,))),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -243,6 +246,7 @@ class _FancyCardState extends State<FancyCard> {
                           else {
                             return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
                               BlocProvider.of<TerminalCubit>(context).CloseTerminal(context,calendarCub.eventList[widget.index].id);
+                              bookingCub.AddBooking(calendarCub.eventList[widget.index].id, calendarCub.eventList[widget.index].responsiblePersonId ?? "");
                             });
                           }
                         },
@@ -254,6 +258,7 @@ class _FancyCardState extends State<FancyCard> {
                           else {
                             return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
                               shipmentCub.CloseShipment(context,calendarCub.eventList[widget.index].id);
+                              bookingCub.AddBooking(calendarCub.eventList[widget.index].id, calendarCub.eventList[widget.index].responsiblePersonId ?? "");
                             });
                           }
                         },

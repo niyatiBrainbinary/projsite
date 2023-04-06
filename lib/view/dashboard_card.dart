@@ -87,7 +87,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
                             return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
                               BlocProvider.of<TerminalCubit>(context).CloseTerminal(context,dashBoardCub.pendingShipmentList[widget.index].requestId!);
 
-
+                              BlocProvider.of<BookingCubit>(context).AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
                             });
                           }
                         },
@@ -100,6 +100,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
                           else {
                             return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
                               shipmentCub.CloseShipment(context,dashBoardCub.pendingShipmentList[widget.index].requestId!);
+                              BlocProvider.of<BookingCubit>(context).AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
                             });
                           }
                         },
@@ -111,7 +112,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
                           else {
                             return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
                               transportRequestCub.CloseTransportRequest(context, dashBoardCub.pendingShipmentList[widget.index].requestId!);
-                              //BlocProvider.of<BookingCubit>(context).AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
+                              BlocProvider.of<BookingCubit>(context).AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
                             });
                           }
                         },

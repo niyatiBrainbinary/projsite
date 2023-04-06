@@ -486,7 +486,7 @@ class _TerminalTransportShipmentState extends State<TerminalTransportShipment> {
                                       items: dropDownCub.organization,
                                       hitText: "Select contractor",
                                       value: _contractor,
-                                      onChnaged: (val) {
+                                      onChnaged: (val) async{
                                         _contractor = val;
 
                                         dropDownCub.organizationCompanyId = "";
@@ -499,7 +499,7 @@ class _TerminalTransportShipmentState extends State<TerminalTransportShipment> {
                                           }
                                         }
 
-                                        dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
+                                        await dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
                                         setState(() {});
                                       }),
                                   verticalSpaces(context, height: 40),

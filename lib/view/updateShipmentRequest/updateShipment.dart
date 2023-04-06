@@ -352,7 +352,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
 
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return UpdateEnviroment(shipmentMap, widget.projectId,isUpdated);
+        return UpdateEnviroment(shipmentMap, widget.projectId,isUpdated, widget.requestId, _personId == null ? "":_personId!);
       },
     ));
     //}
@@ -762,7 +762,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
                                          items: dropDownCub.organization,
                                          hitText: "Select contractor",
                                          value: _contractor,
-                                         onChnaged: (val) {
+                                         onChnaged: (val) async{
                                            _contractor = val;
 
                                            dropDownCub.organizationCompanyId = "";
@@ -774,7 +774,8 @@ class _UpdateShipmentState extends State<UpdateShipment> {
                                              }
                                            }
 
-                                           dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
+                                           await dropDownCub.userList(widget.projectId , authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
+
                                            setState(() {});
                                          }),
                                      verticalSpaces(context, height: 40),

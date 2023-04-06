@@ -322,7 +322,7 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
 
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return UpdateTerminalTransportEnviroment(shipmentMap, widget.projectId, isUpdated);
+        return UpdateTerminalTransportEnviroment(shipmentMap, widget.projectId, isUpdated, _personId==null?"":_personId!, widget.requestId);
       },
     ));
     //}
@@ -635,7 +635,7 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
                                             items: dropDownCub.organization,
                                             hitText: "Select contractor",
                                             value: _contractor,
-                                            onChnaged: (val) {
+                                            onChnaged: (val) async{
                                               _contractor = val;
 
                                               dropDownCub.organizationCompanyId = "";
@@ -649,7 +649,7 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
                                                 }
                                               }
 
-                                              dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
+                                              await dropDownCub.userList(widget.projectId ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
                                               setState(() {});
                                             }),
                                         verticalSpaces(context, height: 40),
