@@ -46,8 +46,11 @@ class _TerminalTransportShipmentState extends State<TerminalTransportShipment> {
   String? _contractor;
   String? _contractorId;
   String? _person;
+  String? _personId;
   String? _subProject;
   String? _subProjectId;
+
+  bool isBox = false;
 
   late ShipmentCubit shipmentCub;
   late DropDownCubit dropDownCub;
@@ -241,7 +244,7 @@ class _TerminalTransportShipmentState extends State<TerminalTransportShipment> {
       "resource_array": _resourceId,
       "unloading_zone_id": "",
       "contractor_id": _contractorId==null?"_contractorId":_contractorId,
-      "responsible_person_id": "",
+      "responsible_person_id": _personId==null?"":_personId,
       "sub_project_id": _subProjectId,
       "description": _description.text == null?"":_description.text,
       "instruction": "",
@@ -288,399 +291,500 @@ class _TerminalTransportShipmentState extends State<TerminalTransportShipment> {
       appBar: getAppBarWithIcon(
         ctx: context,
       ) as PreferredSizeWidget?,
-      body: Stack(
-        children: [
-          getCommonContainer(
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                getCommonContainer(
-                    height: screenHeight(context, dividedBy: 15),
+      body: InkWell(
+        onTap: (){
+          isBox = false;
+          setState(() {});
+        },
+        child: Stack(
+          children: [
+            getCommonContainer(
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  getCommonContainer(
+                      height: screenHeight(context, dividedBy: 15),
+                      width: screenWidth(context),
+                      color: Colors.transparent,
+                      child: commonText("Terminal Transport Booking",
+                          color: Colors.black,
+                          fontFamily: LexendRegular,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20)),
+                  Container(
+                    height: screenHeight(context, dividedBy: 12),
                     width: screenWidth(context),
                     color: Colors.transparent,
-                    child: commonText("Terminal Transport Booking",
-                        color: Colors.black,
-                        fontFamily: LexendRegular,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20)),
-                Container(
-                  height: screenHeight(context, dividedBy: 12),
-                  width: screenWidth(context),
-                  color: Colors.transparent,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: screenHeight(context, dividedBy: 100),
-                        width: screenWidth(context),
-                        decoration: BoxDecoration(
-                            color: HexColor.Gray53.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: HexColor.orange,
-                                  ),
-                                )),
-                            Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: Colors.transparent),
-                                )),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Container(
-                                color: Colors.transparent,
-                                child: commonText("Shipment Data",
-                                    color: HexColor.orange,
-                                    textAlign: TextAlign.center,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14),
-                              )),
-                          Expanded(
-                              child: Container(
-                                color: Colors.transparent,
-                                child: commonText("Environmental Data",
-                                    color: Colors.black,
-                                    textAlign: TextAlign.center,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14),
-                              )),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          children: [
-                            Expanded(
-                                child: commonText("From",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12)),
-                            horizontal(context, width: 60),
-                            Expanded(
-                                child: commonText("To",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12)),
-                          ],
-                        ),
-                        verticalSpaces(context, height: 80),
                         Container(
-                          height: screenHeight(context, dividedBy: 16),
+                          height: screenHeight(context, dividedBy: 100),
+                          width: screenWidth(context),
+                          decoration: BoxDecoration(
+                              color: HexColor.Gray53.withOpacity(0.4),
+                              borderRadius: BorderRadius.circular(30)),
                           child: Row(
                             children: [
                               Expanded(
-                                child: getRoundedContainerWithTralingIcon(
-                                    text: fromDate,
-                                    onTap: () {
-                                      _selectDate("fromDate");
-                                    },
-                                    image: icons.ic_calendar),
-                              ),
-                              horizontal(context, width: 60),
-                              Expanded(
-                                child: getRoundedContainerWithTralingIcon(
-                                    text: toDate,
-                                    onTap: () {
-                                      _selectDate("toDate");
-                                    },
-                                    image: icons.ic_calendar),
-                              ),
-                            ],
-                          ),
-                        ),
-                        verticalSpaces(context, height: 40),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: commonText("From",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12)),
-                            horizontal(context, width: 60),
-                            Expanded(
-                                child: commonText("To",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12)),
-                          ],
-                        ),
-                        verticalSpaces(context, height: 80),
-                        Container(
-                          height: screenHeight(context, dividedBy: 16),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: getRoundedContainerWithTralingIcon(
-                                    text: fromTime,
-                                    onTap: (){
-                                      _selectTime("fromTime");
-                                    },
-                                    image: icons.ic_calendar),
-                              ),
-                              horizontal(context, width: 60),
-                              Expanded(
-                                child: getRoundedContainerWithTralingIcon(
-                                    text: toTime,
-                                    onTap: (){
-                                      _selectTime("toTime");
-                                    },
-                                    image: icons.ic_calendar),
-                              ),
-                            ],
-                          ),
-                        ),
-                        verticalSpaces(context, height: 40),
-                        BlocBuilder<DropDownCubit, DropDownState>(
-                          builder: (context, state) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                commonText("Resources",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12),
-                                verticalSpaces(context, height: 80),
-                                resourcesDropDown(),
-                                verticalSpaces(context, height: 40),
-                                commonText("Contractor",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12),
-                                verticalSpaces(context, height: 80),
-                                getDropDownButton(
-                                    ctx: context,
-                                    items: dropDownCub.organization,
-                                    hitText: "Select contractor",
-                                    value: _contractor,
-                                    onChnaged: (val) {
-                                      _contractor = val;
-                                      for (int i = 0;
-                                      i < dropDownCub.organization.length;
-                                      i++) {
-                                        if (val == dropDownCub.companyList![i].companyName) {
-                                          _contractorId = dropDownCub.companyList![i].id;
-                                        }
-                                      }
-                                      setState(() {});
-                                    }),
-                                verticalSpaces(context, height: 40),
-                                commonText("Responsible Person",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12),
-                                verticalSpaces(context, height: 80),
-                                getDropDownButton(
-                                    ctx: context,
-                                    items: _dropdownValues,
-                                    hitText: "Select responsible person",
-                                    value: _person,
-                                    onChnaged: (val) {
-                                      _person = val;
-                                      setState(() {});
-                                    }),
-                                verticalSpaces(context, height: 40),
-                                commonText("Sub Project",
-                                    color: Colors.black,
-                                    fontFamily: LexendRegular,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12),
-                                verticalSpaces(context, height: 80),
-                                getDropDownButton(
-                                    ctx: context,
-                                    items: dropDownCub.enterpreneurs,
-                                    hitText: "Select Sub Project",
-                                    value: _subProject,
-                                    onChnaged: (val) {
-                                      _subProject = val;
-                                      for (int i = 0;
-                                      i < dropDownCub.subProjects!.length;
-                                      i++) {
-                                        if (val ==
-                                            dropDownCub.subProjects![i].subProjectName) {
-                                          _subProjectId = dropDownCub.subProjects![i].id;
-                                        }
-                                      }
-                                      setState(() {});
-                                    }),
-                              ],
-                            );
-                          },
-                        ),
-                        verticalSpaces(context, height: 40),
-                        commonText("No of pallets",
-                            color: Colors.black,
-                            fontFamily: LexendRegular,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12),
-                        verticalSpaces(context, height: 80),
-                        getRoundedTexfield(
-                            hintText: "Enter no. of pallets",
-                            controller: _palletCon,
-                            ctx: context,
-                            textInputType: TextInputType.number),
-                        verticalSpaces(context, height: 40),
-                        commonText("Item name",
-                            color: Colors.black,
-                            fontFamily: LexendRegular,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12),
-                        verticalSpaces(context, height: 80),
-                        getRoundedTexfield(
-                            hintText: "Item name",
-                            controller: _itemName,
-                            ctx: context),
-                        verticalSpaces(context, height: 40),
-                        commonText("Description",
-                            color: Colors.black,
-                            fontFamily: LexendRegular,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12),
-                        verticalSpaces(context, height: 80),
-                        getRoundedTexfield(
-                            height: screenHeight(context, dividedBy: 7),
-                            hintText: "Description",
-                            controller: _description,
-                            maxline: 10,
-                            ctx: context),
-                        verticalSpaces(context, height: 40),
-                        commonText("Picture",
-                            color: Colors.black,
-                            fontFamily: LexendRegular,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12),
-                        verticalSpaces(context, height: 80),
-                        DottedBorder(
-                            radius: Radius.circular(10),
-                            borderType: BorderType.RRect,
-                            color: HexColor.Gray53.withOpacity(0.6),
-                            dashPattern: [5, 5],
-                            child: Container(
-                              height: screenHeight(context, dividedBy: 16),
-                              width: screenWidth(context),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                children: [
-                                  horizontal(context, width: 30),
-                                  GestureDetector(
-                                    onTap: () {
-                                      getSelectPictureDialog(
-                                        ctx: context,
-                                        onTapCamera: () async {
-                                          photo = await _picker.pickImage(
-                                              source: ImageSource.camera);
-                                          Navigation.instance.goBack();
-                                        },
-                                        onTapGallery: () async {
-                                          photo = await _picker.pickImage(
-                                              source: ImageSource.gallery);
-                                          Navigation.instance.goBack();
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      height:
-                                      screenHeight(context, dividedBy: 23),
-                                      width: screenWidth(context, dividedBy: 4),
-                                      decoration: BoxDecoration(
-                                          color:
-                                          HexColor.Gray53.withOpacity(0.4),
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          border: Border.all(
-                                              color: HexColor.Gray53)),
-                                      child: Center(
-                                          child: commonText("Choose file",
-                                              color: HexColor.Gray53,
-                                              fontFamily: LexendRegular,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14)),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: HexColor.orange,
                                     ),
-                                  ),
-                                  horizontal(context, width: 30),
-                                  commonText(
-                                      photo == null
-                                          ? "No file chosen"
-                                          : photo!.path.split("/").last,
-                                      color: HexColor.Gray53.withOpacity(0.6),
+                                  )),
+                              Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: Colors.transparent),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: commonText("Shipment Data",
+                                      color: HexColor.orange,
+                                      textAlign: TextAlign.center,
                                       fontFamily: LexendRegular,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 14)
-                                ],
-                              ),
-                            )),
-                        verticalSpaces(context, height: 10)
+                                      fontSize: 14),
+                                )),
+                            Expanded(
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: commonText("Environmental Data",
+                                      color: Colors.black,
+                                      textAlign: TextAlign.center,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                )),
+                          ],
+                        )
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: HexColor.Gray53.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(0, -5), // changes position of shadow
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: commonText("From",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12)),
+                              horizontal(context, width: 60),
+                              Expanded(
+                                  child: commonText("To",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12)),
+                            ],
+                          ),
+                          verticalSpaces(context, height: 80),
+                          Container(
+                            height: screenHeight(context, dividedBy: 16),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: getRoundedContainerWithTralingIcon(
+                                      text: fromDate,
+                                      onTap: () {
+                                        _selectDate("fromDate");
+                                      },
+                                      image: icons.ic_calendar),
+                                ),
+                                horizontal(context, width: 60),
+                                Expanded(
+                                  child: getRoundedContainerWithTralingIcon(
+                                      text: toDate,
+                                      onTap: () {
+                                        _selectDate("toDate");
+                                      },
+                                      image: icons.ic_calendar),
+                                ),
+                              ],
+                            ),
+                          ),
+                          verticalSpaces(context, height: 40),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: commonText("From",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12)),
+                              horizontal(context, width: 60),
+                              Expanded(
+                                  child: commonText("To",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12)),
+                            ],
+                          ),
+                          verticalSpaces(context, height: 80),
+                          Container(
+                            height: screenHeight(context, dividedBy: 16),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: getRoundedContainerWithTralingIcon(
+                                      text: fromTime,
+                                      onTap: (){
+                                        _selectTime("fromTime");
+                                      },
+                                      image: icons.ic_calendar),
+                                ),
+                                horizontal(context, width: 60),
+                                Expanded(
+                                  child: getRoundedContainerWithTralingIcon(
+                                      text: toTime,
+                                      onTap: (){
+                                        _selectTime("toTime");
+                                      },
+                                      image: icons.ic_calendar),
+                                ),
+                              ],
+                            ),
+                          ),
+                          verticalSpaces(context, height: 40),
+                          BlocBuilder<DropDownCubit, DropDownState>(
+                            builder: (context, state) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  commonText("Resources",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12),
+                                  verticalSpaces(context, height: 80),
+                                  resourcesDropDown(),
+                                  verticalSpaces(context, height: 40),
+                                  commonText("Contractor",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12),
+                                  verticalSpaces(context, height: 80),
+                                  getDropDownButton(
+                                      ctx: context,
+                                      items: dropDownCub.organization,
+                                      hitText: "Select contractor",
+                                      value: _contractor,
+                                      onChnaged: (val) {
+                                        _contractor = val;
+
+                                        dropDownCub.organizationCompanyId = "";
+                                        for (int i = 0;
+                                        i < dropDownCub.organization.length;
+                                        i++) {
+                                          if (val == dropDownCub.companyList![i].companyName) {
+                                            _contractorId = dropDownCub.companyList![i].id;
+                                            dropDownCub.organizationCompanyId = dropDownCub.companyList![i].companyName;
+                                          }
+                                        }
+
+                                        dropDownCub.userList(projectIdMain ,authCub.userInfo?.user?.organizationId ?? "", _contractorId ?? "");
+                                        setState(() {});
+                                      }),
+                                  verticalSpaces(context, height: 40),
+                                  commonText("Responsible Person",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12),
+                                  verticalSpaces(context, height: 80),
+                                 /* getDropDownButton(
+                                      ctx: context,
+                                      items: _dropdownValues,
+                                      hitText: "Select responsible person",
+                                      value: _person,
+                                      onChnaged: (val) {
+                                        _person = val;
+                                        setState(() {});
+                                      }),*/
+                                  Stack(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          InkWell(
+                                            onTap: (){
+                                              if(isBox == false){
+                                                isBox = true;
+                                              }
+                                              else{
+                                                isBox = false;
+                                              }
+                                              setState(() {});
+                                            },
+                                            child: Container(
+                                              height: screenHeight(context, dividedBy: 15),
+                                              width: screenWidth(context),
+                                              padding: EdgeInsets.symmetric(horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  border:
+                                                  Border.all(color: HexColor.Gray53.withOpacity(0.6), width: 1.5)),
+                                              child: Row(
+                                                children: [
+                                                  (_person == null) ? Text("Select responsible person",  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: LexendRegular,
+                                                    color: HexColor.Gray53,
+                                                  ),) : Text("$_person", style: TextStyle(fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: LexendRegular,),),
+                                                  Icon(Icons.keyboard_arrow_down_rounded, color: HexColor.Gray53,),
+                                                ],
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              ),
+                                            ),
+                                          ),
+                                          verticalSpaces(context, height: 40),
+                                          commonText("Sub Project",
+                                              color: Colors.black,
+                                              fontFamily: LexendRegular,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12),
+                                          verticalSpaces(context, height: 80),
+                                          getDropDownButton(
+                                              ctx: context,
+                                              items: dropDownCub.enterpreneurs,
+                                              hitText: "Select Sub Project",
+                                              value: _subProject,
+                                              onChnaged: (val) {
+                                                _subProject = val;
+                                                for (int i = 0;
+                                                i < dropDownCub.subProjects!.length;
+                                                i++) {
+                                                  if (val ==
+                                                      dropDownCub.subProjects![i].subProjectName) {
+                                                    _subProjectId = dropDownCub.subProjects![i].id;
+                                                  }
+                                                }
+                                                setState(() {});
+                                              }),
+                                        ],
+                                      ),
+                                      (isBox == true)? Container(
+                                        //height: screenHeight(context,  dividedBy: 5),
+                                        width: screenWidth(context, dividedBy: 0.5),
+                                        alignment: Alignment.centerLeft,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.shade300,
+                                              blurRadius: 10.0,
+                                              spreadRadius: 2.0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: List.generate(dropDownCub.userName.length, (index) => InkWell(
+                                              onTap: (){
+                                                _person =  dropDownCub.userName[index];
+                                                isBox = false;
+                                                setState(() {});
+                                                for (int i = 0; i < dropDownCub.userName.length; i++) {
+                                                  if (dropDownCub.userName[index] == dropDownCub.userName[i]) {
+                                                    _personId = dropDownCub.userId[i];
+                                                  }
+                                                }
+
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                      child: Text("${dropDownCub.userName[index]}", style: TextStyle(fontSize: 14,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontFamily: LexendRegular,),
+                                                      ),
+                                                      padding : EdgeInsets.only(left: 20, top: 10, bottom: 10)
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                            ),
+
+                                          ),
+                                        ),
+
+                                      ) : SizedBox(),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                          verticalSpaces(context, height: 40),
+                          commonText("No of pallets",
+                              color: Colors.black,
+                              fontFamily: LexendRegular,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12),
+                          verticalSpaces(context, height: 80),
+                          getRoundedTexfield(
+                              hintText: "Enter no. of pallets",
+                              controller: _palletCon,
+                              ctx: context,
+                              textInputType: TextInputType.number),
+                          verticalSpaces(context, height: 40),
+                          commonText("Item name",
+                              color: Colors.black,
+                              fontFamily: LexendRegular,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12),
+                          verticalSpaces(context, height: 80),
+                          getRoundedTexfield(
+                              hintText: "Item name",
+                              controller: _itemName,
+                              ctx: context),
+                          verticalSpaces(context, height: 40),
+                          commonText("Description",
+                              color: Colors.black,
+                              fontFamily: LexendRegular,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12),
+                          verticalSpaces(context, height: 80),
+                          getRoundedTexfield(
+                              height: screenHeight(context, dividedBy: 7),
+                              hintText: "Description",
+                              controller: _description,
+                              maxline: 10,
+                              ctx: context),
+                          verticalSpaces(context, height: 40),
+                          commonText("Picture",
+                              color: Colors.black,
+                              fontFamily: LexendRegular,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12),
+                          verticalSpaces(context, height: 80),
+                          DottedBorder(
+                              radius: Radius.circular(10),
+                              borderType: BorderType.RRect,
+                              color: HexColor.Gray53.withOpacity(0.6),
+                              dashPattern: [5, 5],
+                              child: Container(
+                                height: screenHeight(context, dividedBy: 16),
+                                width: screenWidth(context),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  children: [
+                                    horizontal(context, width: 30),
+                                    GestureDetector(
+                                      onTap: () {
+                                        getSelectPictureDialog(
+                                          ctx: context,
+                                          onTapCamera: () async {
+                                            photo = await _picker.pickImage(
+                                                source: ImageSource.camera);
+                                            Navigation.instance.goBack();
+                                          },
+                                          onTapGallery: () async {
+                                            photo = await _picker.pickImage(
+                                                source: ImageSource.gallery);
+                                            Navigation.instance.goBack();
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        height:
+                                        screenHeight(context, dividedBy: 23),
+                                        width: screenWidth(context, dividedBy: 4),
+                                        decoration: BoxDecoration(
+                                            color:
+                                            HexColor.Gray53.withOpacity(0.4),
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: HexColor.Gray53)),
+                                        child: Center(
+                                            child: commonText("Choose file",
+                                                color: HexColor.Gray53,
+                                                fontFamily: LexendRegular,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14)),
+                                      ),
+                                    ),
+                                    horizontal(context, width: 30),
+                                    commonText(
+                                        photo == null
+                                            ? "No file chosen"
+                                            : photo!.path.split("/").last,
+                                        color: HexColor.Gray53.withOpacity(0.6),
+                                        fontFamily: LexendRegular,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14)
+                                  ],
+                                ),
+                              )),
+                          verticalSpaces(context, height: 10)
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  commonButton(
-                      context: context,
-                      buttonName: "close",
-                      buttonColor: HexColor.Gray53.withOpacity(0.5),
-                      onTap: () {
-                        Navigator.pop(context);
-                      }),
-                  horizontal(context, width: 20),
-                  commonButton(
-                      context: context,
-                      buttonName: "Next",
-                      onTap: () {
-                        nextOnTap();
-                      })
-                ],
-              ),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: HexColor.Gray53.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, -5), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    commonButton(
+                        context: context,
+                        buttonName: "close",
+                        buttonColor: HexColor.Gray53.withOpacity(0.5),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                    horizontal(context, width: 20),
+                    commonButton(
+                        context: context,
+                        buttonName: "Next",
+                        onTap: () {
+                          nextOnTap();
+                        })
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

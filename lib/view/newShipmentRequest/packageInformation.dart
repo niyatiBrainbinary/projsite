@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/image_constant/image_constant.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
+import 'package:proj_site/cubits/booking_cubit.dart';
 import 'package:proj_site/cubits/package_information_cubit.dart';
 import 'package:proj_site/cubits/shipment_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
@@ -35,6 +36,7 @@ class _PackageInformationState extends State<PackageInformation> {
   List<TextEditingController> _amountCon = [];
   late PackageInformationCubit _packageInformationCub;
   late ShipmentCubit shipmentCub;
+  late BookingCubit bookingCub;
 
   Map <dynamic, dynamic> finalMap = {};
 
@@ -63,6 +65,8 @@ class _PackageInformationState extends State<PackageInformation> {
     finalMap = {...widget.shipmentMap,...widget.enviromentMap,...packageInformationMap};
 
     shipmentCub.AddShipment(finalMap,context);
+
+    bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
   }
   @override
   Widget build(BuildContext context) {

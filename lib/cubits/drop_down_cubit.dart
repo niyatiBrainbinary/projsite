@@ -67,7 +67,7 @@ class DropDownCubit extends Cubit<DropDownState> {
   List<String> zoneName = [];
   List zoneId = [];
   List zoneColor = [];
-  List<String> userName = ["one", "two", "three"];
+  List<String> userName = [];
   List userId = [];
   List<SubProject>? subProjects;
   List<UserSubProject>? userSubProjects;

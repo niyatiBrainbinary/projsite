@@ -107,7 +107,7 @@ class _UpdatePackageInformationState extends State<UpdatePackageInformation> {
     }
     shipmentCub.UpdateShipment(finalMap,context,finalUpdatedValue);
 
-   //bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
+   bookingCub.AddBooking(calendarCub.requestData!.result!.id.toString(), calendarCub.requestData!.result!.responsiblePersonId.toString());
   }
 
   initThird(){

@@ -688,6 +688,22 @@ bool isBox = false;
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                   verticalSpaces(context, height: 80),
+                                  /* getDropDownButton(
+                                      ctx: context,
+                                      //items: dropDownCub.userName,//_dropdownValues,
+                                      items: (_contractor == "1")? _dropDownItems(dropDownCub.person1) : (_contractor == "2") ? _dropDownItems(dropDownCub.person2) :  _dropDownItems(dropDownCub.person3),
+                                      hitText: "Select responsible person",
+                                      value: _person,
+                                      onChnaged: (val) {
+                                        _person = val;
+                                        // for (int i = 0; i < dropDownCub.userName.length; i++) {
+                                        //   if (val == dropDownCub.userName[i]) {
+                                        //     _personId = dropDownCub.userId[i];
+                                        //   }
+                                        // }
+                                        setState(() {});
+                                      }
+                                      ),*/
 
                               Stack(
                                 children: [
@@ -729,22 +745,7 @@ bool isBox = false;
                                         ),
                                       ),
 
-                                      /* getDropDownButton(
-                                      ctx: context,
-                                      //items: dropDownCub.userName,//_dropdownValues,
-                                      items: (_contractor == "1")? _dropDownItems(dropDownCub.person1) : (_contractor == "2") ? _dropDownItems(dropDownCub.person2) :  _dropDownItems(dropDownCub.person3),
-                                      hitText: "Select responsible person",
-                                      value: _person,
-                                      onChnaged: (val) {
-                                        _person = val;
-                                        // for (int i = 0; i < dropDownCub.userName.length; i++) {
-                                        //   if (val == dropDownCub.userName[i]) {
-                                        //     _personId = dropDownCub.userId[i];
-                                        //   }
-                                        // }
-                                        setState(() {});
-                                      }
-                                      ),*/
+
 
                                       verticalSpaces(context, height: 40),
                                       commonText("Sub Project",
