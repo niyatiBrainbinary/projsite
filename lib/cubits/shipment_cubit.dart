@@ -77,9 +77,10 @@ class ShipmentCubit extends Cubit<ShipmentState> {
         Navigator.pop(context,"Success");
         snackBar("Shipment Request Saved Successfully", true);
 
+        emit(AddShipmentSuccess());
+
         BlocProvider.of<BookingCubit>(context).AddBooking(response.requestIds?[0], response.result?.responsiblePersonId);
 
-        emit(AddShipmentSuccess());
       } else {
         snackBar("Something Went Wrong", false);
         emit(AddShipmentError());

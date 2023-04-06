@@ -31,11 +31,11 @@ class BookingCubit extends Cubit<BookingState> {
       if (response.success == true) {
         emit(AddBookingSuccess());
       } else {
-        snackBar("Something Went Wrong", false);
+        //snackBar("Something Went Wrong", false);
         emit(AddBookingError());
       }
     } else {
-      snackBar("Error to Load Data", false);
+      //snackBar("Error to Load Data", false);
       emit(AddBookingError());
     }
   }
