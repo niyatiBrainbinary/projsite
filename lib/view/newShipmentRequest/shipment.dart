@@ -71,7 +71,7 @@ class _ShipmentState extends State<Shipment> {
 bool isBox = false;
 
 
-    late ShipmentCubit shipmentCub;
+  late ShipmentCubit shipmentCub;
   late DropDownCubit dropDownCub;
   late AuthCubit authCub;
   TimeOfDay selectedFromTime = TimeOfDay(hour: 00, minute: 00);

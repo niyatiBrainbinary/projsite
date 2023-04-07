@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:proj_site/api%20service/api_routes.dart';
+import 'package:proj_site/api%20service/http_service.dart';
 import 'package:proj_site/api%20service/models/apd_plan_models/apdPlan_model.dart';
 import 'package:proj_site/api%20service/models/apd_plan_models/delete_apdPlan_model.dart';
 import 'package:proj_site/api%20service/models/auth_models/profile_details.dart';
@@ -663,12 +664,172 @@ class Repository {
     log("organizationId${organizationId}");
     log("projectIdList${projectIdList}");
 
+   /* var headers = {
+      'token': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2RldGFpbHMiOnsiX2lkIjoiNjM0ZDhiOTA2ZWI4MGU0ZTkyMmNjYWQyIiwiZmlyc3RfbmFtZSI6IlRlc3QiLCJsYXN0X25hbWUiOiJBYmVkIiwicGhvbmUiOiIyMzI0MzQzMjQyIiwiZW1haWwiOiJzaWFtYWJlZDNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTY3ODkiLCJvcmdhbml6YXRpb25faWQiOiI1ZmZlYjg3YzRmZGFiOTExZjU3OWEwNDIiLCJ1cGRhdGVkX2F0IjoiMjAyMi0xMC0xOCAxMzo0NjoxMSIsImNyZWF0ZWRfYXQiOiIyMDIyLTEwLTE3IDE3OjA2OjI0IiwiY29tcGFueV9pZCI6IjYwMDA2NGJiNGZkYWI5MmVmYjVjYmY3MiIsInJvbGVfaWQiOiI1YmU1NjU5NzA2YjA2OGY0ZjFmMmRkNTMiLCJpc19mb3Jnb3RfcGFzc3dvcmRfaW50aXRpYXRlZCI6dHJ1ZSwibGFuZ3VhZ2UiOiJFbmdsaXNoIiwibG9jYWxlIjoiZW4iLCJwcm9qZWN0cyI6WyI2MDQwZGEwMTRmZGFiOTY3NTgzYTdlYjIiXSwiYWRtaW5fcHJvamVjdHMiOltdLCJpc19hZG1pbiI6ZmFsc2UsImlzX3Byb2plY3RfYWRtaW4iOmZhbHNlfX0.gIDL60h7EqEUaPANK87mwQNa10WuCha_TGiigIgvpE8',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2RldGFpbHMiOnsiX2lkIjoiNjM0ZDhiOTA2ZWI4MGU0ZTkyMmNjYWQyIiwiZmlyc3RfbmFtZSI6IlRlc3QiLCJsYXN0X25hbWUiOiJBYmVkIiwicGhvbmUiOiIyMzI0MzQzMjQyIiwiZW1haWwiOiJzaWFtYWJlZDNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTY3ODkiLCJvcmdhbml6YXRpb25faWQiOiI1ZmZlYjg3YzRmZGFiOTExZjU3OWEwNDIiLCJ1cGRhdGVkX2F0IjoiMjAyMi0xMC0xOCAxMzo0NjoxMSIsImNyZWF0ZWRfYXQiOiIyMDIyLTEwLTE3IDE3OjA2OjI0IiwiY29tcGFueV9pZCI6IjYwMDA2NGJiNGZkYWI5MmVmYjVjYmY3MiIsInJvbGVfaWQiOiI1YmU1NjU5NzA2YjA2OGY0ZjFmMmRkNTMiLCJpc19mb3Jnb3RfcGFzc3dvcmRfaW50aXRpYXRlZCI6dHJ1ZSwibGFuZ3VhZ2UiOiJFbmdsaXNoIiwibG9jYWxlIjoiZW4iLCJwcm9qZWN0cyI6WyI2MDQwZGEwMTRmZGFiOTY3NTgzYTdlYjIiXSwiYWRtaW5fcHJvamVjdHMiOltdLCJpc19hZG1pbiI6ZmFsc2UsImlzX3Byb2plY3RfYWRtaW4iOmZhbHNlfX0.gIDL60h7EqEUaPANK87mwQNa10WuCha_TGiigIgvpE8',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/get_requests_for_mobile'));
+    request.body = json.encode({
+      "mandatory_filter": {
+        "organization_id": "5fb845054fdab967c315b6e2",
+        "status": "pending",
+        "is_hidden": false,
+        "project_id": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "5fb8455c4fdab96467773503",
+          "6251b4a74fdab90e47522505",
+          null,
+          "5fc782834fdab9688e76c7c2",
+          "62d8553f4fdab92b110efa32"
+        ]
+      },
+      "datatable_requests": {
+        "draw": "1",
+        "columns": [
+          {
+            "data": "0",
+            "name": "id",
+            "searchable": "false",
+            "orderable": "false",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "1",
+            "name": "project.project_name",
+            "searchable": "true",
+            "orderable": "true",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "2",
+            "name": "user.first_name",
+            "searchable": "true",
+            "orderable": "true",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "3",
+            "name": "user.last_name",
+            "searchable": "true",
+            "orderable": "false",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "4",
+            "name": "request_from_date_time",
+            "searchable": "true",
+            "orderable": "true",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "5",
+            "name": "request_to_date_time",
+            "searchable": "true",
+            "orderable": "false",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "6",
+            "name": "zone.unloading_zone_name",
+            "searchable": "true",
+            "orderable": "true",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "7",
+            "name": "request_type",
+            "searchable": "true",
+            "orderable": "true",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          },
+          {
+            "data": "8",
+            "name": "action",
+            "searchable": "false",
+            "orderable": "false",
+            "search": {
+              "value": null,
+              "regex": "false"
+            }
+          }
+        ],
+        "order": [
+          {
+            "column": "5",
+            "dir": "desc"
+          }
+        ],
+        "start": "0",
+        "length": "200",
+        "search": {
+          "value": null,
+          "regex": "false"
+        },
+        "_": "1672940988527"
+      }
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+
+      return PendingShipmentListModel.fromJson(dataData);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+*/
+
     Map<String,dynamic> body={
       "mandatory_filter": {
         "organization_id": organizationId,
         "status": "pending",
         "is_hidden": false,
-        "project_id": projectIdList
+        "project_id": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "5fb8455c4fdab96467773503",
+          "6251b4a74fdab90e47522505",
+          null,
+          "5fc782834fdab9688e76c7c2",
+          "62d8553f4fdab92b110efa32"
+        ]
       },
       "datatable_requests": {
         "draw": "1",
@@ -779,6 +940,32 @@ class Repository {
         "_": "1672940988527"
       }
     };
+
+    /*String url = 'https://dev.projsite.com/delivery_management_api/public/api/get_requests_for_mobile';
+
+
+
+    http.Response? response = await HttpService.postApi(
+        url: url,
+        body: jsonEncode(body),
+        header: {
+          'token': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2RldGFpbHMiOnsiX2lkIjoiNjM0ZDhiOTA2ZWI4MGU0ZTkyMmNjYWQyIiwiZmlyc3RfbmFtZSI6IlRlc3QiLCJsYXN0X25hbWUiOiJBYmVkIiwicGhvbmUiOiIyMzI0MzQzMjQyIiwiZW1haWwiOiJzaWFtYWJlZDNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTY3ODkiLCJvcmdhbml6YXRpb25faWQiOiI1ZmZlYjg3YzRmZGFiOTExZjU3OWEwNDIiLCJ1cGRhdGVkX2F0IjoiMjAyMi0xMC0xOCAxMzo0NjoxMSIsImNyZWF0ZWRfYXQiOiIyMDIyLTEwLTE3IDE3OjA2OjI0IiwiY29tcGFueV9pZCI6IjYwMDA2NGJiNGZkYWI5MmVmYjVjYmY3MiIsInJvbGVfaWQiOiI1YmU1NjU5NzA2YjA2OGY0ZjFmMmRkNTMiLCJpc19mb3Jnb3RfcGFzc3dvcmRfaW50aXRpYXRlZCI6dHJ1ZSwibGFuZ3VhZ2UiOiJFbmdsaXNoIiwibG9jYWxlIjoiZW4iLCJwcm9qZWN0cyI6WyI2MDQwZGEwMTRmZGFiOTY3NTgzYTdlYjIiXSwiYWRtaW5fcHJvamVjdHMiOltdLCJpc19hZG1pbiI6ZmFsc2UsImlzX3Byb2plY3RfYWRtaW4iOmZhbHNlfX0.gIDL60h7EqEUaPANK87mwQNa10WuCha_TGiigIgvpE8',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2RldGFpbHMiOnsiX2lkIjoiNjM0ZDhiOTA2ZWI4MGU0ZTkyMmNjYWQyIiwiZmlyc3RfbmFtZSI6IlRlc3QiLCJsYXN0X25hbWUiOiJBYmVkIiwicGhvbmUiOiIyMzI0MzQzMjQyIiwiZW1haWwiOiJzaWFtYWJlZDNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTY3ODkiLCJvcmdhbml6YXRpb25faWQiOiI1ZmZlYjg3YzRmZGFiOTExZjU3OWEwNDIiLCJ1cGRhdGVkX2F0IjoiMjAyMi0xMC0xOCAxMzo0NjoxMSIsImNyZWF0ZWRfYXQiOiIyMDIyLTEwLTE3IDE3OjA2OjI0IiwiY29tcGFueV9pZCI6IjYwMDA2NGJiNGZkYWI5MmVmYjVjYmY3MiIsInJvbGVfaWQiOiI1YmU1NjU5NzA2YjA2OGY0ZjFmMmRkNTMiLCJpc19mb3Jnb3RfcGFzc3dvcmRfaW50aXRpYXRlZCI6dHJ1ZSwibGFuZ3VhZ2UiOiJFbmdsaXNoIiwibG9jYWxlIjoiZW4iLCJwcm9qZWN0cyI6WyI2MDQwZGEwMTRmZGFiOTY3NTgzYTdlYjIiXSwiYWRtaW5fcHJvamVjdHMiOltdLCJpc19hZG1pbiI6ZmFsc2UsImlzX3Byb2plY3RfYWRtaW4iOmZhbHNlfX0.gIDL60h7EqEUaPANK87mwQNa10WuCha_TGiigIgvpE8',
+          'Content-Type': 'application/json'
+        }
+        );
+
+    if (response != null && response.statusCode == 200) {
+      bool? status = jsonDecode(response.body)["status"];
+      if (status == false) {
+
+      } else if (status == true) {
+
+      }
+      return PendingShipmentListModel.fromJson(jsonDecode(response.body));
+    }*/
+
+
    // log("PendingShipmentListbody${body}");
     try {
       final res = await _dio.post(ApiRoutes.postPendingShipmentList,

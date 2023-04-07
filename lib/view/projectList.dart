@@ -39,6 +39,7 @@ class _ProjectListState extends State<ProjectList> {
     super.initState();
     authCub = BlocProvider.of<AuthCubit>(context);
     _projectListCubit = BlocProvider.of<ProjectListCubit>(context);
+
     _projectListCubit.ProjectList(projectIdMain, authCub.userInfoLogin!.toJson(),context);
   }
 _projectList({required String projectName,required String Id,required String location,required String admin,}){
@@ -65,6 +66,9 @@ _projectList({required String projectName,required String Id,required String loc
               onTap: () {
                 // Navigation.instance.navigate(ProjectSettingMainPage.id);
                 projectIdMain=Id;
+                setState(() {
+
+                });
 
                 //Navigation.instance.navigate(AddNew.id);
 
@@ -141,7 +145,12 @@ _projectList({required String projectName,required String Id,required String loc
                     return noDataFoundText();
                   }
                   else{
-                    return ListView.builder(padding: EdgeInsets.zero,physics: const BouncingScrollPhysics(),shrinkWrap: true,itemCount: _projectListCubit.projectsList.length,itemBuilder: (context, index) {
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _projectListCubit.projectsList.length,
+                      itemBuilder: (context, index) {
                       return  getCommonContainer(
                         height: screenHeight(context, dividedBy: 5.5),
                         width: screenWidth(context),
