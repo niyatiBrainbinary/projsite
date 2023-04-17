@@ -23,6 +23,7 @@ String accessToken="";
 String orgId="";
 String orgVal="";
 String projectIdMain="";
+List projectIdList2 = [];
 String googleMapKey = 'AIzaSyDtFavTh7_aJL9D3XGEmoFlIImXsibuREY';
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 

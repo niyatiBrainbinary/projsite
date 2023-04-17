@@ -320,8 +320,13 @@ class _SettingsState extends State<Settings> {
         log("id$id");
         log("orgVal$orgVal");
         log("orgid$orgId");
-        prefs.setStringData('organizationId',id);
+        prefs.setStringData('organizationId', id);
         orgId = id;
+
+        projectIdList2 = authCub.userInfoLogin!.adminProjects!;
+
+        //authCub.updateOrg(id, authCub.userInfoLogin!.userId!);
+
       }
     }
   }

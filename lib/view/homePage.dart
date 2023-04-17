@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     shipmentCub=BlocProvider.of<ShipmentCubit>(context);
     dashBoardCub=BlocProvider.of<DashBoardCubit>(context);
     shipmentCub.MonthlyShipments(orgId, shipmentCub.status);
-    dashBoardCub.PendingShipmentList(orgId, authCub.userInfoLogin!.projects!);
+    dashBoardCub.PendingShipmentList(orgId, authCub.userInfoLogin!.projects!, authCub.userInfoLogin!.mobileOrganizationId!);
   }
 
   Widget userShipmentsStatus(int index){
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                   );
                   if(returnVal=="Success"){
                     shipmentCub.MonthlyShipments(orgId, shipmentCub.status);
-                    dashBoardCub.PendingShipmentList(orgId, authCub.userInfoLogin!.projects!);
+                    dashBoardCub.PendingShipmentList(orgId, authCub.userInfoLogin!.projects!, authCub.userInfoLogin!.mobileOrganizationId!);
                   }
                 },
               ),

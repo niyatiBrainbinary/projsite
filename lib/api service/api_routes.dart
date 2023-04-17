@@ -13,6 +13,7 @@ class ApiRoutes{
   static const String postEditProfile = '/edit_profile';
   static const String postForgotPassword = '/forgot_password';
   static const String postUpdatePassword = '/update_password';
+  static const String updateOrganisation = '/update_organization_id';
 
   /// Unloading Zone
   static const String createUnloadingZone = '/create_unloading_zone';

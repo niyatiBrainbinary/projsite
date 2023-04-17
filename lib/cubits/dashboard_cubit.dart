@@ -20,12 +20,12 @@ class DashBoardCubit extends Cubit<DashBoardState> {
   SharedPreferenceService prefs = SharedPreferenceService();
   List<PendingList> pendingShipmentList=[];
 
-  void PendingShipmentList(String organizationId, List projectIdList) async {
+  void PendingShipmentList(String organizationId, List projectIdList, String oldOrgId) async {
     emit(PendingShipmentListLoading());
     // orgId = (await prefs.getStringData("organizationId")).toString();
     // orgVal = (await prefs.getStringData("organizationVal")).toString();
     log("myid$orgId");
-    PendingShipmentListModel? response = await Repository.postPendingShipmentList(orgId,projectIdList);
+    PendingShipmentListModel? response = await Repository.postPendingShipmentList(orgId,projectIdList, oldOrgId);
     if (response != null) {
       pendingShipmentList=[];
       pendingShipmentList=response.data!;

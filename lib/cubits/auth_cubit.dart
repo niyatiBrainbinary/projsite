@@ -7,6 +7,7 @@ import 'package:ftx/navigationX.dart';
 import 'package:proj_site/api%20service/models/auth_models/profile_details.dart';
 import 'package:proj_site/api%20service/models/common_model.dart';
 import 'package:proj_site/api%20service/models/auth_models/sign_in_model.dart';
+import 'package:proj_site/api%20service/models/update_organization/update_organization.dart' as updateOrganization;
 import 'package:proj_site/api%20service/repository.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
 import 'package:proj_site/helper/helper.dart';
@@ -35,10 +36,13 @@ class EditProfileSuccess extends AuthState {}
 class EditProfileError extends AuthState {}
 class ShowErrorLoading extends AuthState {}
 
-
 class ForgotPasswordLoading extends AuthState {}
 class ForgotPasswordSuccess extends AuthState {}
 class ForgotPasswordError extends AuthState {}
+
+class UpdateOrgLoading extends AuthState {}
+class UpdateOrgSuccess extends AuthState {}
+class UpdateOrgError extends AuthState {}
 
 class UpdatePasswordLoading extends AuthState {}
 class UpdatePasswordSuccess extends AuthState {}
@@ -47,7 +51,7 @@ class UpdatePasswordError extends AuthState {}
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
-  UserInfo? userInfoLogin;
+  UserInfo? userInfoLogin ;
   Role? role;
   ProfileDetailsModel? userInfo;
   List<String> userOrganizationEncoded=[];
@@ -80,6 +84,7 @@ class AuthCubit extends Cubit<AuthState> {
         prefs.setListData('userOrganization', userOrganizationEncoded);
         prefs.setStringData('organizationId', response.userOrganization![0].organizationId.toString());
         prefs.setStringData('organizationVal', response.userOrganization![0].organizationName.toString());
+
         prefs.setStringData('role', rolle);
         accessToken = (await prefs.getStringData("accessToken")).toString();
         orgId = (await prefs.getStringData("organizationId")).toString();
@@ -172,6 +177,35 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       snackBar("Error to Load Data", false);
       emit(EditProfileError());
+    }
+  }
+
+  void updateOrg(String orgId, String userId) async{
+    emit(UpdateOrgLoading());
+    updateOrganization.UpdateOrganizationModel? response = await Repository.updateOrganization(orgId, userId);
+    if (response != null) {
+      if (response.success == true) {
+
+
+
+        //profileDetails(response.userInfo!.id!, response.userInfo!.mobileOrganizationId!);
+
+        // for(int i = 0; i<=response.userInfo!.projects!.length ; i++){
+        //   projectIdList2.add(response.userInfo!.projects![i]);
+        // }
+
+
+
+       /* prefs.setStringData('organizationId', response.userInfo!.mobileOrganizationId!);
+        orgId = orgId;*/
+
+        emit(UpdateOrgSuccess());
+      } else {
+        emit(UpdateOrgError());
+      }
+    } else {
+      snackBar("Error to Load Data", false);
+      emit(UpdateOrgError());
     }
   }
 

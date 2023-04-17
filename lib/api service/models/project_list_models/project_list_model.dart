@@ -7,13 +7,13 @@ String projectListModelToJson(ProjectListModel data) => json.encode(data.toJson(
 
 class ProjectListModel {
   ProjectListModel({
-    required this.success,
-    required this.projectsList,
-    required this.organizations,
-    required this.clients,
+     this.success,
+     this.projectsList,
+     this.organizations,
+     this.clients,
   });
 
-  bool success;
+  bool? success;
   List<ProjectsList>? projectsList;
   List<Organization>? organizations;
   List<dynamic>? clients;
