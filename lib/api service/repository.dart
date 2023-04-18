@@ -818,10 +818,8 @@ class Repository {
         "organization_id": organizationId,
         "status": "pending",
         "is_hidden": false,
-      /*"project_id": [
-    "6040da014fdab967583a7eb2"
-    ],*/
-       "project_id": projectIdList2,
+        //"project_id": projectIdList2,
+        "project_id": [],
       },
       "datatable_requests": {
         "draw": "1",
