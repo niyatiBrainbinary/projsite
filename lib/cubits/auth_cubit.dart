@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftx/navigationX.dart';
@@ -52,6 +51,7 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
   UserInfo? userInfoLogin ;
+
   Role? role;
   ProfileDetailsModel? userInfo;
   List<String> userOrganizationEncoded=[];
@@ -79,7 +79,7 @@ class AuthCubit extends Cubit<AuthState> {
         }
         prefs.setStringData('userInfo', user);
         prefs.setStringData('userId', response.userInfo!.id!);
-      //  prefs.setStringData('organizationId', response.userInfo!.organizationId!);
+        prefs.setStringData('mobile_organization_id', response.userInfo!.mobileOrganizationId!);
         prefs.setStringData('accessToken', response.token!);
         prefs.setListData('userOrganization', userOrganizationEncoded);
         prefs.setStringData('organizationId', response.userOrganization![0].organizationId.toString());
@@ -184,20 +184,38 @@ class AuthCubit extends Cubit<AuthState> {
     emit(UpdateOrgLoading());
     updateOrganization.UpdateOrganizationModel? response = await Repository.updateOrganization(orgId, userId);
     if (response != null) {
+
       if (response.success == true) {
 
+        Map userInfoUp = {
+          "_id": response.userInfo!.id,
+          "first_name": response.userInfo!.firstName,
+          "last_name": response.userInfo!.lastName,
+          "email": response.userInfo!.email,
+          "organization_id": response.userInfo!.organizationId,
+          "updated_at": response.userInfo!.updatedAt.toString(),
+          "created_at": response.userInfo!.createdAt.toString(),
+          "locale": response.userInfo!.locale,
+          "language": response.userInfo!.language,
+          "phone": response.userInfo!.phone,
+          "role_id": response.userInfo!.roleId,
+          "is_forgot_password_intitiated": response.userInfo!.isForgotPasswordIntitiated,
+          "user_terminals": response.userInfo!.userTerminals,
+          "company_id": response.userInfo!.companyId,
+          "mobile_organization_id": response.userInfo!.mobileOrganizationId,
+          "user_id": response.userInfo!.userId,
+          "has_shipment_module": response.userInfo!.hasShipmentModule,
+          "has_logistics_module": response.userInfo!.hasLogisticsModule,
+          "projects": response.userInfo!.projects,
+          "admin_projects": response.userInfo!.adminProjects,
+          "is_admin": response.userInfo!.isAdmin,
+          "is_project_admin": response.userInfo!.isProjectAdmin
+        };
 
+       userInfoUpdate = userInfoUp;
 
-        //profileDetails(response.userInfo!.id!, response.userInfo!.mobileOrganizationId!);
+       print(userInfoUpdate);
 
-        // for(int i = 0; i<=response.userInfo!.projects!.length ; i++){
-        //   projectIdList2.add(response.userInfo!.projects![i]);
-        // }
-
-
-
-       /* prefs.setStringData('organizationId', response.userInfo!.mobileOrganizationId!);
-        orgId = orgId;*/
 
         emit(UpdateOrgSuccess());
       } else {

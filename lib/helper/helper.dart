@@ -24,6 +24,9 @@ String orgId="";
 String orgVal="";
 String projectIdMain="";
 List projectIdList2 = [];
+
+Map? userInfoUpdate;
+
 String googleMapKey = 'AIzaSyDtFavTh7_aJL9D3XGEmoFlIImXsibuREY';
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 

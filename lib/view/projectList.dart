@@ -41,7 +41,10 @@ class _ProjectListState extends State<ProjectList> {
     _projectListCubit = BlocProvider.of<ProjectListCubit>(context);
 
     _projectListCubit.ProjectList(projectIdMain, authCub.userInfoLogin!.toJson(),context);
+
   }
+
+
 _projectList({required String projectName,required String Id,required String location,required String admin,}){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,

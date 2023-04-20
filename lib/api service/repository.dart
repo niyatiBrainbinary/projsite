@@ -1729,6 +1729,7 @@ class Repository {
   }
 
   static Future<ProjectListModel?> postProjectList(String projectId, Map userInfo) async {
+
     Map<String, dynamic> body = {
       "user_info": userInfo,
       "get_extra_info":true,
@@ -1736,8 +1737,7 @@ class Repository {
       "type": "mobile",
     };
 
-
-    try {
+    /*try {
       final res = await _dio.post(
        ApiRoutes.postProjectList,
         options: Options(
@@ -1754,7 +1754,37 @@ class Repository {
       print(e);
       return null;
     }
-    return null;
+    return null;*/
+
+
+    var headers = {
+      'token': accessToken,
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${accessToken}'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/get_users_projects_list'));
+    request.body = json.encode({
+      "user_info": userInfo,
+      "get_extra_info": true,
+      "get_extra_projects": true,
+      "type": "mobile"
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return ProjectListModel.fromJson(dataData);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+
+
   }
 
   static Future<ProjectDetailsModel?> postProjectDetails(String projectId) async {

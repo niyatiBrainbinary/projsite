@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/src/widgets/framework.dart';
@@ -40,17 +41,17 @@ late AuthCubit authCub;
     emit(ProjectListLoading());
    // orgId = (await prefs.getStringData("organizationId")).toString();
    //  orgVal = (await prefs.getStringData("organizationVal")).toString();
-    ProjectListModel projectListModel = ProjectListModel();
 
-    projectListModel.projectsList = null;
-    projectListModel.organizations =null;
+  if(userInfoUpdate != null){
+    userInfo = userInfoUpdate!;
+  }
 
-    userInfo["organization_id"]=orgId;
     ProjectListModel? response = await Repository.postProjectList(projectId,userInfo);
+
     if (response != null) {
       if (response.success == true) {
         organization = [];
-        projectsList =[];
+        projectsList = [];
         organization = response.organizations!;
         projectsList = response.projectsList!;
         emit(ProjectListSuccess());

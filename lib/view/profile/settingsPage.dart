@@ -303,8 +303,7 @@ class _SettingsState extends State<Settings> {
       }
 
       _organizationVal=orgVal;
-     // _organizationVal=_dropdownValues[0];
-      // _organizationVal="One";
+
       setState(() {});
 
     });
@@ -325,7 +324,7 @@ class _SettingsState extends State<Settings> {
 
         projectIdList2 = authCub.userInfoLogin!.adminProjects!;
 
-        //authCub.updateOrg(id, authCub.userInfoLogin!.userId!);
+        authCub.updateOrg(id, authCub.userInfoLogin!.userId!);
 
       }
     }
