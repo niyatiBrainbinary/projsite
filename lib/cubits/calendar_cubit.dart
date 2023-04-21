@@ -9,50 +9,60 @@ import 'package:proj_site/common/widget_constant/widget_constant.dart';
 import 'package:proj_site/model/event.dart';
 import 'package:proj_site/src/calendar_event_data.dart';
 
-
 abstract class CalendarState {}
 
 class CalendarInitial extends CalendarState {}
+
 class CalendarLoading extends CalendarState {}
+
 class CalendarSuccess extends CalendarState {}
+
 class CalendarError extends CalendarState {}
 
 class EventListLoading extends CalendarState {}
+
 class EventListSuccess extends CalendarState {}
+
 class EventListError extends CalendarState {}
 
 class RequestDataLoading extends CalendarState {}
+
 class RequestDataSuccess extends CalendarState {}
+
 class RequestDataError extends CalendarState {}
 
 class CalendarCubit extends Cubit<CalendarState> {
   CalendarCubit() : super(CalendarInitial());
 
-  bool status =false;
-  DateTime projectDate =DateTime.now();
-  DateTime StarDate =DateTime.now();
-  DateTime EndDate =DateTime.now();
-  DateTime weekStartDate =DateTime.now();
-  DateTime weekEndDate =DateTime.now();
+  bool status = false;
+  DateTime projectDate = DateTime.now();
+  DateTime StarDate = DateTime.now();
+  DateTime EndDate = DateTime.now();
+  DateTime weekStartDate = DateTime.now();
+  DateTime weekEndDate = DateTime.now();
   List<CalendarEventData<Event>> events = [];
-  List listDate= [];
-  List<RequestList> eventList=[];
+  List listDate = [];
+  List<RequestList> eventList = [];
   RequestDataModel? requestData;
-  bool isCalender=false;
-  fun(){
+  bool isCalender = false;
+
+  fun() {
     listDate = [];
     var now = StarDate;
-      weekStartDate= now.subtract(Duration(days: now.weekday-1));
-     weekEndDate= now.subtract(Duration(days: now.weekday-7));
-   listDate = List.generate(7, (i) => '${weekStartDate.add(Duration(days: i)).day}');
+    weekStartDate = now.subtract(Duration(days: now.weekday - 1));
+    weekEndDate = now.subtract(Duration(days: now.weekday - 7));
+    listDate =
+        List.generate(7, (i) => '${weekStartDate.add(Duration(days: i)).day}');
   }
 
-  setState(){
+  setState() {
     emit(CalendarInitial());
   }
 
-  void EventList(String projectId,String organizationId,String startDate, String endDate,
-      {List? filterResourceArray,
+  void EventList(
+      String projectId, String organizationId, String startDate, String endDate,
+      {bool? isFilter,
+      List? filterResourceArray,
       List? filterZoneArray,
       List? filterEntrepreneurArray,
       List? filterStatusArray,
@@ -60,7 +70,12 @@ class CalendarCubit extends Cubit<CalendarState> {
       List? filterSubprojectArray}) async {
     emit(EventListLoading());
 
-    EventListModel? response = await Repository.postEventList(projectId,organizationId,startDate,endDate,
+    EventListModel? response = await Repository.postEventList(
+        projectId,
+        organizationId,
+        startDate,
+        endDate,
+        isFilter,
         filterResourceArray,
         filterZoneArray,
         filterEntrepreneurArray,
@@ -71,16 +86,17 @@ class CalendarCubit extends Cubit<CalendarState> {
     if (response != null) {
       if (response.success == true) {
         events = [];
-        eventList=[];
-        eventList=response.requestList!;
-        for(int i=0; i<eventList.length;i++){
-          events.add(CalendarEventData(
-            date:eventList[i].requestFromDateTime!,
-            title: "${eventList[i].companyName}",
-            description: eventList[i].description,
-            startTime:eventList[i].requestFromDateTime,
-            endTime:eventList[i].requestToDateTime,
-          ),
+        eventList = [];
+        eventList = response.requestList!;
+        for (int i = 0; i < eventList.length; i++) {
+          events.add(
+            CalendarEventData(
+              date: eventList[i].requestFromDateTime!,
+              title: "${eventList[i].companyName}",
+              description: eventList[i].description,
+              startTime: eventList[i].requestFromDateTime,
+              endTime: eventList[i].requestToDateTime,
+            ),
           );
         }
         // shipmentSuppName=[];
@@ -116,5 +132,4 @@ class CalendarCubit extends Cubit<CalendarState> {
       emit(RequestDataError());
     }
   }
-
 }

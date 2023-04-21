@@ -359,7 +359,8 @@ class _UpdateTransportRequestShipmentState extends State<UpdateTransportRequestS
     toDate=DateFormat('yyyy-MM-dd').format(transportRequestCub.transportRequestData?.result?.requestToDateTime ?? DateTime.now());
     fromTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestFromDateTime ??  DateTime.now());
     toTime=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestToDateTime ?? DateTime.now());
-
+    fromTimeApi=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestFromDateTime ??  DateTime.now());
+    toTimeApi=DateFormat('HH:mm:ss').format(transportRequestCub.transportRequestData?.result?.requestToDateTime ?? DateTime.now());
     firstPageUpdatedData =[
       fromDate,
       fromTime,

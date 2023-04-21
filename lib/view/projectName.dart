@@ -41,8 +41,6 @@ class _ProjectNameState extends State<ProjectName> {
   @override
   Widget build(BuildContext context) {
 
-
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: getAppBarWithIcon(ctx: context) as PreferredSizeWidget?,

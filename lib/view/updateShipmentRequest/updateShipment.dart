@@ -73,6 +73,8 @@ class _UpdateShipmentState extends State<UpdateShipment> {
   int toTimeMinute=0;
 
   init(){
+    fromTimeApi = DateFormat('HH:mm:ss').format(calendarCub.requestData!.result!.requestFromDateTime!);
+    toTimeApi = DateFormat('HH:mm:ss').format(calendarCub.requestData!.result!.requestToDateTime!);
     firstPageUpdatedData =[
       fromDate,
       fromTime,

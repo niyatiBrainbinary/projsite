@@ -71,6 +71,8 @@ class _UpdateTerminalTransportShipmentState extends State<UpdateTerminalTranspor
   int toTimeMinute=0;
 
   init() {
+    fromTimeApi = DateFormat('HH:mm:ss').format(calendarCub.requestData!.result!.requestFromDateTime!);
+    toTimeApi = DateFormat('HH:mm:ss').format(calendarCub.requestData!.result!.requestToDateTime!);
 
     firstPageUpdatedData =[
       fromDate,

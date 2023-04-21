@@ -1,9 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
+
 
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:proj_site/api%20service/models/auth_models/sign_in_model.dart';
+
 import 'package:proj_site/api%20service/models/project_list_models/project_details_model.dart';
 import 'package:proj_site/api%20service/models/project_list_models/project_list_model.dart';
 import 'package:proj_site/api%20service/repository.dart';
@@ -41,6 +40,7 @@ late AuthCubit authCub;
     emit(ProjectListLoading());
    // orgId = (await prefs.getStringData("organizationId")).toString();
    //  orgVal = (await prefs.getStringData("organizationVal")).toString();
+
 
   if(userInfoUpdate != null){
     userInfo = userInfoUpdate!;

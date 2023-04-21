@@ -2028,6 +2028,7 @@ class Repository {
     String organizationId,
     String startDate,
     String endDate,
+    bool? isFilter,
          List? filterResourceArray,
          List? filterZoneArray,
          List? filterEntrepreneurArray,
@@ -2035,21 +2036,9 @@ class Repository {
          List? filterTransportStatusArray,
          List? filterSubprojectArray
   ) async {
-    // Map<dynamic, dynamic> body = {
-    //   "organization_id": organizationId,
-    //   "project_id": projectId,
-    //   "active_one":true,
-    //   "end":"1672540200000",
-    //   "unbooked_type":"regular"
-    // };
-    log("Start${{
-      DateFormat("yyyy-MM-dd HH:mm:ss")
-          .parse("2023-02-06 08:00:00")
-          .millisecondsSinceEpoch
-    }}");
-    log("end${DateFormat("yyyy-MM-dd HH:mm:ss").parse(DateTime.now().toString()).millisecondsSinceEpoch}");
 
-    Map<dynamic, dynamic> body = {
+
+    /*Map<dynamic, dynamic> body = {
             "organization_id": organizationId,
             "project_id": projectId,
             "active_one": true,
@@ -2065,23 +2054,47 @@ class Repository {
             "filter_transport_status_array":filterTransportStatusArray,
             "filter_type_array":null,
             "filter_subproject_array":filterSubprojectArray
-          };
-    Map<dynamic, dynamic> body1 = {
+          };*/
 
-      "organization_id":"5fb845054fdab967c315b6e2",
-      "project_id":"5fc782834fdab9688e76c7c2",
+    Map<dynamic, dynamic> bodyForDataFilter = {
+      "organization_id": organizationId,
+      "project_id": projectId,
+      "active_one": true,
+      "start": startDate,
+      "end": endDate,
+      "unbooked_type": "regular",
+      "filter_resource_array":filterResourceArray,
+      "filter_zone_array":filterZoneArray,
+      "filter_entrepreneur_array":filterEntrepreneurArray,
+      "filter_status_array":filterStatusArray,
+      "filter_transport_status_array":filterTransportStatusArray,
+      "filter_type_array":null,
+      "filter_subproject_array":filterSubprojectArray
+    };
+
+    Map<dynamic, dynamic> bodyForShowData = {
+      "organization_id": organizationId,
+      "project_id": projectId,
       "active_one":true,
-      "start":"1662336000000",
-      "end":"1662768000000",
-      "unbooked_type":"regular"
-    }  ;
-log("mybody$body");
+      "start": startDate,
+      "end": endDate,
+      "unbooked_type":"regular",
+      "filter_resource_array":null,
+      "filter_zone_array":null,
+      "filter_entrepreneur_array":null,
+      "filter_status_array":null,
+      "filter_transport_status_array":[],
+      "filter_type_array":null,
+      "filter_subproject_array":null
+    };
+
+
 
     try {
       final res = await _dio.post(
         ApiRoutes.postEventList,
         options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
-        data: body,
+        data: (isFilter == true) ? bodyForDataFilter : bodyForShowData,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         log("${res.data}");
