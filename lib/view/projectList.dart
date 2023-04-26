@@ -76,7 +76,9 @@ _projectList({required String projectName,required String Id,required String loc
                 //Navigation.instance.navigate(AddNew.id);
 
                 //Navigation.instance.navigate(ProjectName.id, args: projectName);
+
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProjectName(name: projectName)));
+
               },
             ),
             getIconWithUnderlineText(
@@ -86,7 +88,8 @@ _projectList({required String projectName,required String Id,required String loc
               textColor: HexColor.orange,
               underlineColor: HexColor.orange, text: 'Settings', width: screenWidth(context,dividedBy: 4), height: screenHeight(context,dividedBy: 40),
               onTap: () {
-                Navigation.instance.navigate(ProjectSettingMainPage.id);
+               // Navigation.instance.navigate(ProjectSettingMainPage.id);
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProjectSettingMainPage()));
               },
             ),
             getIconWithUnderlineText(

@@ -2059,23 +2059,23 @@ class Repository {
           };*/
 
     Map<dynamic, dynamic> bodyForDataFilter = {
-      "organization_id": mobileOrgId,
+      "organization_id": organizationId,//mobileOrgId,
       "project_id": projectId,
       "active_one": true,
       "start": startDate,
       "end": endDate,
       "unbooked_type": "regular",
-      "filter_resource_array":filterResourceArray,
-      "filter_zone_array":filterZoneArray,
-      "filter_entrepreneur_array":filterEntrepreneurArray,
-      "filter_status_array":filterStatusArray,
-      "filter_transport_status_array":filterTransportStatusArray,
+      "filter_resource_array":filterResourceArray?.length==0 ? null : filterResourceArray,
+      "filter_zone_array":filterZoneArray?.length==0 ? null : filterZoneArray,
+      "filter_entrepreneur_array":filterEntrepreneurArray?.length==0 ? null : filterEntrepreneurArray,
+      "filter_status_array":filterStatusArray?.length==0 ? null : filterStatusArray,
+      "filter_transport_status_array":filterTransportStatusArray?.length==0 ? null : filterTransportStatusArray,
       "filter_type_array":null,
-      "filter_subproject_array":filterSubprojectArray
+      "filter_subproject_array":filterSubprojectArray?.length==0 ? null : filterSubprojectArray,
     };
 
     Map<dynamic, dynamic> bodyForShowData = {
-      "organization_id":  mobileOrgId,
+      "organization_id":  organizationId,//mobileOrgId,
       "project_id": projectId,
       "active_one":true,
       "start": startDate,

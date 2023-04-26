@@ -487,16 +487,24 @@ class _CalenderViewState extends State<CalenderView>
                                     ),
                                   );
                                 } else {
+
+
+
                                   return commonButton(
                                     context: context,
                                     buttonName: "Apply Filter",
                                     onTap: () {
+
+                                      String start = "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}";
+
+                                      String end = "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}";
+
                                       calenderCub.EventList(
                                         projectIdMain,
                                         orgId,
-                                          mobileOrgId,
-                                        "${DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).toUtc().millisecondsSinceEpoch}",
-                                        "${DateTime.now().add(Duration(days: DateTime.now().weekday - 5)).toUtc().millisecondsSinceEpoch}",
+                                        mobileOrgId,
+                                        start,
+                                        end,
                                         isFilter: true,
                                         filterResourceArray: _resourceId,
                                         filterZoneArray: _zoneId,

@@ -6,6 +6,8 @@ import 'package:proj_site/view/project/projectNotification.dart';
 
 class ProjectSettingMainPage extends StatefulWidget {
   static const id = 'ProjectSettingMainPage_screen';
+    String? name;
+  ProjectSettingMainPage({Key? key, this.name}) : super(key: key);
   @override
   _ProjectSettingMainPageState createState() => _ProjectSettingMainPageState();
 }
