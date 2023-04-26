@@ -37,7 +37,7 @@ class _DayViewPageState extends State<DayViewPage> {
   void initState() {
   calenderCub = BlocProvider.of<CalendarCubit>(context);
   authCub = BlocProvider.of<AuthCubit>(context);
-  calenderCub.EventList(projectIdMain,orgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+  calenderCub.EventList(projectIdMain,orgId,mobileOrgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
   super.initState();
 }
 
@@ -99,7 +99,7 @@ class _DayViewPageState extends State<DayViewPage> {
                           return Shipment(true);
                         },));
                         if(returnVal=="Success"){
-                          calenderCub.EventList(projectIdMain,orgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+                          calenderCub.EventList(projectIdMain,orgId,mobileOrgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
                         };
                         setState(() {});
                       }
@@ -108,7 +108,7 @@ class _DayViewPageState extends State<DayViewPage> {
                           return TerminalTransportShipment();
                         },));
                         if(returnVal=="Success"){
-                          calenderCub.EventList(projectIdMain,orgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+                          calenderCub.EventList(projectIdMain,orgId,mobileOrgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
                         };
                         setState(() {});
 

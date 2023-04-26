@@ -494,6 +494,7 @@ class _CalenderViewState extends State<CalenderView>
                                       calenderCub.EventList(
                                         projectIdMain,
                                         orgId,
+                                          mobileOrgId,
                                         "${DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).toUtc().millisecondsSinceEpoch}",
                                         "${DateTime.now().add(Duration(days: DateTime.now().weekday - 5)).toUtc().millisecondsSinceEpoch}",
                                         isFilter: true,
@@ -614,6 +615,7 @@ class _CalenderViewState extends State<CalenderView>
                                 calenderCub.EventList(
                                     projectIdMain,
                                     orgId,
+                                    mobileOrgId,
                                     "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}",
                                     "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
                                 /* _tabController = TabController(length: 4, vsync: this);
@@ -784,6 +786,7 @@ class _CalenderViewState extends State<CalenderView>
                                           calenderCub.EventList(
                                               projectIdMain,
                                               orgId,
+                                              mobileOrgId,
                                               "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}",
                                               "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
                                         }
@@ -801,6 +804,7 @@ class _CalenderViewState extends State<CalenderView>
                                           calenderCub.EventList(
                                               projectIdMain,
                                               orgId,
+                                              mobileOrgId,
                                               "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}",
                                               "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
                                         }

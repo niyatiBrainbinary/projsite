@@ -21,6 +21,7 @@ const String LexendExtraBold ='Lexend-ExtraBold';
 
 String accessToken="";
 String orgId="";
+String mobileOrgId="";
 String orgVal="";
 String projectIdMain="";
 List projectIdList2 = [];

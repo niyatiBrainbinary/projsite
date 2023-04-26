@@ -88,6 +88,7 @@ class AuthCubit extends Cubit<AuthState> {
         prefs.setStringData('role', rolle);
         accessToken = (await prefs.getStringData("accessToken")).toString();
         orgId = (await prefs.getStringData("organizationId")).toString();
+        mobileOrgId = (await prefs.getStringData("mobile_organization_id")).toString();
         orgVal = (await prefs.getStringData("organizationVal")).toString();
         snackBar("Login Successful", true);
         profileDetails(response.userInfo!.id.toString(), response.userInfo!.organizationId.toString());

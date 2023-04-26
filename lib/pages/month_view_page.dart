@@ -36,7 +36,7 @@ class _MonthViewPageState extends State<MonthViewPage> {
   void initState() {
     calenderCub = BlocProvider.of<CalendarCubit>(context);
     authCub = BlocProvider.of<AuthCubit>(context);
-    calenderCub.EventList(projectIdMain, orgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+    calenderCub.EventList(projectIdMain, orgId,mobileOrgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
     super.initState();
   }
 
@@ -98,7 +98,7 @@ class _MonthViewPageState extends State<MonthViewPage> {
                           return Shipment(true);
                         },));
                         if(returnVal=="Success"){
-                          calenderCub.EventList(projectIdMain,orgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+                          calenderCub.EventList(projectIdMain,orgId,mobileOrgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
                         };
                         setState(() {});
                       }
@@ -107,7 +107,7 @@ class _MonthViewPageState extends State<MonthViewPage> {
                           return TerminalTransportShipment();
                         },));
                         if(returnVal=="Success"){
-                          calenderCub.EventList(projectIdMain,orgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+                          calenderCub.EventList(projectIdMain,orgId,mobileOrgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
                         };
                         setState(() {});
 

@@ -31,7 +31,7 @@ class _EventListState extends State<EventList> {
     calenderCub=BlocProvider.of<CalendarCubit>(context);
     authCub = BlocProvider.of<AuthCubit>(context);
     calenderCub.isCalender=false;
-    calenderCub.EventList(projectIdMain,orgId!,"${DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: DateTime.now().weekday-5)).toUtc().millisecondsSinceEpoch}");
+    calenderCub.EventList(projectIdMain,orgId!, mobileOrgId,"${DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: DateTime.now().weekday-5)).toUtc().millisecondsSinceEpoch}");
     super.initState();
   }
 
@@ -143,13 +143,13 @@ class _EventListState extends State<EventList> {
             IconButton(onPressed: () {
               dateTime=dateTime.subtract(Duration(days: 7));
               setState(() {});
-              BlocProvider.of<CalendarCubit>(context).EventList(projectIdMain,orgId,"${dateTime.subtract(Duration(days: dateTime.weekday - 1)).toUtc().millisecondsSinceEpoch}","${dateTime.add(Duration(days: dateTime.weekday-5)).toUtc().millisecondsSinceEpoch}");
+              BlocProvider.of<CalendarCubit>(context).EventList(projectIdMain,orgId,mobileOrgId,"${dateTime.subtract(Duration(days: dateTime.weekday - 1)).toUtc().millisecondsSinceEpoch}","${dateTime.add(Duration(days: dateTime.weekday-5)).toUtc().millisecondsSinceEpoch}");
 
             }, icon: Icon(Icons.arrow_back_ios_outlined)),
             IconButton(onPressed: () {
               dateTime=dateTime.add(Duration(days: 7));
               setState(() {});
-              BlocProvider.of<CalendarCubit>(context).EventList(projectIdMain,orgId,"${dateTime.subtract(Duration(days: dateTime.weekday - 1)).toUtc().millisecondsSinceEpoch}","${dateTime.add(Duration(days: dateTime.weekday-5)).toUtc().millisecondsSinceEpoch}");
+              BlocProvider.of<CalendarCubit>(context).EventList(projectIdMain,orgId,mobileOrgId,"${dateTime.subtract(Duration(days: dateTime.weekday - 1)).toUtc().millisecondsSinceEpoch}","${dateTime.add(Duration(days: dateTime.weekday-5)).toUtc().millisecondsSinceEpoch}");
 
             }, icon: Icon(Icons.arrow_forward_ios_outlined)),
             SizedBox(width: 25,),

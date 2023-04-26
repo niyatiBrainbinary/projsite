@@ -53,7 +53,7 @@ class _MonthViewWidgetState extends State<MonthViewWidget> {
         builder: (_) => StackCard("text",eventIndex), context: context,
       );
      if(returnVal=="Success"){
-       calendarCub.EventList(projectIdMain,orgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+       calendarCub.EventList(projectIdMain,orgId,mobileOrgId,"${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}","${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
      }
      setState(() {});
     }

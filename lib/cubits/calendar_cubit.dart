@@ -60,7 +60,7 @@ class CalendarCubit extends Cubit<CalendarState> {
   }
 
   void EventList(
-      String projectId, String organizationId, String startDate, String endDate,
+      String projectId, String organizationId, String mobileOrgId ,String startDate, String endDate,
       {bool? isFilter,
       List? filterResourceArray,
       List? filterZoneArray,
@@ -73,6 +73,7 @@ class CalendarCubit extends Cubit<CalendarState> {
     EventListModel? response = await Repository.postEventList(
         projectId,
         organizationId,
+        mobileOrgId,
         startDate,
         endDate,
         isFilter,

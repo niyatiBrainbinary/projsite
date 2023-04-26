@@ -316,11 +316,13 @@ class _SettingsState extends State<Settings> {
     for(int i =0; i<authCub.userOrganization.length ;i++){
       if(orgVal == authCub.userOrganization[i].organizationName){
         String id = authCub.userOrganization[i].organizationId.toString();
+        String mId = authCub.userInfoLogin!.mobileOrganizationId.toString();
         log("id$id");
         log("orgVal$orgVal");
         log("orgid$orgId");
         prefs.setStringData('organizationId', id);
         orgId = id;
+        mobileOrgId = mId;
 
         projectIdList2 = authCub.userInfoLogin!.adminProjects!;
 

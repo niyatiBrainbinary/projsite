@@ -55,6 +55,7 @@ import 'package:proj_site/api%20service/models/waste_disposal_models/waste_fract
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
 import 'package:proj_site/helper/helper.dart';
 import 'package:proj_site/api%20service/models/unloading_zone_models/create_zone_model.dart';
+import 'package:proj_site/services/sharedpreference_service.dart';
 import 'models/calender_models/user_list_model.dart';
 import 'models/project_list_models/project_list_model.dart';
 import 'models/terminal_models/terminal_list_model.dart';
@@ -685,7 +686,6 @@ class Repository {
   }
 
   static Future<PendingShipmentListModel?> postPendingShipmentList(String organizationId, List projectIdList, String oldOrgId) async {
-
 
 
     log("organizationId${organizationId}");
@@ -2026,6 +2026,7 @@ class Repository {
   static Future<EventListModel?> postEventList(
     String projectId,
     String organizationId,
+    String mobileOrgId,
     String startDate,
     String endDate,
     bool? isFilter,
@@ -2037,6 +2038,7 @@ class Repository {
          List? filterSubprojectArray
   ) async {
 
+    SharedPreferenceService prefs = SharedPreferenceService();
 
     /*Map<dynamic, dynamic> body = {
             "organization_id": organizationId,
@@ -2057,7 +2059,7 @@ class Repository {
           };*/
 
     Map<dynamic, dynamic> bodyForDataFilter = {
-      "organization_id": organizationId,
+      "organization_id": mobileOrgId,
       "project_id": projectId,
       "active_one": true,
       "start": startDate,
@@ -2073,7 +2075,7 @@ class Repository {
     };
 
     Map<dynamic, dynamic> bodyForShowData = {
-      "organization_id": organizationId,
+      "organization_id":  mobileOrgId,
       "project_id": projectId,
       "active_one":true,
       "start": startDate,
