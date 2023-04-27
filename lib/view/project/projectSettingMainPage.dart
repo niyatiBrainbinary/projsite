@@ -44,8 +44,9 @@ class _ProjectSettingMainPageState extends State<ProjectSettingMainPage>
           children: [
             getSimpleTwoRowText(
                 ctx: context,
-                tittle1: "Project Setting",
-                tittle2: "Project Name"),
+                tittle1: "Project Settings",
+                tittle2: widget.name ?? ""
+            ),
             verticalSpaces(context, height: 100),
             getCommonThreeTabBar(
                 ctx: context,

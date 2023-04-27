@@ -23,6 +23,7 @@ class icons{
   static String ic_renderList ="assets/icons/ic_renderList.png";
   static String ic_calendar ="assets/icons/ic_calendar.png";
   static String ic_apdPlan ="assets/icons/ic_apdPlan.png";
+  static String ic_statistics ="assets/icons/ic_statistics.png";
   static String ic_eyes ="assets/icons/ic_eyes.png";
   static String ic_setting ="assets/icons/ic_setting.png";
   static String ic_assignUser ="assets/icons/ic_assignUser.png";

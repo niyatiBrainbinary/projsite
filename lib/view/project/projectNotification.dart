@@ -12,8 +12,8 @@ class ProjectNotification extends StatefulWidget {
 }
 
 class _ProjectNotificationState extends State<ProjectNotification> {
-  bool light = true;
-  bool light1 = true;
+  bool mail = false;
+  bool sms = false;
   final MaterialStateProperty<Color?> trackColor =
       MaterialStateProperty.resolveWith<Color?>(
     (Set<MaterialState> states) {
@@ -59,23 +59,23 @@ user of the booking.""",
           getSwitchWithText(
               ctx: context,
               tittle: "Mail",
-              value: light1,
+              value: mail,
               trackColor: trackColor,
               overlayColor: overlayColor,
               onChanged: (value) {
                 setState(() {
-                  light1 = value!;
+                  mail = value!;
                 });
               }),
           getSwitchWithText(
               ctx: context,
               tittle: "SMS",
-              value: light1,
+              value: sms,
               trackColor: trackColor,
               overlayColor: overlayColor,
               onChanged: (value) {
                 setState(() {
-                  light1 = value!;
+                  sms = value!;
                 });
               })
         ],

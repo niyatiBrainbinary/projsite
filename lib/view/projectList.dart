@@ -89,7 +89,7 @@ _projectList({required String projectName,required String Id,required String loc
               underlineColor: HexColor.orange, text: 'Settings', width: screenWidth(context,dividedBy: 4), height: screenHeight(context,dividedBy: 40),
               onTap: () {
                // Navigation.instance.navigate(ProjectSettingMainPage.id);
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProjectSettingMainPage()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProjectSettingMainPage(name: projectName,)));
               },
             ),
             getIconWithUnderlineText(

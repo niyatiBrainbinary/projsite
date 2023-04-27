@@ -13,8 +13,9 @@ class CalenderSetting extends StatefulWidget {
 }
 
 class _CalenderSettingState extends State<CalenderSetting> {
-  bool light = true;
-  bool light1 = true;
+  bool isZone = false;
+  bool isAutomatic = false;
+  bool isWaste = false;
   final MaterialStateProperty<Color?> trackColor =
       MaterialStateProperty.resolveWith<Color?>(
     (Set<MaterialState> states) {
@@ -54,12 +55,12 @@ class _CalenderSettingState extends State<CalenderSetting> {
           getSwitchWithTittleAndSubTittle(
               ctx: context,
               tittle: "Zone at the same time",
-              value: light,
+              value: isZone,
               trackColor: trackColor,
               overlayColor: overlayColor,
               onChanged: (value) {
                 setState(() {
-                  light = value!;
+                  isZone = value!;
                 });
               },
               subTittle:
@@ -67,12 +68,12 @@ class _CalenderSettingState extends State<CalenderSetting> {
           getSwitchWithTittleAndSubTittle(
               ctx: context,
               tittle: "Automatic approval",
-              value: light,
+              value: isAutomatic,
               trackColor: trackColor,
               overlayColor: overlayColor,
               onChanged: (value) {
                 setState(() {
-                  light = value!;
+                  isAutomatic = value!;
                 });
               },
               subTittle:
@@ -80,14 +81,16 @@ class _CalenderSettingState extends State<CalenderSetting> {
           getSwitchWithText(
               ctx: context,
               tittle: "Waste Disposal",
-              value: light,
+              value: isWaste,
               trackColor: trackColor,
               overlayColor: overlayColor,
               onChanged: (value) {
                 setState(() {
-                  light = value!;
+                  isWaste = value!;
                 });
               }),
+          verticalSpaces(context, height: 20),
+          commonButton(context: context, buttonName: "Save"),
         ],
       ),
     );

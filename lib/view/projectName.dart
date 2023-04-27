@@ -26,6 +26,7 @@ class _ProjectNameState extends State<ProjectName> {
     "Project Details",
     "Calendar",
     "APD Plan",
+    "Statistics",
     "Terminals",
     "Rental list"
   ];
@@ -33,6 +34,7 @@ class _ProjectNameState extends State<ProjectName> {
     icons.ic_projectName,
     icons.ic_cal,
     icons.ic_apdPlan,
+    icons.ic_statistics,
     icons.ic_logisticList,
     icons.ic_renderList
   ];
@@ -82,8 +84,10 @@ class _ProjectNameState extends State<ProjectName> {
                       }else if(index == 2){
                         Navigation.instance.navigate(ApdPlanMainPage.id);
                       } else if(index == 3){
+
+                      }else if(index == 4){
                         Navigation.instance.navigate(TerminalList.id);
-                      } else if(index == 4){
+                      } else if(index == 5){
                         Navigation.instance.navigate(RentalMainPage.id);
                       }
                 });
