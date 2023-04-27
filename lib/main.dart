@@ -19,6 +19,8 @@ import 'package:proj_site/cubits/project_list_cubit.dart';
 import 'package:proj_site/cubits/project_setting_cubit.dart';
 import 'package:proj_site/cubits/rental_list_cubit.dart';
 import 'package:proj_site/cubits/shipment_cubit.dart';
+import 'package:proj_site/cubits/sub_project_list_cubit.dart';
+import 'package:proj_site/cubits/sub_project_user_list_cubit.dart';
 import 'package:proj_site/cubits/terminal_cubit.dart';
 import 'package:proj_site/cubits/transport_request_cubit.dart';
 import 'package:proj_site/cubits/unloading_zone_cubit.dart';
@@ -87,6 +89,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => DashBoardCubit(),),
           BlocProvider(create: (context) => WasteDisposalCubit(),),
           BlocProvider(create: (context) => TransportRequestCubit(),),
+          BlocProvider(create: (context) => SubProjectListCubit(),),
+          BlocProvider(create: (context) => SubProjectUserListCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

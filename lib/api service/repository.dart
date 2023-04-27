@@ -59,6 +59,7 @@ import 'package:proj_site/api%20service/models/unloading_zone_models/create_zone
 import 'package:proj_site/services/sharedpreference_service.dart';
 import 'models/calender_models/user_list_model.dart';
 import 'models/project_list_models/project_list_model.dart';
+import 'models/sub_project_models/sub_project_user_list_model.dart';
 import 'models/terminal_models/terminal_list_model.dart';
 import 'models/update_organization/update_organization.dart';
 
@@ -1847,7 +1848,52 @@ class Repository {
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        return SubProjectListModel.fromJson(jsonDecode(res.data));
+        return SubProjectListModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;
+
+
+  }
+
+  static Future<SubProjectUserListModel?> postSubProjectUserList(String subProjectId, String orgId) async {
+
+    Map<String, dynamic> body = {
+      "organization_id": orgId,
+      "sub_project_id": subProjectId,
+    };
+
+    /*try {
+      final res = await _dio.post(
+       ApiRoutes.postProjectList,
+        options: Options(
+            headers: {"token":accessToken,'Content-Type': 'application/json'},
+        ),
+        data: body,
+      );
+
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        log("projectList${res.data}");
+        return ProjectListModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;*/
+
+
+    try {
+      final res = await _dio.post(
+        ApiRoutes.subProjectUserList,
+        options: Options(headers: {"token": accessToken}),
+        data: body,
+      );
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        return SubProjectUserListModel.fromJson(res.data);
       }
     } catch (e) {
       print(e);

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj_site/api%20service/models/project_list_models/project_details_model.dart';
 import 'package:proj_site/api%20service/models/project_list_models/project_list_model.dart';
 import 'package:proj_site/api%20service/models/sub_project_models/sub_project_list_model.dart';
+import 'package:proj_site/api%20service/models/sub_project_models/sub_project_user_list_model.dart';
 import 'package:proj_site/api%20service/repository.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
 import 'package:proj_site/cubits/auth_cubit.dart';
@@ -13,55 +14,55 @@ import 'package:proj_site/helper/helper.dart';
 import 'package:proj_site/services/sharedpreference_service.dart';
 
 
-abstract class SubProjectListState {}
+abstract class SubProjectUserListState {}
 
-class SubProjectListInitial extends SubProjectListState {}
+class SubProjectUserListInitial extends SubProjectUserListState {}
 
-class SubProjectListLoading extends SubProjectListState {}
-class SubProjectListSuccess extends SubProjectListState {}
-class SubProjectListError extends SubProjectListState {}
+class SubProjectUserListLoading extends SubProjectUserListState {}
+class SubProjectUserListSuccess extends SubProjectUserListState {}
+class SubProjectUserListError extends SubProjectUserListState {}
 
 
 
-class SubProjectListCubit extends Cubit<SubProjectListState> {
-  SubProjectListCubit() : super(SubProjectListInitial());
+class SubProjectUserListCubit extends Cubit<SubProjectUserListState> {
+  SubProjectUserListCubit() : super(SubProjectUserListInitial());
 
   setState(){
-    emit(SubProjectListInitial());
+    emit(SubProjectUserListInitial());
   }
-  List <Organization> organization = [];
-  List <SubProject> subProjectList = [];
-  //ProjectDetailsModel? projectDetails;
+
+  List <SubProjectUser> subProjectUserList = [];
+
   SharedPreferenceService prefs = SharedPreferenceService();
   late AuthCubit authCub;
 
-  void SubProjectList(String projectId, String orgId, BuildContext context) async {
-    emit(SubProjectListLoading());
-     orgId = (await prefs.getStringData("organizationId")).toString();
+  void SubProjectUserList(String subProjectId, String orgId, BuildContext context) async {
+    emit(SubProjectUserListLoading());
+    orgId = (await prefs.getStringData("organizationId")).toString();
     //  orgVal = (await prefs.getStringData("organizationVal")).toString();
 
 
-    SubProjectListModel? response = await Repository.postSubProjectList(projectId,orgId);
+    SubProjectUserListModel? response = await Repository.postSubProjectUserList(subProjectId,orgId);
 
     if (response != null) {
       if (response.success == true) {
         //organization = [];
-        subProjectList = [];
+        subProjectUserList = [];
         //organization = response.organizations!;
-        subProjectList = response.subProjects!;
-        emit(SubProjectListSuccess());
+        subProjectUserList = response.subProjectUsers!;
+        emit(SubProjectUserListSuccess());
       } else {
         snackBar("Something Went Wrong", false);
-        emit(SubProjectListError());
+        emit(SubProjectUserListError());
       }
     } else {
       snackBar("Error to Load Data", false);
-      emit(SubProjectListError());
+      emit(SubProjectUserListError());
     }
 
   }
 
- /* void ProjectDetails(String projectId) async {
+/* void ProjectDetails(String projectId) async {
     emit(ProjectDetailsLoading());
     projectDetails = await Repository.postProjectDetails(projectId);
 

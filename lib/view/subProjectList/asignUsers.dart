@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/image_constant/image_constant.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
+import 'package:proj_site/cubits/auth_cubit.dart';
+import 'package:proj_site/cubits/sub_project_user_list_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 
 class AssignUsers extends StatefulWidget {
   static const id = 'AssignUsers_screen';
+  String? subProjectId;
+
+   AssignUsers({Key? key, this.subProjectId}) : super(key: key);
+
   @override
   _AssignUsersState createState() => _AssignUsersState();
 }
 
 class _AssignUsersState extends State<AssignUsers> {
   final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
+  late SubProjectUserListCubit _subProjectUserListCubit;
+  late AuthCubit authCub;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authCub = BlocProvider.of<AuthCubit>(context);
+    _subProjectUserListCubit = BlocProvider.of<SubProjectUserListCubit>(context);
+
+    _subProjectUserListCubit.SubProjectUserList(widget.subProjectId ?? "", authCub.userInfoLogin!.mobileOrganizationId!, context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,37 +86,52 @@ class _AssignUsersState extends State<AssignUsers> {
                 fontWeight: FontWeight.w800,
                 fontSize: 14),
             verticalSpaces(context, height: 30),
+
             Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          commonText("Fredrik Balkåsen",
-                              color: Colors.black,
-                              fontFamily: LexendRegular,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16),
-                          getIconWithUnderlineText(
-                              text: "Remove",
-                              ctx: context,
-                              icon: icons.ic_assignUser,
-                              iconColor: HexColor.carnation,
-                              textColor: HexColor.carnation,
-                              underlineColor: HexColor.carnation)
-                        ],
-                      ),
-                      getDivider(height: 20)
-                    ],
-                  );
+              child: BlocBuilder<SubProjectUserListCubit, SubProjectUserListState>(
+                builder: (context, state) {
+                  if (state is SubProjectUserListLoading) {
+                    return loader();
+                  } else if (state is SubProjectUserListError) {
+                    return errorLoadDataText();
+                  } else if (_subProjectUserListCubit.subProjectUserList.length == 0) {
+                    return noDataFoundText();
+                  } else {
+                    return ListView.builder(
+                      itemCount: _subProjectUserListCubit.subProjectUserList.length,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                commonText("${_subProjectUserListCubit.subProjectUserList[index].firstName.toString()} ${_subProjectUserListCubit.subProjectUserList[index].lastName.toString()}",
+                                    color: Colors.black,
+                                    fontFamily: LexendRegular,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16),
+                                getIconWithUnderlineText(
+                                    text: "Remove",
+                                    ctx: context,
+                                    icon: icons.ic_assignUser,
+                                    iconColor: HexColor.carnation,
+                                    textColor: HexColor.carnation,
+                                    underlineColor: HexColor.carnation)
+                              ],
+                            ),
+                            getDivider(height: 20)
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
               ),
-            )
+            ),
+
+
           ],
         ),
       ),
