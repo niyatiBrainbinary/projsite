@@ -11,7 +11,7 @@ class AssignUsers extends StatefulWidget {
   static const id = 'AssignUsers_screen';
   String? subProjectId;
 
-   AssignUsers({Key? key, this.subProjectId}) : super(key: key);
+  AssignUsers({Key? key, this.subProjectId}) : super(key: key);
 
   @override
   _AssignUsersState createState() => _AssignUsersState();
@@ -86,19 +86,22 @@ class _AssignUsersState extends State<AssignUsers> {
                 fontWeight: FontWeight.w800,
                 fontSize: 14),
             verticalSpaces(context, height: 30),
-
             Expanded(
-              child: BlocBuilder<SubProjectUserListCubit, SubProjectUserListState>(
+              child:
+                  BlocBuilder<SubProjectUserListCubit, SubProjectUserListState>(
                 builder: (context, state) {
                   if (state is SubProjectUserListLoading) {
                     return loader();
                   } else if (state is SubProjectUserListError) {
                     return errorLoadDataText();
-                  } else if (_subProjectUserListCubit.subProjectUserList.length == 0) {
+                  } else if (_subProjectUserListCubit
+                          .subProjectUserList.length ==
+                      0) {
                     return noDataFoundText();
                   } else {
                     return ListView.builder(
-                      itemCount: _subProjectUserListCubit.subProjectUserList.length,
+                      itemCount:
+                          _subProjectUserListCubit.subProjectUserList.length,
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
@@ -107,18 +110,22 @@ class _AssignUsersState extends State<AssignUsers> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                commonText("${_subProjectUserListCubit.subProjectUserList[index].firstName.toString()} ${_subProjectUserListCubit.subProjectUserList[index].lastName.toString()}",
+                                commonText(
+                                    "${_subProjectUserListCubit.subProjectUserList[index].firstName.toString()} ${_subProjectUserListCubit.subProjectUserList[index].lastName.toString()}",
                                     color: Colors.black,
                                     fontFamily: LexendRegular,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16),
                                 getIconWithUnderlineText(
+                                    onTap: () {
+                                      _showDilaogue(context, index);
+                                    },
                                     text: "Remove",
                                     ctx: context,
                                     icon: icons.ic_assignUser,
                                     iconColor: HexColor.carnation,
                                     textColor: HexColor.carnation,
-                                    underlineColor: HexColor.carnation)
+                                    underlineColor: HexColor.carnation),
                               ],
                             ),
                             getDivider(height: 20)
@@ -130,11 +137,85 @@ class _AssignUsersState extends State<AssignUsers> {
                 },
               ),
             ),
-
-
           ],
         ),
       ),
+    );
+  }
+
+  _showDilaogue(BuildContext context, int index) {
+    showDialog(
+      barrierColor: Colors.black.withOpacity(0.4),
+      barrierDismissible: false,
+      builder: (context) {
+        return Container(
+          child: AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            contentPadding:
+                EdgeInsets.only(left: 18, right: 18, top: 18, bottom: 18),
+            content: Container(
+              height: screenHeight(context, dividedBy: 5),
+              width: screenWidth(context),
+              color: Colors.transparent,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Center(
+                    child: Text(
+                      "Are you sure, you want to un-assign this user?",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: LexendRegular,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      commonButton(
+                          context: context,
+                          buttonName: "close",
+                          width: 95,
+                          buttonColor: HexColor.Gray53.withOpacity(0.5),
+                          onTap: () {
+                            Navigator.pop(context);
+                          }),
+                      BlocBuilder<SubProjectUserListCubit,
+                          SubProjectUserListState>(
+                        builder: (context, state) {
+                          if (state is RemoveUserLoading) {
+                            return commonLoadingButton(
+                                context: context, width: 95);
+                          } else {
+                            return commonButton(
+                                context: context,
+                                buttonName: "Remove",
+                                width: 95,
+                                onTap: () {
+                                  _subProjectUserListCubit.RemoveUser(
+                                    context: context,
+                                    orgId: authCub.userInfoLogin!.mobileOrganizationId!,
+                                    subProjectId: widget.subProjectId ?? "",
+                                    userId: _subProjectUserListCubit
+                                        .subProjectUserList[index].userId
+                                        .toString(),
+                                  );
+                                });
+                          }
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+      context: context,
     );
   }
 }

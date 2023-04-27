@@ -1,10 +1,12 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:proj_site/api%20service/models/project_list_models/project_details_model.dart';
 import 'package:proj_site/api%20service/models/project_list_models/project_list_model.dart';
+import 'package:proj_site/api%20service/models/sub_project_models/remove_user_model.dart';
 import 'package:proj_site/api%20service/models/sub_project_models/sub_project_list_model.dart';
 import 'package:proj_site/api%20service/models/sub_project_models/sub_project_user_list_model.dart';
 import 'package:proj_site/api%20service/repository.dart';
@@ -18,9 +20,15 @@ abstract class SubProjectUserListState {}
 
 class SubProjectUserListInitial extends SubProjectUserListState {}
 
+
+
 class SubProjectUserListLoading extends SubProjectUserListState {}
 class SubProjectUserListSuccess extends SubProjectUserListState {}
 class SubProjectUserListError extends SubProjectUserListState {}
+
+class RemoveUserLoading extends SubProjectUserListState {}
+class RemoveUserSuccess extends SubProjectUserListState {}
+class RemoveUserError extends SubProjectUserListState {}
 
 
 
@@ -62,21 +70,29 @@ class SubProjectUserListCubit extends Cubit<SubProjectUserListState> {
 
   }
 
-/* void ProjectDetails(String projectId) async {
-    emit(ProjectDetailsLoading());
-    projectDetails = await Repository.postProjectDetails(projectId);
+  void RemoveUser({required BuildContext context,required String orgId, required String subProjectId, required String userId}) async {
 
-    if (projectDetails != null) {
-      if (projectDetails!.success == true) {
-        emit(ProjectDetailsSuccess());
+    emit(RemoveUserLoading());
+
+    RemoveUserModel? response = await Repository.postRemoveUser(orgId: orgId, subProjectId: subProjectId, userId: userId);
+
+    if (response != null) {
+      if (response.success == true) {
+        SubProjectUserList(subProjectId, orgId, context);
+        Navigator.pop(context);
+        snackBar("Successfully", true);
+        emit(RemoveUserSuccess());
+
       } else {
         snackBar("Something Went Wrong", false);
-        emit(ProjectDetailsError());
+        emit(RemoveUserError());
       }
     } else {
       snackBar("Error to Load Data", false);
-      emit(ProjectDetailsError());
+      emit(RemoveUserError());
     }
-  }*/
+  }
+
+
 
 }

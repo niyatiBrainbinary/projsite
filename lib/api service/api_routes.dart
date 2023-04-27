@@ -120,6 +120,8 @@ class ApiRoutes{
   ///subProjectList
   static const String subProjectList = '/sub_project_list';
   static const String subProjectUserList = '/sub_project_users';
+  static const String removeUser = '/unassign_sub_project_user';
+  static const String userList = '/get_users';
 
 
 }

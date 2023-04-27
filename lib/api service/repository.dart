@@ -59,6 +59,7 @@ import 'package:proj_site/api%20service/models/unloading_zone_models/create_zone
 import 'package:proj_site/services/sharedpreference_service.dart';
 import 'models/calender_models/user_list_model.dart';
 import 'models/project_list_models/project_list_model.dart';
+import 'models/sub_project_models/remove_user_model.dart';
 import 'models/sub_project_models/sub_project_user_list_model.dart';
 import 'models/terminal_models/terminal_list_model.dart';
 import 'models/update_organization/update_organization.dart';
@@ -1814,6 +1815,8 @@ class Repository {
     return null;
   }
 
+  ///------------------
+
   static Future<SubProjectListModel?> postSubProjectList(String projectId, String orgId) async {
 
     Map<String, dynamic> body = {
@@ -1903,6 +1906,33 @@ class Repository {
 
 
   }
+
+  static Future<RemoveUserModel?> postRemoveUser({required String orgId, required String subProjectId, required String userId}) async {
+
+    Map<String, dynamic> body = {
+      "organization_id": orgId,
+      "sub_project_id" : subProjectId,
+      "user_id" : userId
+    };
+    try {
+      final res = await _dio.post(
+        ApiRoutes.removeUser,
+        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        data: body,
+      );
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        log("message=${res.data}");
+        return RemoveUserModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;
+  }
+
+
+  ///-----------------
 
   static Future<List<EuroclassModel>?> postEuroclass() async {
 
