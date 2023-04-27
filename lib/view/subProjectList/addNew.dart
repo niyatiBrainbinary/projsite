@@ -71,7 +71,7 @@ class _AddNewState extends State<AddNew> {
                 onTap: () {
 
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AssignUsers(subProjectId: subProjectId,)));
+                      builder: (context) => AssignUsers(subProjectId: subProjectId, projectId: projectIdMain)));
                 },
               )
             ],

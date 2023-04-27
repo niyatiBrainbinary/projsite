@@ -10,25 +10,27 @@ import 'package:proj_site/helper/helper.dart';
 class AssignUsers extends StatefulWidget {
   static const id = 'AssignUsers_screen';
   String? subProjectId;
+  String? projectId;
 
-  AssignUsers({Key? key, this.subProjectId}) : super(key: key);
+  AssignUsers({Key? key, this.subProjectId, this.projectId}) : super(key: key);
 
   @override
   _AssignUsersState createState() => _AssignUsersState();
 }
 
 class _AssignUsersState extends State<AssignUsers> {
-  final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
+  List _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
   late SubProjectUserListCubit _subProjectUserListCubit;
   late AuthCubit authCub;
 
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     authCub = BlocProvider.of<AuthCubit>(context);
     _subProjectUserListCubit = BlocProvider.of<SubProjectUserListCubit>(context);
-
+    _subProjectUserListCubit.UserListDropDown(widget.projectId ?? "");
     _subProjectUserListCubit.SubProjectUserList(widget.subProjectId ?? "", authCub.userInfoLogin!.mobileOrganizationId!, context);
   }
 
@@ -49,32 +51,46 @@ class _AssignUsersState extends State<AssignUsers> {
             verticalSpaces(context, height: 20),
             Row(
               children: [
-                Expanded(
-                  child: Container(
-                    height: 50,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7.0),
-                        border: Border.all(
-                            color: HexColor.Gray53.withOpacity(0.6),
-                            width: 1.5)),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        hint: Text('Select'),
-                        icon: Image.asset(icons.ic_downArrow, height: 7),
-                        items: _dropdownValues
-                            .map((value) => DropdownMenuItem(
-                                  child: Text(value),
-                                  value: value,
-                                ))
-                            .toList(),
-                        onChanged: (value) {},
-                        isExpanded: true,
-                        value: _dropdownValues.first,
-                      ),
-                    ),
-                  ),
+                BlocBuilder<SubProjectUserListCubit, SubProjectUserListState>(
+                  builder: (context, state) {
+
+                    if(state is SubProjectUserListLoading){
+                      return loader();
+                    }else if (_subProjectUserListCubit.userListDropDown.length == 0) {
+                      return noDataFoundText();
+                    } else{
+                      return Expanded(
+                        child: Container(
+                          height: 50,
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(7.0),
+                              border: Border.all(
+                                  color: HexColor.Gray53.withOpacity(0.6),
+                                  width: 1.5)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              hint: Text('Select user'),
+                              icon: Image.asset(icons.ic_downArrow, height: 7),
+                              items: _subProjectUserListCubit.userListDropDown
+                                  .map((value) => DropdownMenuItem(
+                                child: Text(value),
+                                value: value,
+                              ))
+                                  .toList(),
+                              onChanged: (value) {},
+                              isExpanded: true,
+                              value: _subProjectUserListCubit.userListDropDown[0],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
+
+                  },
                 ),
+
                 horizontal(context, width: 70),
                 commonButton(context: context, buttonName: "Assign"),
               ],
