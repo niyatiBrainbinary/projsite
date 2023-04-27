@@ -117,4 +117,8 @@ class ApiRoutes{
   static const String postWasteFractionList= '/fetch_fractions';
   static const String postBookWasteDisposal= '/save_waste_disposal';
 
+  ///subProjectList
+  static const String subProjectList = '/sub_project_list';
+
+
 }

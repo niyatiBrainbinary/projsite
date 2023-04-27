@@ -47,6 +47,7 @@ import 'package:proj_site/api%20service/models/shipment_models/monthly_shipments
 import 'package:proj_site/api%20service/models/shipment_models/pending_shipment_list_model.dart';
 import 'package:proj_site/api%20service/models/shipment_models/request_data_model.dart';
 import 'package:proj_site/api%20service/models/shipment_models/update_shipment_model.dart';
+import 'package:proj_site/api%20service/models/sub_project_models/sub_project_list_model.dart';
 import 'package:proj_site/api%20service/models/terminal_models/add_terminal_model.dart';
 import 'package:proj_site/api%20service/models/terminal_models/update_terminal_model.dart';
 import 'package:proj_site/api%20service/models/transport_request_model/get_transport_request_model.dart';
@@ -1810,6 +1811,51 @@ class Repository {
     //   return null;
     // }
     return null;
+  }
+
+  static Future<SubProjectListModel?> postSubProjectList(String projectId, String orgId) async {
+
+    Map<String, dynamic> body = {
+      "organization_id": orgId,
+      "project_id": projectId,
+    };
+
+    /*try {
+      final res = await _dio.post(
+       ApiRoutes.postProjectList,
+        options: Options(
+            headers: {"token":accessToken,'Content-Type': 'application/json'},
+        ),
+        data: body,
+      );
+
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        log("projectList${res.data}");
+        return ProjectListModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;*/
+
+
+    try {
+      final res = await _dio.post(
+        ApiRoutes.subProjectList,
+        options: Options(headers: {"token": accessToken}),
+        data: body,
+      );
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        return SubProjectListModel.fromJson(jsonDecode(res.data));
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;
+
+
   }
 
   static Future<List<EuroclassModel>?> postEuroclass() async {
