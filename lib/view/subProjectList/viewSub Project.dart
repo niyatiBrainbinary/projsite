@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:proj_site/common/colors/colors.dart';
-import 'package:proj_site/common/image_constant/image_constant.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
-import 'package:proj_site/helper/helper.dart';
+import 'package:proj_site/cubits/auth_cubit.dart';
+import 'package:proj_site/cubits/sub_project_user_list_cubit.dart';
 
-class SubmitProjectList extends StatefulWidget {
-  static const id = 'SubmitProjectList_screen';
+class ViewSubProject extends StatefulWidget {
+  String? subProjectName;
+  String? subProjectId;
+  String? projectId;
+  String? orgId;
   String? projectName;
 
-  SubmitProjectList({Key? key, this.projectName}) : super(key: key);
+   ViewSubProject({Key? key, this.subProjectName, this.subProjectId, this.projectId, this.orgId, this.projectName}) : super(key: key);
 
   @override
-  _SubmitProjectListState createState() => _SubmitProjectListState();
+  State<ViewSubProject> createState() => _ViewSubProjectState();
 }
 
-class _SubmitProjectListState extends State<SubmitProjectList> {
-  final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
+class _ViewSubProjectState extends State<ViewSubProject> {
+  late SubProjectUserListCubit _subProjectUserListCubit;
+  late AuthCubit authCub;
+
   TextEditingController _subName = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _subName.text = widget.subProjectName ?? "";
+
+    authCub = BlocProvider.of<AuthCubit>(context);
+    _subProjectUserListCubit = BlocProvider.of<SubProjectUserListCubit>(context);
+
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +51,7 @@ class _SubmitProjectListState extends State<SubmitProjectList> {
                 tittle1: "Sub Project List",
                 tittle2: widget.projectName ?? ""),
             verticalSpaces(context, height: 20),
-           /* getSimpleTextWithAsteriskSymbol(text: "Project"),
+            /* getSimpleTextWithAsteriskSymbol(text: "Project"),
             verticalSpaces(context, height: 100),
             Container(
               height: 52,
@@ -65,7 +83,17 @@ class _SubmitProjectListState extends State<SubmitProjectList> {
             verticalSpaces(context, height: 100),
             getRoundedTexfield(hintText: "Enter Sub Project Name", controller: _subName, ctx: context),
             verticalSpaces(context, height: 10),
-            Align(alignment: Alignment.center,child: commonButton(context: context, buttonName: "Submit"))
+            Align(alignment: Alignment.center,
+                child: commonButton(context: context, buttonName: "Submit", onTap: (){
+                  _subProjectUserListCubit.UpdateSubProject(
+                     context: context,
+                    projectId: widget.projectId ?? "",
+                    subProjectId: widget.subProjectId ?? "",
+                    subProjectName:  _subName.text,
+                    orgId: widget.orgId ?? "",
+                  );
+                }),
+            )
           ],
         ),
       ),

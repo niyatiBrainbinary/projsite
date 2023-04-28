@@ -113,7 +113,11 @@ class _ProjectListState extends State<ProjectList> {
 
                 projectIdMain = Id;
                 setState(() {});
-                Navigation.instance.navigate(AddNew.id);
+                //Navigation.instance.navigate(AddNew.id);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddNew(
+                      projectName: projectName
+                    )));
               },
             ),
           ],

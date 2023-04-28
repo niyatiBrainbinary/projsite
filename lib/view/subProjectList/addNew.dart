@@ -8,9 +8,14 @@ import 'package:proj_site/cubits/auth_cubit.dart';
 import 'package:proj_site/cubits/sub_project_list_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 import 'package:proj_site/view/subProjectList/asignUsers.dart';
+import 'package:proj_site/view/subProjectList/viewSub%20Project.dart';
 
 class AddNew extends StatefulWidget {
   static const id = 'AddNew_screen';
+  String? projectName;
+
+
+  AddNew({Key? key, this.projectName}) : super(key: key);
 
   @override
   _AddNewState createState() => _AddNewState();
@@ -58,7 +63,16 @@ class _AddNewState extends State<AddNew> {
                 iconColor: HexColor.aliceblue,
                 textColor: HexColor.aliceblue,
                 underlineColor: HexColor.aliceblue,
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ViewSubProject(
+                        subProjectName: subProjectName,
+                        projectId: projectIdMain,
+                        orgId: authCub.userInfoLogin!.mobileOrganizationId!,
+                        subProjectId: subProjectId,
+                        projectName: widget.projectName,
+                      )));
+                },
               ),
               getIconWithUnderlineText(
                 width: screenWidth(context, dividedBy: 3),
@@ -71,7 +85,7 @@ class _AddNewState extends State<AddNew> {
                 onTap: () {
 
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AssignUsers(subProjectId: subProjectId, projectId: projectIdMain)));
+                      builder: (context) => AssignUsers(subProjectId: subProjectId, projectId: projectIdMain, projectName: widget.projectName,)));
                 },
               )
             ],
@@ -84,6 +98,8 @@ class _AddNewState extends State<AddNew> {
 
   @override
   Widget build(BuildContext context) {
+    _subProjectListCubit.SubProjectList(
+        projectIdMain, authCub.userInfoLogin!.mobileOrganizationId!, context);
     return Scaffold(
       appBar: getAppBarWithIcon(ctx: context) as PreferredSizeWidget?,
       body: getCommonContainer(
@@ -94,7 +110,7 @@ class _AddNewState extends State<AddNew> {
             getSimpleTwoRowTextAndButton(
                 ctx: context,
                 tittle1: "Sub Project List",
-                tittle2: "Project Name",
+                tittle2: widget.projectName ?? "",
                 buttonName: 'Add New'),
             verticalSpaces(context, height: 20),
             Expanded(

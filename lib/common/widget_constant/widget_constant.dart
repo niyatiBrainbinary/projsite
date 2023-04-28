@@ -19,19 +19,20 @@ import 'package:proj_site/view/projectName/calenderView.dart';
 import 'package:proj_site/view/subProjectList/submitProjectList.dart';
 import 'package:shimmer/shimmer.dart';
 
-Widget commonText(String text,
-    {required Color color,
-    required fontFamily,
-    required FontWeight fontWeight,
-    required double fontSize,
-    int? maxLines,
-    TextDecoration? decoration,
-    Color? decorationColor,
-    TextAlign? textAlign,
-    double? minFontSize,
-    double? maxFontSize,
-      TextOverflow? overflow,
-    }) {
+Widget commonText(
+  String text, {
+  required Color color,
+  required fontFamily,
+  required FontWeight fontWeight,
+  required double fontSize,
+  int? maxLines,
+  TextDecoration? decoration,
+  Color? decorationColor,
+  TextAlign? textAlign,
+  double? minFontSize,
+  double? maxFontSize,
+  TextOverflow? overflow,
+}) {
   return AutoSizeText(
     text.tr(),
     style: TextStyle(
@@ -156,7 +157,7 @@ Widget commonTextfieldWithPrefixIcon(
     required FontWeight HfontWeight,
     required String HfontFamily,
     required double HfontSize,
-      bool?readOnly,
+    bool? readOnly,
     TextAlignVertical? textAlignVertical}) {
   return Container(
     height: 48,
@@ -171,7 +172,7 @@ Widget commonTextfieldWithPrefixIcon(
       controller: controller,
       textAlignVertical: textAlignVertical,
       cursorColor: Colors.black45,
-      readOnly: readOnly == null?false:readOnly,
+      readOnly: readOnly == null ? false : readOnly,
       decoration: InputDecoration(
         border: InputBorder.none,
         enabled: true,
@@ -182,7 +183,7 @@ Widget commonTextfieldWithPrefixIcon(
             fontFamily: HfontFamily,
             fontSize: HfontSize),
         suffixIcon: Container(
-         // padding: EdgeInsets.all(screenHeight(context, dividedBy: 50)),
+          // padding: EdgeInsets.all(screenHeight(context, dividedBy: 50)),
           width: screenWidth(context, dividedBy: 7),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -190,8 +191,7 @@ Widget commonTextfieldWithPrefixIcon(
             border:
                 Border.all(color: HexColor.Gray53.withOpacity(0.4), width: 1.5),
             borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(9),
-                topRight: Radius.circular(9)),
+                bottomRight: Radius.circular(9), topRight: Radius.circular(9)),
           ),
           child: commonText(text,
               color: HexColor.Gray53,
@@ -622,34 +622,35 @@ Widget getSimpleRowText({required String sub1, required String sub2}) {
               maxLines: 1),
         ),
       ),
-
     ],
   );
 }
 
-getRoundedTexfield(
-    {required String hintText,
-    required TextEditingController controller,
-    bool? readOnly,
-    double? height,
-    double? width,
-    required BuildContext ctx,
-    Function? onTap,
-    Function? onChanged,
-    TextInputType? textInputType,
-    int? maxline,
-    double? contentPaddingTop,
-    bool? suffixIcon,
-    bool? prefixIcon,
-      bool? enabled,
-      String? errorText,
-    }) {
+getRoundedTexfield({
+  required String hintText,
+  required TextEditingController controller,
+  bool? readOnly,
+  double? height,
+  double? width,
+  required BuildContext ctx,
+  Function? onTap,
+  Function? onChanged,
+  TextInputType? textInputType,
+  int? maxline,
+  double? contentPaddingTop,
+  bool? suffixIcon,
+  bool? prefixIcon,
+  bool? enabled,
+  String? errorText,
+}) {
   return Container(
     height: height ?? screenHeight(ctx, dividedBy: 15),
     width: width ?? screenWidth(ctx),
     alignment: Alignment.center,
     decoration: BoxDecoration(
-      color: (enabled == false) ? HexColor.Gray53.withOpacity(0.2) : Colors.transparent,
+      color: (enabled == false)
+          ? HexColor.Gray53.withOpacity(0.2)
+          : Colors.transparent,
       border: Border.all(color: HexColor.Gray53.withOpacity(0.5), width: 1.5),
       borderRadius: BorderRadius.circular(10.0),
     ),
@@ -657,7 +658,7 @@ getRoundedTexfield(
       onTap: onTap as void Function()?,
       controller: controller,
       readOnly: readOnly == null ? false : true,
-      maxLines: maxline ==null?1:maxline,
+      maxLines: maxline == null ? 1 : maxline,
       keyboardType: textInputType,
       textAlignVertical: TextAlignVertical.center,
       onChanged: onChanged as void Function(String)?,
@@ -862,14 +863,14 @@ getSimpleTwoRowText(
             fontWeight: FontWeight.w700,
             fontSize: 20),
         const SizedBox(width: 10),
-       SizedBox(
-         width: screenWidth(ctx, dividedBy: 3),
-         child:  commonText(tittle2,
-             color: HexColor.orange,
-             fontFamily: LexendBold,
-             fontWeight: FontWeight.w700,
-             fontSize: 14),
-       ),
+        SizedBox(
+          width: screenWidth(ctx, dividedBy: 3),
+          child: commonText(tittle2,
+              color: HexColor.orange,
+              fontFamily: LexendBold,
+              fontWeight: FontWeight.w700,
+              fontSize: 14),
+        ),
       ],
     ),
   );
@@ -937,8 +938,7 @@ getCommonThreeTabBar(
     required String tab1,
     required String tab2,
     EdgeInsetsGeometry? padding,
-    required String tab3
-    }) {
+    required String tab3}) {
   return Container(
     height: screenHeight(ctx, dividedBy: 16),
     margin: EdgeInsets.only(bottom: 30),
@@ -1031,7 +1031,7 @@ getSwitchWithTittleAndSubTittle(
     Function(bool?)? onChanged,
     required MaterialStateProperty<Color?> overlayColor}) {
   return Container(
-    //   height: screenHeight(ctx, dividedBy: 14),
+//   height: screenHeight(ctx, dividedBy: 14),
     width: screenWidth(ctx),
     color: Colors.transparent,
     child: Column(
@@ -1070,9 +1070,10 @@ getSimpleTwoRowTextAndButton(
     {required BuildContext ctx,
     required String tittle1,
     required String tittle2,
-    required String buttonName}) {
+    required String buttonName,
+    }) {
   return getCommonContainer(
-    height: screenHeight(ctx, dividedBy: 15),
+    height: screenHeight(ctx, dividedBy: 10),
     padding: EdgeInsets.all(3),
     alignment: Alignment.topLeft,
     width: screenWidth(ctx),
@@ -1085,19 +1086,25 @@ getSimpleTwoRowTextAndButton(
             fontWeight: FontWeight.w800,
             fontSize: 18),
         horizontal(ctx, width: 80),
-        commonText(tittle2,
-            color: HexColor.orange,
-            fontFamily: LexendBold,
-            fontWeight: FontWeight.w700,
-            fontSize: 14),
+        SizedBox(
+          width: screenWidth(ctx, dividedBy: 3),
+          child: commonText(tittle2,
+              color: HexColor.orange,
+              fontFamily: LexendBold,
+              fontWeight: FontWeight.w700,
+              fontSize: 14),
+        ),
         horizontal(ctx, width: 80),
         Expanded(
             child: commonButton(
           context: ctx,
           buttonName: buttonName,
-          buttonTextSize: 14,
+          buttonTextSize: 12,
           onTap: () {
-            Navigation.instance.navigate(SubmitProjectList.id);
+
+Navigator.of(ctx).push(MaterialPageRoute(
+builder: (context) => SubmitProjectList(projectName: tittle2,)));
+
           },
         ))
       ],
@@ -1145,13 +1152,13 @@ getSimpleTwoTextWithTralingIcon({
                     size: 25,
                     color: Color(0xFF5F6368),
                   ),
-                  //offset: index.isEven?Offset(-47, 0):Offset(0, 0),
-                  // onSelected: (value) {
-                  //   setState(() {
-                  //     mainIndex = value;
-                  //     print("main index=${mainIndex}");
-                  //   });
-                  // },
+//offset: index.isEven?Offset(-47, 0):Offset(0, 0),
+// onSelected: (value) {
+//   setState(() {
+//     mainIndex = value;
+//     print("main index=${mainIndex}");
+//   });
+// },
                   itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
                         PopupMenuItem(
                           value: 0,
@@ -1165,12 +1172,12 @@ getSimpleTwoTextWithTralingIcon({
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         'Organization',
-                                        // style: TextStyle(
-                                        //     color: mainIndex==0
-                                        //         ? HexColor.orange
-                                        //         : HexColor.HColor)
+// style: TextStyle(
+//     color: mainIndex==0
+//         ? HexColor.orange
+//         : HexColor.HColor)
                                       )),
-                                  //offset: index.isEven?Offset(-47, 0):Offset(0, 0),
+//offset: index.isEven?Offset(-47, 0):Offset(0, 0),
                                   onSelected: (value) {
                                     setState(() {
                                       subIndex = value;
@@ -1223,10 +1230,10 @@ getSimpleTwoTextWithTralingIcon({
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Language',
-                                      // style: TextStyle(
-                                      // color: mainIndex==1
-                                      //     ? HexColor.orange
-                                      //     : HexColor.HColor)
+// style: TextStyle(
+// color: mainIndex==1
+//     ? HexColor.orange
+//     : HexColor.HColor)
                                     )),
                                 offset: context.locale == Locale('en')
                                     ? Offset(-120, 0)
@@ -1461,17 +1468,16 @@ getRoundedContainerWithTralingIcon({
   );
 }
 
-getCheckOutHistory(
-    {required BuildContext ctx,
-    required String release_quantity,
-    required String release_date,
-    required String item_name,
-    required String transported_date,
-    required String status,
-    required String requestId,
-    required String logisticId,
-
-    }) {
+getCheckOutHistory({
+  required BuildContext ctx,
+  required String release_quantity,
+  required String release_date,
+  required String item_name,
+  required String transported_date,
+  required String status,
+  required String requestId,
+  required String logisticId,
+}) {
   return Container(
     height: screenHeight(ctx, dividedBy: 3.5),
     color: Colors.transparent,
@@ -1514,23 +1520,38 @@ getCheckOutHistory(
                 fontSize: 14),
             GestureDetector(
               onTap: () async {
-                if(status!="not_transported"){
-                  String? returnVal= await showDialog<String>(
+                if (status != "not_transported") {
+                  String? returnVal = await showDialog<String>(
                     barrierDismissible: false,
-                    builder: (_) => GetCheckoutCard(requestId: requestId,), context: ctx,
+                    builder: (_) => GetCheckoutCard(
+                      requestId: requestId,
+                    ),
+                    context: ctx,
                   );
-                  if(returnVal=="Success"){
-                    BlocProvider.of<LogisticListCubit>(ctx).LogisticDetails(logisticId);
+                  if (returnVal == "Success") {
+                    BlocProvider.of<LogisticListCubit>(ctx)
+                        .LogisticDetails(logisticId);
                   }
                 }
               },
               child: getRoundedCornerContainer(
                   ctx: ctx,
                   maxLines: 1,
-                  status: status=="not_transported"?"Not Transported":status=="requested"?"Transport Requested":status=="approved"?"Approved":"Unloaded",
-                  // border: Border.all(color: HexColor.orange),
-                  boxColor: status=="not_transported"?Colors.red:status=="not_transported"?HexColor.yellow:Colors.green,
-                  textColor: status=="requested"?Colors.black:Colors.white,
+                  status: status == "not_transported"
+                      ? "Not Transported"
+                      : status == "requested"
+                          ? "Transport Requested"
+                          : status == "approved"
+                              ? "Approved"
+                              : "Unloaded",
+// border: Border.all(color: HexColor.orange),
+                  boxColor: status == "not_transported"
+                      ? Colors.red
+                      : status == "not_transported"
+                          ? HexColor.yellow
+                          : Colors.green,
+                  textColor:
+                      status == "requested" ? Colors.black : Colors.white,
                   fontSize: 12),
             )
           ],
@@ -1548,89 +1569,92 @@ class GetCheckoutCard extends StatefulWidget {
 
   final String requestId;
 
-
   @override
   State<GetCheckoutCard> createState() => _GetCheckoutCardState();
 }
 
 class _GetCheckoutCardState extends State<GetCheckoutCard> {
+  int currentIndex = -1;
+  bool isApprove = false;
+  late TransportRequestCubit transportRequestCub;
+  late AuthCubit authCub;
 
-  int currentIndex=-1;
-  bool isApprove= false;
- late TransportRequestCubit transportRequestCub;
- late AuthCubit authCub;
-
-
-  closeRequestDialogue(BuildContext context){
+  closeRequestDialogue(BuildContext context) {
     showDialog(
-      barrierColor: Colors.black.withOpacity(0.4),barrierDismissible: false,
+      barrierColor: Colors.black.withOpacity(0.4),
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))
-          ),
-          contentPadding: EdgeInsets.only(left: 18,right: 18,top: 18,bottom: 18),
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          contentPadding:
+              EdgeInsets.only(left: 18, right: 18, top: 18, bottom: 18),
           content: Container(
-            height: screenHeight(context,dividedBy: 5),
+            height: screenHeight(context, dividedBy: 5),
             width: screenWidth(context),
             color: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Center(child:Text("Are you sure you want to close this request?",style: TextStyle(color: Colors.black,fontFamily: LexendRegular,fontSize: 16,))),
+                Center(
+                    child: Text("Are you sure you want to close this request?",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: LexendRegular,
+                          fontSize: 16,
+                        ))),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     commonButton(
                         context: context,
-                        buttonName:
-                        "No",
+                        buttonName: "No",
                         width: 95,
-                        buttonColor: HexColor
-                            .Gray53
-                            .withOpacity(
-                            0.5),
+                        buttonColor: HexColor.Gray53.withOpacity(0.5),
                         onTap: () {
-                          Navigator.pop(
-                              context);
+                          Navigator.pop(context);
                         }),
-
                     BlocBuilder<TransportRequestCubit, TransportRequestState>(
                       builder: (context, state) {
-                        if(state is CloseTransportRequestLoading){
-                          return commonLoadingButton(context: context,width: 95);
-                        }
-                        else {
-                          return commonButton(context: context, buttonName: "Yes",width: 95,onTap: (){
-                            transportRequestCub.CloseTransportRequest(context, widget.requestId);
-                          });
+                        if (state is CloseTransportRequestLoading) {
+                          return commonLoadingButton(
+                              context: context, width: 95);
+                        } else {
+                          return commonButton(
+                              context: context,
+                              buttonName: "Yes",
+                              width: 95,
+                              onTap: () {
+                                transportRequestCub.CloseTransportRequest(
+                                    context, widget.requestId);
+                              });
                         }
                       },
                     )
-
                   ],
                 )
               ],
             ),
           ),
         );
-      }, context: context,
+      },
+      context: context,
     );
-
   }
 
-  statusUpdateDialogue(BuildContext context){
+  statusUpdateDialogue(BuildContext context) {
     showDialog(
-      barrierColor: Colors.black.withOpacity(0.4),barrierDismissible: false,
+      barrierColor: Colors.black.withOpacity(0.4),
+      barrierDismissible: false,
       builder: (context) {
         return Container(
           child: AlertDialog(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))
-            ),
-            contentPadding: EdgeInsets.only(left: 18,right: 18,top: 7,bottom: 18),
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            contentPadding:
+                EdgeInsets.only(left: 18, right: 18, top: 7, bottom: 18),
             content: Container(
-              height: screenHeight(context,dividedBy: 5),
+              height: screenHeight(context, dividedBy: 5),
               width: screenWidth(context),
               color: Colors.transparent,
               child: Column(
@@ -1639,52 +1663,77 @@ class _GetCheckoutCardState extends State<GetCheckoutCard> {
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    child: IconButton(padding: EdgeInsets.zero,constraints: BoxConstraints(),onPressed: () {
-                      Navigator.pop(context);
-                    }, icon: Icon(Icons.cancel_rounded,size: 30,color: Colors.black,)),
+                    child: IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: BoxConstraints(),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.cancel_rounded,
+                          size: 30,
+                          color: Colors.black,
+                        )),
                   ),
-                  Text("Status : Transport Requested", style: TextStyle(color: Colors.black,fontFamily: LexendRegular,fontSize: 14,)),
-                  SizedBox(height: 20,),
+                  Text("Status : Transport Requested",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: LexendRegular,
+                        fontSize: 14,
+                      )),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       BlocBuilder<TransportRequestCubit, TransportRequestState>(
                         builder: (context, state) {
-                          if(state is UpdateTransportRequestStatusLoading && isApprove==true){
-                            return commonLoadingButton(context: context,width: 95);
-                          }
-                          else {
+                          if (state is UpdateTransportRequestStatusLoading &&
+                              isApprove == true) {
+                            return commonLoadingButton(
+                                context: context, width: 95);
+                          } else {
                             return commonButton(
                                 context: context,
-                                buttonName:
-                                "Approve",
+                                buttonName: "Approve",
                                 width: 100,
                                 onTap: () {
-                                  isApprove=true;
+                                  isApprove = true;
                                   setState(() {});
-                                  transportRequestCub.UpdateTransportRequestStatus(widget.requestId, "approved", context);
+                                  transportRequestCub
+                                      .UpdateTransportRequestStatus(
+                                          widget.requestId,
+                                          "approved",
+                                          context);
                                 });
                           }
                         },
                       ),
                       BlocBuilder<TransportRequestCubit, TransportRequestState>(
                         builder: (context, state) {
-                          if(state is UpdateTransportRequestStatusLoading && isApprove==false){
-                            return commonLoadingButton(context: context,width: 95);
-                          }
-                          else {
-                            return commonButton(context: context,
+                          if (state is UpdateTransportRequestStatusLoading &&
+                              isApprove == false) {
+                            return commonLoadingButton(
+                                context: context, width: 95);
+                          } else {
+                            return commonButton(
+                                context: context,
                                 buttonColor: HexColor.Gray53.withOpacity(0.5),
-                                buttonName: "Reject",width: 100,
-                                onTap: (){
-                                  isApprove=false;
+                                buttonName: "Reject",
+                                width: 100,
+                                onTap: () {
+                                  isApprove = false;
                                   setState(() {});
-                                  transportRequestCub.UpdateTransportRequestStatus(widget.requestId, "rejected", context);
+                                  transportRequestCub
+                                      .UpdateTransportRequestStatus(
+                                          widget.requestId,
+                                          "rejected",
+                                          context);
                                 });
                           }
                         },
                       ),
-
                     ],
                   )
                 ],
@@ -1692,29 +1741,32 @@ class _GetCheckoutCardState extends State<GetCheckoutCard> {
             ),
           ),
         );
-      }, context: context,
+      },
+      context: context,
     );
-
   }
 
   @override
   void initState() {
     transportRequestCub = BlocProvider.of<TransportRequestCubit>(context);
     authCub = BlocProvider.of<AuthCubit>(context);
-    transportRequestCub.GetTransportRequest(widget.requestId, projectIdMain,context);
+    transportRequestCub.GetTransportRequest(
+        widget.requestId, projectIdMain, context);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransportRequestCubit, TransportRequestState>(
       builder: (context, state) {
-        if(state is GetTransportRequestLoading){
+        if (state is GetTransportRequestLoading) {
           return Center(
             child: Container(
               height: 80,
               width: 200,
               decoration: BoxDecoration(
-                  color: Colors.transparent, borderRadius: BorderRadius.circular(5)),
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(5)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -1728,7 +1780,7 @@ class _GetCheckoutCardState extends State<GetCheckoutCard> {
               ),
             ),
           );
-        }else if(state is GetTransportRequestError){
+        } else if (state is GetTransportRequestError) {
           return Container(
             color: Colors.white,
             height: screenHeight(context),
@@ -1738,9 +1790,11 @@ class _GetCheckoutCardState extends State<GetCheckoutCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    GestureDetector(onTap: () {
-                      Navigator.pop(context);
-                    },child: Icon(Icons.cancel_rounded,size: 40)),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.cancel_rounded, size: 40)),
                   ],
                 ),
                 Spacer(),
@@ -1760,10 +1814,10 @@ class _GetCheckoutCardState extends State<GetCheckoutCard> {
           return Center(
             child: Container(
                 padding: EdgeInsets.all(15),
-                //margin: EdgeInsets.all(5),
-                width: screenWidth(context,dividedBy: 1.3),
-                height: screenHeight(context,dividedBy: 2.5),
-                // color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+//margin: EdgeInsets.all(5),
+                width: screenWidth(context, dividedBy: 1.3),
+                height: screenHeight(context, dividedBy: 2.5),
+// color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
                 color: Colors.orange,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -1778,84 +1832,112 @@ class _GetCheckoutCardState extends State<GetCheckoutCard> {
                             fontWeight: FontWeight.w400,
                             fontSize: 16),
                         Spacer(),
-                        GestureDetector(onTap: () {
-                          Navigator.pop(context);
-                        },child: Icon(Icons.cancel_rounded,size: 30,color: Colors.black,))
-                        // IconButton(padding: EdgeInsets.zero,constraints: BoxConstraints(),onPressed: () {
-                        //   Navigator.pop(context);
-                        // }, icon: Icon(Icons.cancel_rounded,size: 30,color: Colors.black,))
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.cancel_rounded,
+                              size: 30,
+                              color: Colors.black,
+                            ))
+// IconButton(padding: EdgeInsets.zero,constraints: BoxConstraints(),onPressed: () {
+//   Navigator.pop(context);
+// }, icon: Icon(Icons.cancel_rounded,size: 30,color: Colors.black,))
                       ],
                     ),
-                    transportRequestCub.transportRequestData!.result!.status=="pending"?GestureDetector(
-                      onTap: () {
-                        statusUpdateDialogue(context);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        height: screenHeight(context, dividedBy: 25),
-                        width: screenWidth(context, dividedBy: 3.2),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.yellow),
-                        child: Center(
-                            child: commonText(
-                                "Transport Requested", color: Colors.black, fontFamily: LexendRegular, fontWeight: FontWeight.w400, fontSize: 12,maxLines: 1
+                    transportRequestCub.transportRequestData!.result!.status ==
+                            "pending"
+                        ? GestureDetector(
+                            onTap: () {
+                              statusUpdateDialogue(context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              height: screenHeight(context, dividedBy: 25),
+                              width: screenWidth(context, dividedBy: 3.2),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.yellow),
+                              child: Center(
+                                  child: commonText("Transport Requested",
+                                      color: Colors.black,
+                                      fontFamily: LexendRegular,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      maxLines: 1)),
+                            ),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            height: screenHeight(context, dividedBy: 25),
+                            width: screenWidth(context, dividedBy: 3.2),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: transportRequestCub.transportRequestData!
+                                                .result!.status ==
+                                            "approved" ||
+                                        transportRequestCub
+                                                .transportRequestData!
+                                                .result!
+                                                .status ==
+                                            "unloaded"
+                                    ? Colors.green
+                                    : Colors.red),
+                            child: Center(
+                                child: Text(
+                              transportRequestCub
+                                  .transportRequestData!.result!.status!,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  decoration: TextDecoration.none),
                             )),
-                      ),
-                    ):
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      height: screenHeight(context, dividedBy: 25),
-                      width: screenWidth(context, dividedBy: 3.2),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: transportRequestCub.transportRequestData!.result!.status=="approved"
-                              || transportRequestCub.transportRequestData!.result!.status=="unloaded"
-                              ?Colors.green:Colors.red),
-                      child: Center(
-                          child: Text(
-                            transportRequestCub.transportRequestData!.result!.status!,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                decoration: TextDecoration.none),
-                          )),
-                    ),
+                          ),
                     commonText('Transport From Terminal',
                         color: Colors.black,
                         fontFamily: LexendMedium,
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
-                    SizedBox(height: 10,),
-
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: HexColor.orange, // Background Color
+                            backgroundColor:
+                                HexColor.orange, // Background Color
                           ),
                           onPressed: () {
-                            Navigator.push(
-                                context, MaterialPageRoute(builder: (context) {
-                              return UpdateTransportRequestShipment(widget.requestId,projectIdMain);
-                            },));
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return UpdateTransportRequestShipment(
+                                    widget.requestId, projectIdMain);
+                              },
+                            ));
                           },
-                          child: commonText('Update', color: Colors.black,
+                          child: commonText('Update',
+                              color: Colors.black,
                               fontFamily: LexendRegular,
                               fontWeight: FontWeight.w400,
                               fontSize: 14),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         ElevatedButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: HexColor.orange, // Background Color
+                            backgroundColor:
+                                HexColor.orange, // Background Color
                           ),
                           onPressed: () {
                             closeRequestDialogue(context);
                           },
-                          child: commonText('Close Request', color: Colors.black,
+                          child: commonText('Close Request',
+                              color: Colors.black,
                               fontFamily: LexendRegular,
                               fontWeight: FontWeight.w400,
                               fontSize: 14),
@@ -1870,28 +1952,27 @@ class _GetCheckoutCardState extends State<GetCheckoutCard> {
                           backgroundColor: HexColor.orange, // Background Color
                         ),
                         onPressed: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) {
-                            return BookingHistory(widget.requestId);
-                          },));
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return BookingHistory(widget.requestId);
+                            },
+                          ));
                         },
-                        child: commonText('Booking History', color: Colors.black,
+                        child: commonText('Booking History',
+                            color: Colors.black,
                             fontFamily: LexendRegular,
                             fontWeight: FontWeight.w400,
                             fontSize: 15),
                       ),
                     ),
-
                   ],
-                )
-            ),
+                )),
           );
         }
       },
     );
   }
 }
-
 
 getSelectPictureDialog(
     {required BuildContext ctx,
@@ -1930,7 +2011,10 @@ getSelectPictureDialog(
                                 onPressed: () {
                                   Navigation.instance.goBack();
                                 },
-                                icon: Icon(Icons.cancel_outlined,color: HexColor.Gray53,))),
+                                icon: Icon(
+                                  Icons.cancel_outlined,
+                                  color: HexColor.Gray53,
+                                ))),
                       ],
                     ),
                     verticalSpaces(ctx, height: 70),
@@ -1983,7 +2067,7 @@ Widget getShimmerEffect() {
   return Shimmer.fromColors(
       baseColor: Color(0xffECECEC),
       highlightColor: Color(0xffe3e3e3),
-      //highlightColor: Color(0xEAEAEAFF),
+//highlightColor: Color(0xEAEAEAFF),
       child: Container(
         color: Color(0xffECECEC),
       ));
@@ -2008,5 +2092,3 @@ Widget noDataFoundText() {
         fontSize: 18),
   );
 }
-
-

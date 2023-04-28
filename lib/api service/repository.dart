@@ -47,6 +47,7 @@ import 'package:proj_site/api%20service/models/shipment_models/monthly_shipments
 import 'package:proj_site/api%20service/models/shipment_models/pending_shipment_list_model.dart';
 import 'package:proj_site/api%20service/models/shipment_models/request_data_model.dart';
 import 'package:proj_site/api%20service/models/shipment_models/update_shipment_model.dart';
+import 'package:proj_site/api%20service/models/sub_project_models/assign_user_model.dart';
 import 'package:proj_site/api%20service/models/sub_project_models/sub_project_list_model.dart';
 import 'package:proj_site/api%20service/models/sub_project_models/userListDropDownModel.dart';
 import 'package:proj_site/api%20service/models/terminal_models/add_terminal_model.dart';
@@ -62,6 +63,7 @@ import 'models/calender_models/user_list_model.dart';
 import 'models/project_list_models/project_list_model.dart';
 import 'models/sub_project_models/remove_user_model.dart';
 import 'models/sub_project_models/sub_project_user_list_model.dart';
+import 'models/sub_project_models/update_sub_project_model.dart';
 import 'models/terminal_models/terminal_list_model.dart';
 import 'models/update_organization/update_organization.dart';
 
@@ -1978,6 +1980,54 @@ class Repository {
 
   }
 
+  static Future<AssignUserModel?> postAssignUser({required String orgId, required String subProjectId, required String userId}) async {
+
+    Map<String, dynamic> body = {
+      "organization_id": orgId,
+      "sub_project_id" : subProjectId,
+      "user_id" : userId
+    };
+    try {
+      final res = await _dio.post(
+        ApiRoutes.assignUser,
+        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        data: body,
+      );
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        log("message=${res.data}");
+        return AssignUserModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;
+  }
+
+  static Future<UpdateSubProjectModel?> postUpdateSubProject({required String orgId, required String subProjectId, required String projectId, required String name}) async {
+
+    Map<String, dynamic> body = {
+      "organization_id": orgId,
+      "project_id" : projectId,
+      "sub_project_id" : subProjectId,
+      "sub_project_name" : name,
+    };
+    try {
+      final res = await _dio.post(
+        ApiRoutes.updateSubProject,
+        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        data: body,
+      );
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        log("message=${res.data}");
+        return UpdateSubProjectModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;
+  }
 
   ///-----------------
 

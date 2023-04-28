@@ -11,27 +11,37 @@ class AssignUsers extends StatefulWidget {
   static const id = 'AssignUsers_screen';
   String? subProjectId;
   String? projectId;
+  String? projectName;
 
-  AssignUsers({Key? key, this.subProjectId, this.projectId}) : super(key: key);
+  AssignUsers({Key? key, this.subProjectId, this.projectId, this.projectName}) : super(key: key);
 
   @override
   _AssignUsersState createState() => _AssignUsersState();
 }
 
 class _AssignUsersState extends State<AssignUsers> {
+
   List _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
+
   late SubProjectUserListCubit _subProjectUserListCubit;
   late AuthCubit authCub;
 
+  var dropDownVal;
+  var userId;
+
   @override
   void initState() {
+
     // TODO: implement initState
 
     super.initState();
     authCub = BlocProvider.of<AuthCubit>(context);
-    _subProjectUserListCubit = BlocProvider.of<SubProjectUserListCubit>(context);
+    _subProjectUserListCubit =
+        BlocProvider.of<SubProjectUserListCubit>(context);
+    _subProjectUserListCubit.userListDropDown = [];
     _subProjectUserListCubit.UserListDropDown(widget.projectId ?? "");
-    _subProjectUserListCubit.SubProjectUserList(widget.subProjectId ?? "", authCub.userInfoLogin!.mobileOrganizationId!, context);
+    _subProjectUserListCubit.SubProjectUserList(widget.subProjectId ?? "",
+        authCub.userInfoLogin!.mobileOrganizationId!, context);
   }
 
   @override
@@ -47,18 +57,18 @@ class _AssignUsersState extends State<AssignUsers> {
             getSimpleTwoRowText(
                 ctx: context,
                 tittle1: "Sub Project List",
-                tittle2: "Project Name"),
+                tittle2: widget.projectName ?? ""),
             verticalSpaces(context, height: 20),
             Row(
               children: [
                 BlocBuilder<SubProjectUserListCubit, SubProjectUserListState>(
                   builder: (context, state) {
-
-                    if(state is SubProjectUserListLoading){
-                      return loader();
-                    }else if (_subProjectUserListCubit.userListDropDown.length == 0) {
+                    if (state is SubProjectUserListLoading) {
+                      return SizedBox();
+                    } else if (_subProjectUserListCubit.userListDropDown.length ==
+                        0) {
                       return noDataFoundText();
-                    } else{
+                    } else {
                       return Expanded(
                         child: Container(
                           height: 50,
@@ -73,26 +83,52 @@ class _AssignUsersState extends State<AssignUsers> {
                               hint: Text('Select user'),
                               icon: Image.asset(icons.ic_downArrow, height: 7),
                               items: _subProjectUserListCubit.userListDropDown
-                                  .map((value) => DropdownMenuItem(
-                                child: Text(value),
-                                value: value,
-                              ))
-                                  .toList(),
-                              onChanged: (value) {},
+                                  .map((value) {
+                                    return DropdownMenuItem(
+                                      child: Text(value["name"]!),
+                                      value: value["name"]!,
+                                    );
+                              }).toList(),
+                              onChanged: (value) {
+                                print(value.runtimeType);
+                                print(value);
+                                dropDownVal = value!;
+                                 _subProjectUserListCubit.userListDropDown.forEach((element) {
+                                   if(element["name"] == value){
+                                     userId = element["id"];
+                                   }
+
+                                 });
+                                setState(() {});
+                              },
                               isExpanded: true,
-                              value: _subProjectUserListCubit.userListDropDown[0],
+                              value: dropDownVal,
                             ),
                           ),
                         ),
                       );
                     }
-
+                  },
+                ),
+                horizontal(context, width: 70),
+                commonButton(
+                  context: context,
+                  buttonName: "Assign",
+                  onTap: () {
+                    if(userId == null){
+                      snackBar("Please select user", false);
+                    }else{
+                      _subProjectUserListCubit.AssignUser(
+                        context: context,
+                        orgId: authCub
+                            .userInfoLogin!.mobileOrganizationId!,
+                        subProjectId: widget.subProjectId ?? "",
+                        userId: userId??"",
+                      );
+                    }
 
                   },
                 ),
-
-                horizontal(context, width: 70),
-                commonButton(context: context, buttonName: "Assign"),
               ],
             ),
             verticalSpaces(context, height: 13),
@@ -213,7 +249,8 @@ class _AssignUsersState extends State<AssignUsers> {
                                 onTap: () {
                                   _subProjectUserListCubit.RemoveUser(
                                     context: context,
-                                    orgId: authCub.userInfoLogin!.mobileOrganizationId!,
+                                    orgId: authCub
+                                        .userInfoLogin!.mobileOrganizationId!,
                                     subProjectId: widget.subProjectId ?? "",
                                     userId: _subProjectUserListCubit
                                         .subProjectUserList[index].userId
