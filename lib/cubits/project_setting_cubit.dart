@@ -24,6 +24,9 @@ class ProjectSettingCubit extends Cubit<ProjectSettingState> {
   }
 List? shipmentData;
 List? environmentData;
+bool zone = false;
+bool auto = false;
+bool waste = false;
 
   void GetBookingFormNotification() async {
     emit(BookingFormNotificationLoading());
@@ -36,6 +39,9 @@ List? environmentData;
        if(data !=null){
          shipmentData= [data['resource'],data['zone'],data['contractor'],data['responsible_person'],data['sub_project'],];
          environmentData= [data['delivery_supplier'],data['euro_class'],data['type_of_fuel'],data['load_weight'],data['vehicle_capacity'],data['driving_distance'],data['addresses'],data['Type of Vehicle']];
+         zone = data['zones_simultaneously'] ?? false;
+         auto = data['auto_approval'] ?? false;
+         waste = data['waste_disposal'] ?? false;
        }
         emit(BookingFormNotificationSuccess());
       } else {
