@@ -98,8 +98,7 @@ class _AddNewState extends State<AddNew> {
 
   @override
   Widget build(BuildContext context) {
-    _subProjectListCubit.SubProjectList(
-        projectIdMain, authCub.userInfoLogin!.mobileOrganizationId!, context);
+
     return Scaffold(
       appBar: getAppBarWithIcon(ctx: context) as PreferredSizeWidget?,
       body: getCommonContainer(

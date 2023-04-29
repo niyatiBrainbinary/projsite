@@ -73,12 +73,10 @@ class Repository {
   static Dio get _dio {
     return Dio(
       BaseOptions(
-
         baseUrl: ApiRoutes.BASE_URL,
         headers: {
           // 'Authorization': 'Bearer ${Model.accessToken}',
           // "X-Requested-With": "XMLHttpRequest",
-
         },
         contentType: Headers.formUrlEncodedContentType,
       ),
@@ -88,10 +86,6 @@ class Repository {
         ],
       );
   }
-
-
-
-
 
   static Future<SignInModel?> postSignIn(String email, String password) async {
     Map<String, dynamic> body = {
@@ -113,8 +107,6 @@ class Repository {
     }
     return null;
   }
-
-
 
   static Future<ProfileDetailsModel?> postProfileDetails(
       String id, String organizationId) async {
@@ -160,8 +152,8 @@ class Repository {
     return null;
   }
 
-
-  static Future<UpdateOrganizationModel?> updateOrganization(String orgId, String userId) async {
+  static Future<UpdateOrganizationModel?> updateOrganization(
+      String orgId, String userId) async {
     Map<String, dynamic> body = {
       "user_id": userId,
       "organization_id": orgId,
@@ -179,7 +171,6 @@ class Repository {
     }
     return null;
   }
-
 
   static Future<CommonModel?> postForgotPassword(String email) async {
     Map<String, dynamic> body = {
@@ -241,17 +232,19 @@ class Repository {
     return null;
   }
 
-
-  static Future<CommonModel?> postUploadApdPlan({required String apd_file_name,required File file,required String project_id}) async {
-
+  static Future<CommonModel?> postUploadApdPlan(
+      {required String apd_file_name,
+      required File file,
+      required String project_id}) async {
     String uploadFile = file.path.split('/').last;
-  var formData = FormData.fromMap({
-      'data': '{"project_id": "$project_id" , "apd_file_name": "$apd_file_name"}',
-      'file': await MultipartFile.fromFile(file.path,filename: uploadFile,contentType: MediaType("application", "pdf")),
+    var formData = FormData.fromMap({
+      'data':
+          '{"project_id": "$project_id" , "apd_file_name": "$apd_file_name"}',
+      'file': await MultipartFile.fromFile(file.path,
+          filename: uploadFile, contentType: MediaType("application", "pdf")),
     });
 
-
-  log("message${file.path}");
+    log("message${file.path}");
 
     try {
       final res = await _dio.post(
@@ -259,7 +252,7 @@ class Repository {
         options: Options(
           headers: {
             "token": accessToken,
-             //'Content-Type': "multipart/form-data",
+            //'Content-Type': "multipart/form-data",
             // 'Content-Length': '<calculated when request is sent>',
             // 'Host': '<calculated when request is sent>',
           },
@@ -279,14 +272,18 @@ class Repository {
     return null;
   }
 
-  static Future<DeleteApdPlanModel?> postDeleteApdPlan({required String id}) async {
+  static Future<DeleteApdPlanModel?> postDeleteApdPlan(
+      {required String id}) async {
     Map<String, dynamic> body = {
       'file_id': id,
     };
     try {
       final res = await _dio.post(
         ApiRoutes.deleteApdPlan,
-        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        options: Options(headers: {
+          "token": accessToken,
+          "Content-Type": "application/json"
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -349,11 +346,11 @@ class Repository {
     required String quantity,
     required String description,
     required String api,
-     File? file,
+    File? file,
   }) async {
     var body;
-    if( file == null){
-       body = FormData.fromMap({
+    if (file == null) {
+      body = FormData.fromMap({
         "rental_id": rental_id,
         "vendor_name": vendor_name,
         "item_name": item_name,
@@ -361,9 +358,9 @@ class Repository {
         "due_date": due_date,
         "quantity": quantity,
         "description": description,
-        'api':api,
+        'api': api,
       });
-    }else{
+    } else {
       String uploadImage = file.path.split('/').last;
       body = FormData.fromMap({
         "rental_id": rental_id,
@@ -373,8 +370,9 @@ class Repository {
         "due_date": due_date,
         "quantity": quantity,
         "description": description,
-        'api':api,
-        'file': await MultipartFile.fromFile(file.path, filename: '${uploadImage}'),
+        'api': api,
+        'file':
+            await MultipartFile.fromFile(file.path, filename: '${uploadImage}'),
       });
     }
 
@@ -409,7 +407,6 @@ class Repository {
     required String Image,
     required String api,
   }) async {
-
     // Map<String, dynamic> body = {
     //   "project_id": project_id,
     //   "organization_id": organization_id,
@@ -431,10 +428,13 @@ class Repository {
       "arrival_date": arrival_date,
       "due_date": due_date,
       "quantity": quantity,
-      "description": description == null?"":description,
+      "description": description == null ? "" : description,
       "created_by": created_by,
-      'file': Image == ""?"":await MultipartFile.fromFile(imageFile.path, filename: '${uploadImage}'),
-      'api':api
+      'file': Image == ""
+          ? ""
+          : await MultipartFile.fromFile(imageFile.path,
+              filename: '${uploadImage}'),
+      'api': api
     });
     try {
       final res = await _dio.post(
@@ -443,7 +443,6 @@ class Repository {
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
         return AddRentalModel.fromJson(res.data);
       }
     } catch (e) {
@@ -546,10 +545,9 @@ class Repository {
     return null;
   }
 
-  static Future<List<TerminalListModel>?> postTerminalList(String projectId) async {
-    Map<String,dynamic> body={
-      "project_id": projectId
-    };
+  static Future<List<TerminalListModel>?> postTerminalList(
+      String projectId) async {
+    Map<String, dynamic> body = {"project_id": projectId};
     print("projectId=${projectId}");
     try {
       final res = await _dio.post(ApiRoutes.postTerminalList,
@@ -568,10 +566,15 @@ class Repository {
     return null;
   }
 
-  static Future<AddLogisticsModel?> postAddLogistic(Map<String, dynamic> body) async {
+  static Future<AddLogisticsModel?> postAddLogistic(
+      Map<String, dynamic> body) async {
     try {
       final res = await _dio.post(ApiRoutes.postAddLogistics,
-          options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}), data: body);
+          options: Options(headers: {
+            "token": accessToken,
+            "Content-Type": "application/json"
+          }),
+          data: body);
 
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         return AddLogisticsModel.fromJson(res.data);
@@ -583,16 +586,21 @@ class Repository {
     return null;
   }
 
-  static Future<LogisticListModel?> postLogistic(String projectId, String terminalId) async {
+  static Future<LogisticListModel?> postLogistic(
+      String projectId, String terminalId) async {
     Map<String, dynamic> body = {
-      "project_id":projectId,
-      "terminal_id":terminalId,
+      "project_id": projectId,
+      "terminal_id": terminalId,
       "is_active": true
     };
     log("logisticlistBody=${body}");
     try {
       final res = await _dio.post(ApiRoutes.postLogisticList,
-          options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}), data: body);
+          options: Options(headers: {
+            "token": accessToken,
+            "Content-Type": "application/json"
+          }),
+          data: body);
 
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         log("logisticListData=${res.data}");
@@ -605,7 +613,8 @@ class Repository {
     return null;
   }
 
-  static Future<LogisticDetailsModel?> postLogisticDetails(String logisticId) async {
+  static Future<LogisticDetailsModel?> postLogisticDetails(
+      String logisticId) async {
     Map<String, dynamic> body = {"logistic_id": logisticId};
     log("logisticId=${logisticId}");
     try {
@@ -623,18 +632,20 @@ class Repository {
     return null;
   }
 
-  static Future<CreateSupplierModel?> postCreateSupplier(String projectId, String supplierName) async {
-
-    Map<String, dynamic> body = {"project_id": projectId,"shipment_supplier_name": supplierName};
+  static Future<CreateSupplierModel?> postCreateSupplier(
+      String projectId, String supplierName) async {
+    Map<String, dynamic> body = {
+      "project_id": projectId,
+      "shipment_supplier_name": supplierName
+    };
 
     try {
       final res = await _dio.post(ApiRoutes.postCreateShipmentSupplier,
           options: Options(headers: {"token": accessToken}), data: body);
 
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
-        if(res.data["error"]=="shipment_supplier_exsists"){
-          snackBar("Shipment Supplier Already Exist",false);
+        if (res.data["error"] == "shipment_supplier_exsists") {
+          snackBar("Shipment Supplier Already Exist", false);
         }
         return CreateSupplierModel.fromJson(res.data);
       }
@@ -646,7 +657,6 @@ class Repository {
   }
 
   static Future<SupplierListModel?> postSupplierList(String projectId) async {
-
     Map<String, dynamic> body = {
       "project_id": projectId,
     };
@@ -656,7 +666,6 @@ class Repository {
           options: Options(headers: {"token": accessToken}), data: body);
 
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
         return SupplierListModel.fromJson(res.data);
       }
     } catch (e) {
@@ -666,24 +675,24 @@ class Repository {
     return null;
   }
 
-  static Future<List<MonthlyShipmentsModel>?> postMonthlyShipments(String organizationId, String status) async {
-    Map<String,dynamic> body={
+  static Future<List<MonthlyShipmentsModel>?> postMonthlyShipments(
+      String organizationId, String status) async {
+    Map<String, dynamic> body = {
       "organization_id": organizationId,
-      "status" :status
+      "status": status
     };
     log("body${body}");
-  //  try {
-      final res = await _dio.post(ApiRoutes.postMonthlyShipment,
-          options: Options(headers: {"token": accessToken}), data: body);
+    //  try {
+    final res = await _dio.post(ApiRoutes.postMonthlyShipment,
+        options: Options(headers: {"token": accessToken}), data: body);
 
-      if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        log("res.data${res.data}");
-        return
-          (res.data as List)
-            .map((x) => MonthlyShipmentsModel.fromJson(x))
-            .toList();
-        //res.data.map<MonthlyShipmentsModel>((x) => MonthlyShipmentsModel.fromJson(x)).toList();
-      }
+    if (res.statusCode! >= 200 && res.statusCode! < 300) {
+      log("res.data${res.data}");
+      return (res.data as List)
+          .map((x) => MonthlyShipmentsModel.fromJson(x))
+          .toList();
+      //res.data.map<MonthlyShipmentsModel>((x) => MonthlyShipmentsModel.fromJson(x)).toList();
+    }
     // } catch (e) {
     //   print(e);
     //   return null;
@@ -691,13 +700,12 @@ class Repository {
     return null;
   }
 
-  static Future<PendingShipmentListModel?> postPendingShipmentList(String organizationId, List projectIdList, String oldOrgId) async {
-
-
+  static Future<PendingShipmentListModel?> postPendingShipmentList(
+      String organizationId, List projectIdList, String oldOrgId) async {
     log("organizationId${organizationId}");
     log("projectIdList${projectIdList}");
 
-    Map<String,dynamic> body={
+    Map<String, dynamic> body = {
       "mandatory_filter": {
         "organization_id": organizationId,
         "status": "pending",
@@ -717,109 +725,76 @@ class Repository {
             "name": "id",
             "searchable": "false",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "1",
             "name": "project.project_name",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "2",
             "name": "user.first_name",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "3",
             "name": "user.last_name",
             "searchable": "true",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "4",
             "name": "request_from_date_time",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "5",
             "name": "request_to_date_time",
             "searchable": "true",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "6",
             "name": "zone.unloading_zone_name",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "7",
             "name": "request_type",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "8",
             "name": "action",
             "searchable": "false",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           }
         ],
         "order": [
-          {
-            "column": "5",
-            "dir": "desc"
-          }
+          {"column": "5", "dir": "desc"}
         ],
         "start": "0",
         "length": "20",
-        "search": {
-          "value": null,
-          "regex": "false"
-        },
+        "search": {"value": null, "regex": "false"},
         "_": "1672940988527"
       }
     };
 
-    Map<String,dynamic> body2 = {
+    Map<String, dynamic> body2 = {
       "mandatory_filter": {
         "organization_id": organizationId,
         "status": "pending",
@@ -835,113 +810,82 @@ class Repository {
             "name": "id",
             "searchable": "false",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "1",
             "name": "project.project_name",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "2",
             "name": "user.first_name",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "3",
             "name": "user.last_name",
             "searchable": "true",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "4",
             "name": "request_from_date_time",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "5",
             "name": "request_to_date_time",
             "searchable": "true",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "6",
             "name": "zone.unloading_zone_name",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "7",
             "name": "request_type",
             "searchable": "true",
             "orderable": "true",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           },
           {
             "data": "8",
             "name": "action",
             "searchable": "false",
             "orderable": "false",
-            "search": {
-              "value": null,
-              "regex": "false"
-            }
+            "search": {"value": null, "regex": "false"}
           }
         ],
         "order": [
-          {
-            "column": "5",
-            "dir": "desc"
-          }
+          {"column": "5", "dir": "desc"}
         ],
         "start": "0",
         "length": "20",
-        "search": {
-          "value": null,
-          "regex": "false"
-        },
+        "search": {"value": null, "regex": "false"},
         "_": "1672940988527"
       }
     };
 
     try {
       final res = await _dio.post(ApiRoutes.postPendingShipmentList,
-          options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
-          data: body2
-      );
+          options: Options(headers: {
+            "token": accessToken,
+            'Content-Type': 'application/json'
+          }),
+          data: body2);
 
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         log("PendingShipmentList${res.data}");
@@ -952,8 +896,6 @@ class Repository {
       return null;
     }
     return null;
-
-
 
     /*var headers = {
       'token': accessToken,
@@ -973,14 +915,10 @@ class Repository {
     else {
       print(response.reasonPhrase);
     }*/
-
   }
 
-
-
-
-  static Future<LogisticRequestDataModel?> postLogisticRequestData(String requestId) async {
-
+  static Future<LogisticRequestDataModel?> postLogisticRequestData(
+      String requestId) async {
     Map<String, dynamic> body = {
       "request_id": requestId,
     };
@@ -990,7 +928,6 @@ class Repository {
           options: Options(headers: {"token": accessToken}), data: body);
 
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
         return LogisticRequestDataModel.fromJson(res.data);
       }
     } catch (e) {
@@ -1000,9 +937,19 @@ class Repository {
     return null;
   }
 
-  static Future<NotTransportedCheckoutsModel?>
-      postNotTransportCheckouts(String projectId, String terminalId, String startDate, String fromDate, String itemName) async {
-    Map<String, dynamic> body = {"project_id": projectId, "terminal_id":terminalId,"start_date":startDate, "end_date":fromDate, "search":itemName};
+  static Future<NotTransportedCheckoutsModel?> postNotTransportCheckouts(
+      String projectId,
+      String terminalId,
+      String startDate,
+      String fromDate,
+      String itemName) async {
+    Map<String, dynamic> body = {
+      "project_id": projectId,
+      "terminal_id": terminalId,
+      "start_date": startDate,
+      "end_date": fromDate,
+      "search": itemName
+    };
     log("Not transported checkout body${body}");
     try {
       final res = await _dio.post(ApiRoutes.postNotTransportCheckouts,
@@ -1020,17 +967,21 @@ class Repository {
   }
 
   static Future<AddShipmentModel?> postAddTransportRequest(Map finalMap) async {
-    Map<dynamic, dynamic> body =finalMap;
+    Map<dynamic, dynamic> body = finalMap;
     log("rrr${body}");
     try {
       final res = await _dio.post(
         ApiRoutes.postAddTransportRequest,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
 
       if (res.statusCode == 200) {
-        final data = Map<String, dynamic>.from(res.data) as Map<String, dynamic>;
+        final data =
+            Map<String, dynamic>.from(res.data) as Map<String, dynamic>;
         return AddShipmentModel.fromJson(data);
       }
     } catch (e) {
@@ -1040,21 +991,25 @@ class Repository {
     return null;
   }
 
-  static Future<GetTransportRequestModel?> postGetTransportRequest(String requestId, String projectId) async {
+  static Future<GetTransportRequestModel?> postGetTransportRequest(
+      String requestId, String projectId) async {
     Map<dynamic, dynamic> body = {
-      "request_id":requestId,
-      "project_id":projectId
+      "request_id": requestId,
+      "project_id": projectId
     };
 
     try {
       final res = await _dio.post(
         ApiRoutes.postGetTransportRequest,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
       log("GetTransportRequest=${res.data}");
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-       // final data = Map<String, dynamic>.from(res.data) as Map<String, dynamic>;
+        // final data = Map<String, dynamic>.from(res.data) as Map<String, dynamic>;
         return GetTransportRequestModel.fromJson(res.data);
       }
     } catch (e) {
@@ -1065,16 +1020,18 @@ class Repository {
   }
 
   static Future<CommonModel?> postUpdateTransportRequest(Map finalMap) async {
-    Map<dynamic, dynamic> body =finalMap;
+    Map<dynamic, dynamic> body = finalMap;
     log("rrr${body}");
     try {
       final res = await _dio.post(
         ApiRoutes.postUpdateTransportRequest,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
       if (res.statusCode == 200) {
-
         return CommonModel.fromJson(res.data);
       }
     } catch (e) {
@@ -1084,10 +1041,11 @@ class Repository {
     return null;
   }
 
-  static Future<CommonModel?> postUpdateTransportRequestStatus(String requestId, String transportStatus) async {
-    Map<String, dynamic> body =    {
-      "request_id" : requestId,
-      "status" : transportStatus,
+  static Future<CommonModel?> postUpdateTransportRequestStatus(
+      String requestId, String transportStatus) async {
+    Map<String, dynamic> body = {
+      "request_id": requestId,
+      "status": transportStatus,
     };
     try {
       final res = await _dio.post(
@@ -1105,8 +1063,9 @@ class Repository {
     return null;
   }
 
-  static Future<CommonModel?> postCloseTransportRequest(String requestId) async {
-   /* Map<String, dynamic> body = {
+  static Future<CommonModel?> postCloseTransportRequest(
+      String requestId) async {
+    /* Map<String, dynamic> body = {
       "request_id":requestId,
       "is_hidden":true,
     };
@@ -1130,7 +1089,10 @@ class Repository {
       'Authorization': 'Bearer $accessToken',
       'Content-Type': 'application/json'
     };
-    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/close_checkout_request'));
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://dev.projsite.com/delivery_management_api/public/api/close_checkout_request'));
     request.body = json.encode({
       "request_id": requestId,
       "is_hidden": true,
@@ -1144,13 +1106,11 @@ class Repository {
       var data = await response.stream.bytesToString();
       var dataData = jsonDecode(data);
       return CommonModel.fromJson(dataData);
-    }
-    else {
-
-    }
+    } else {}
   }
 
-  static Future<OrganizationsModel?> postOrganizations({required String organization_id}) async {
+  static Future<OrganizationsModel?> postOrganizations(
+      {required String organization_id}) async {
     Map<String, dynamic> body = {"organization_id": orgId};
 
     try {
@@ -1167,7 +1127,10 @@ class Repository {
     return null;
   }
 
-  static Future<UserSubProjectListModel?> postUserSubProjectList({required String user_id,required String project_id,required String organization_id}) async {
+  static Future<UserSubProjectListModel?> postUserSubProjectList(
+      {required String user_id,
+      required String project_id,
+      required String organization_id}) async {
     Map<String, dynamic> body = {
       "user_id": user_id,
       "project_id": project_id,
@@ -1187,15 +1150,16 @@ class Repository {
     return null;
   }
 
-  static Future<DeleteLogisticModel?> postDeleteLogistic(String logisticId) async {
-    Map<String, dynamic> body = {
-      "logistic_id": logisticId,
-      "is_hidden": true
-    };
+  static Future<DeleteLogisticModel?> postDeleteLogistic(
+      String logisticId) async {
+    Map<String, dynamic> body = {"logistic_id": logisticId, "is_hidden": true};
     try {
       final res = await _dio.post(
         ApiRoutes.postDeleteLogistic,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -1208,7 +1172,8 @@ class Repository {
     return null;
   }
 
-  static Future<EditLogisticModel?> postEditLogistic(Map<String, dynamic> body) async {
+  static Future<EditLogisticModel?> postEditLogistic(
+      Map<String, dynamic> body) async {
     try {
       final res = await _dio.post(
         ApiRoutes.postEditLogistic,
@@ -1225,7 +1190,8 @@ class Repository {
     return null;
   }
 
-  static Future<CheckoutLogisticModel?> postCheckoutLogistic(Map<String, dynamic> body) async {
+  static Future<CheckoutLogisticModel?> postCheckoutLogistic(
+      Map<String, dynamic> body) async {
     try {
       final res = await _dio.post(
         ApiRoutes.postCheckoutLogistic,
@@ -1291,17 +1257,21 @@ class Repository {
   }
 
   static Future<AddShipmentModel?> postAddShipment(Map finalMap) async {
-    Map<dynamic, dynamic> body =finalMap;
+    Map<dynamic, dynamic> body = finalMap;
     log("rrr${body}");
     try {
       final res = await _dio.post(
         ApiRoutes.postAddShipmentRequest,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
 
       if (res.statusCode == 200) {
-        final data = Map<String, dynamic>.from(res.data) as Map<String, dynamic>;
+        final data =
+            Map<String, dynamic>.from(res.data) as Map<String, dynamic>;
         return AddShipmentModel.fromJson(data);
       }
     } catch (e) {
@@ -1312,7 +1282,7 @@ class Repository {
   }
 
   static Future<UpdateShipmentModel?> postUpdateShipment(Map finalMap) async {
-    Map<dynamic, dynamic> body =finalMap;
+    Map<dynamic, dynamic> body = finalMap;
     // Map<String, dynamic> body = {
     //   "_id": "63145434b86d8c614627caf2",
     //   "project_id": "6040da014fdab967583a7eb2",
@@ -1403,14 +1373,17 @@ class Repository {
     //   "api": true
     // };
     log(jsonEncode(body));
-     try {
+    try {
       final res = await _dio.post(
         ApiRoutes.postUpdateShipmentRequest,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-       // log(res.data);
+        // log(res.data);
 
         return UpdateShipmentModel.fromJson(res.data);
       }
@@ -1418,7 +1391,6 @@ class Repository {
       print(e);
       return null;
     }
-
 
     /*var headers = {
       'token': accessToken,
@@ -1440,13 +1412,11 @@ class Repository {
       print(response.reasonPhrase);
     }*/
 
-
     return null;
   }
 
   static Future<CommonModel?> postCloseShipment(String requestId) async {
-
-   /* Map<String, dynamic> body = {
+    /* Map<String, dynamic> body = {
       "request_id":requestId,
       "is_hidden":true,
       "close_all_recurring":true,
@@ -1471,7 +1441,10 @@ class Repository {
       'Authorization': 'Bearer $accessToken',
       'Content-Type': 'application/json'
     };
-    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/close_request'));
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://dev.projsite.com/delivery_management_api/public/api/close_request'));
     request.body = json.encode({
       "request_id": requestId,
       "is_hidden": true,
@@ -1485,20 +1458,18 @@ class Repository {
       var data = await response.stream.bytesToString();
       var dataData = jsonDecode(data);
       return CommonModel.fromJson(dataData);
-    }
-    else {
-
-    }
-
+    } else {}
   }
 
   static Future<AddTerminalModel?> postAddTerminal(Map finalMap) async {
-
     Map<dynamic, dynamic> body = finalMap;
     try {
       final res = await _dio.post(
         ApiRoutes.postAddTerminal,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: finalMap,
       );
 
@@ -1514,11 +1485,14 @@ class Repository {
   }
 
   static Future<UpdateTerminalModel?> postUpdateTerminal(Map finalMap) async {
-    Map<dynamic, dynamic> body =finalMap;
+    Map<dynamic, dynamic> body = finalMap;
     try {
       final res = await _dio.post(
         ApiRoutes.postUpdateTerminal,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -1529,8 +1503,6 @@ class Repository {
       return null;
     }
     return null;
-
-
 
     /*var headers = {
       'token': accessToken,
@@ -1582,12 +1554,12 @@ class Repository {
       'Authorization': 'Bearer $accessToken',
       'Content-Type': 'application/json'
     };
-    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/close_terminal_request'));
-    request.body = json.encode({
-      "request_id": requestId,
-      "is_hidden": true,
-      "delete_logistics": true
-    });
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://dev.projsite.com/delivery_management_api/public/api/close_terminal_request'));
+    request.body = json.encode(
+        {"request_id": requestId, "is_hidden": true, "delete_logistics": true});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -1596,16 +1568,13 @@ class Repository {
       var data = await response.stream.bytesToString();
       var dataData = jsonDecode(data);
       return CommonModel.fromJson(dataData);
-    }
-    else {
-
-    }
-
+    } else {}
   }
 
-  static Future<CommonModel?> postUpdateApprovalStatus(String status, String requestId) async {
+  static Future<CommonModel?> postUpdateApprovalStatus(
+      String status, String requestId) async {
     Map<String, dynamic> body = {
-      "status":status,
+      "status": status,
       "request_id": requestId,
       "update_all_recurring": true,
       "recurring_id": ""
@@ -1613,7 +1582,10 @@ class Repository {
     try {
       final res = await _dio.post(
         ApiRoutes.postUpdateApprovalStatus,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -1626,10 +1598,11 @@ class Repository {
     return null;
   }
 
-  static Future<CommonModel?> postUpdateTransportStatus(String requestId, String transportStatus) async {
-    Map<String, dynamic> body =    {
-      "id" : requestId,
-      "transport_status" : transportStatus,
+  static Future<CommonModel?> postUpdateTransportStatus(
+      String requestId, String transportStatus) async {
+    Map<String, dynamic> body = {
+      "id": requestId,
+      "transport_status": transportStatus,
       // "checkpoint" : true,
       // "arrived_at" : false,
       // "in_progress_at" : "2022-12-01T00:00",
@@ -1651,10 +1624,11 @@ class Repository {
     return null;
   }
 
-  static Future<CommonModel?> postUpdateTerminalStatus(String requestId, String transportStatus) async {
-    Map<String, dynamic> body =    {
-      "request_id" : requestId,
-      "status" : transportStatus,
+  static Future<CommonModel?> postUpdateTerminalStatus(
+      String requestId, String transportStatus) async {
+    Map<String, dynamic> body = {
+      "request_id": requestId,
+      "status": transportStatus,
       // "checkpoint" : true,
       // "arrived_at" : false,
       // "in_progress_at" : "2022-12-01T00:00",
@@ -1676,14 +1650,13 @@ class Repository {
     return null;
   }
 
-  static Future<GetBookingFormModel?> postBookingFormNotification() async {
-    Map<String, dynamic> body = {
-        "project_id": "6040da014fdab967583a7eb2"
-    };
+  static Future<GetBookingFormModel?> postBookingFormNotification(
+      String projectId) async {
+    Map<String, dynamic> body = {"project_id": projectId};
     try {
       final res = await _dio.post(
         ApiRoutes.postBookingFormNotification,
-        options: Options(headers: {"token":accessToken}),
+        options: Options(headers: {"token": accessToken}),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -1696,50 +1669,173 @@ class Repository {
     return null;
   }
 
-  static Future<SaveBookingFormModel?> postSaveBookingFormNotification({required List<dynamic> shipment,required List<dynamic> environment,}) async {
+  static Future<SaveBookingFormModel?> postSaveBookingFormNotification(
+      {required String type,
+      required String id,
+      List<dynamic>? shipment,
+      List<dynamic>? environment}) async {
 
-    log("list$shipment");
-    Map<String, dynamic> body = {
-      "_id": "6040da014fdab967583a7eb2",
-      "project_settings": {
-        "resource":shipment[0],
-        "zone":shipment[1],
-        "contractor":shipment[2],
-        "responsible_person":shipment[3],
-        "zones_simultaneously":false,
-        "type_of_vehicle":environment[7],
-        "vehicle_capacity":environment[4],
-        "driving_distance":environment[5],
-        "addresses":environment[6],
-        "load_weight":environment[3],
-        "delivery_supplier":environment[0],
-        "euro_class":environment[1],
-        "type_of_fuel":environment[2],
-        "sub_project":shipment[4]
-      }
-    };
-    try {
+  /*  try {
       final res = await _dio.post(
         ApiRoutes.postSaveBookingFormNotification,
         options: Options(headers: {"token": accessToken}),
-        data: body,
+        data: bodyBooking,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        return SaveBookingFormModel.fromJson(jsonDecode(res.data));
+        return SaveBookingFormModel.fromJson(res.data);
       }
     } catch (e) {
       print(e);
       return null;
     }
-    return null;
+    return null;*/
+
+    var headers = {
+      'token': accessToken,
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/update-mail-sms-settings'));
+    request.body = json.encode({
+      "_id": id,
+      "project_settings": {
+        "resource": shipment![0],
+        "zone": shipment[1],
+        "contractor": shipment[2],
+        "responsible_person": shipment[3],
+        "sub_project": shipment[4],
+        "euro_class": environment![1],
+        "type_of_fuel": environment[2],
+        "load_weight": environment[3],
+        "vehicle_capacity": environment[4],
+        "driving_distance": environment[5],
+        "delivery_supplier": environment[0],
+        "type_of_vehicle": environment[7],
+      }
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return SaveBookingFormModel.fromJson(dataData);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+
   }
 
-  static Future<ProjectListModel?> postProjectList(String projectId, Map userInfo) async {
+  static Future<SaveBookingFormModel?> postSaveCalender(
+      {required String type,
+      required String id,
+      bool? zone,
+      bool? auto,
+      bool? waste}) async {
 
+
+ /*   try {
+      final res = await _dio.post(ApiRoutes.postSaveBookingFormNotification,
+          options: Options(headers: {"token": accessToken}),
+          data: bodyCalender);
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        return SaveBookingFormModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;*/
+    var headers = {
+      'token': accessToken,
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/update-project-settings'));
+    request.body = json.encode({
+      "_id": id,
+      "project_settings": {
+        "auto_approval": auto,
+        "waste_disposal": waste,
+        "zones_simultaneously": zone
+      }
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return SaveBookingFormModel.fromJson(dataData);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+  }
+
+  static Future<SaveBookingFormModel?> postSaveNotification(
+      {required String type, required String id, bool? mail, bool? sms}) async {
+
+
+ /*   try {
+      final res = await _dio.post(
+        ApiRoutes.postSaveBookingFormNotification,
+        options: Options(headers: {"token": accessToken}),
+        data: jsonEncode(bodyNotification),
+      );
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        return SaveBookingFormModel.fromJson(res.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;*/
+
+
+    var headers = {
+      'token': accessToken,
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/update-mail-sms-settings'));
+    request.body = json.encode({
+      "_id": id,
+      "mail_sms_settings": {
+        "mail": mail,
+        "sms": sms
+      }
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var dataData = jsonDecode(data);
+      return SaveBookingFormModel.fromJson(dataData);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+
+  }
+
+
+
+  static Future<ProjectListModel?> postProjectList(
+      String projectId, Map userInfo) async {
     Map<String, dynamic> body = {
       "user_info": userInfo,
-      "get_extra_info":true,
-      "get_extra_projects":true,
+      "get_extra_info": true,
+      "get_extra_projects": true,
       "type": "mobile",
     };
 
@@ -1762,13 +1858,15 @@ class Repository {
     }
     return null;*/
 
-
     var headers = {
       'token': accessToken,
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${accessToken}'
     };
-    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/get_users_projects_list'));
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://dev.projsite.com/delivery_management_api/public/api/get_users_projects_list'));
     request.body = json.encode({
       "user_info": userInfo,
       "get_extra_info": true,
@@ -1780,37 +1878,32 @@ class Repository {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-
       var data = await response.stream.bytesToString();
       var dataData = jsonDecode(data);
       return ProjectListModel.fromJson(dataData);
-    }
-    else {
+    } else {
       print(response.reasonPhrase);
     }
-
-
-
   }
 
-  static Future<ProjectDetailsModel?> postProjectDetails(String projectId) async {
+  static Future<ProjectDetailsModel?> postProjectDetails(
+      String projectId) async {
     Map<String, dynamic> body = {
       "id": projectId,
     };
 //    try {
-      final res = await _dio.post(
-       ApiRoutes.postProjectDetails,
-        options: Options(
-            headers: {"token":accessToken,'Content-Type': 'application/json'},
-        ),
-        data: body,
-      );
+    final res = await _dio.post(
+      ApiRoutes.postProjectDetails,
+      options: Options(
+        headers: {"token": accessToken, 'Content-Type': 'application/json'},
+      ),
+      data: body,
+    );
 
-      if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
-        log("ProjectDetailsModel=${res.data}");
-        return ProjectDetailsModel.fromJson(res.data);
-      }
+    if (res.statusCode! >= 200 && res.statusCode! < 300) {
+      log("ProjectDetailsModel=${res.data}");
+      return ProjectDetailsModel.fromJson(res.data);
+    }
     // } catch (e) {
     //   print(e);
     //   return null;
@@ -1820,31 +1913,13 @@ class Repository {
 
   ///------------------
 
-  static Future<SubProjectListModel?> postSubProjectList(String projectId, String orgId) async {
-
+  static Future<SubProjectListModel?> postSubProjectList(
+      String projectId, String orgId) async {
     Map<String, dynamic> body = {
       "organization_id": orgId,
       "project_id": projectId,
     };
 
-    /*try {
-      final res = await _dio.post(
-       ApiRoutes.postProjectList,
-        options: Options(
-            headers: {"token":accessToken,'Content-Type': 'application/json'},
-        ),
-        data: body,
-      );
-
-      if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        log("projectList${res.data}");
-        return ProjectListModel.fromJson(res.data);
-      }
-    } catch (e) {
-      print(e);
-      return null;
-    }
-    return null;*/
 
 
     try {
@@ -1861,12 +1936,10 @@ class Repository {
       return null;
     }
     return null;
-
-
   }
 
-  static Future<SubProjectUserListModel?> postSubProjectUserList(String subProjectId, String orgId) async {
-
+  static Future<SubProjectUserListModel?> postSubProjectUserList(
+      String subProjectId, String orgId) async {
     Map<String, dynamic> body = {
       "organization_id": orgId,
       "sub_project_id": subProjectId,
@@ -1891,7 +1964,6 @@ class Repository {
     }
     return null;*/
 
-
     try {
       final res = await _dio.post(
         ApiRoutes.subProjectUserList,
@@ -1906,21 +1978,24 @@ class Repository {
       return null;
     }
     return null;
-
-
   }
 
-  static Future<RemoveUserModel?> postRemoveUser({required String orgId, required String subProjectId, required String userId}) async {
-
+  static Future<RemoveUserModel?> postRemoveUser(
+      {required String orgId,
+      required String subProjectId,
+      required String userId}) async {
     Map<String, dynamic> body = {
       "organization_id": orgId,
-      "sub_project_id" : subProjectId,
-      "user_id" : userId
+      "sub_project_id": subProjectId,
+      "user_id": userId
     };
     try {
       final res = await _dio.post(
         ApiRoutes.removeUser,
-        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        options: Options(headers: {
+          "token": accessToken,
+          "Content-Type": "application/json"
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -1934,12 +2009,10 @@ class Repository {
     return null;
   }
 
-  static Future<UserListDropDownModel?> postUserListDropDown(String projectId) async {
-
+  static Future<UserListDropDownModel?> postUserListDropDown(
+      String projectId) async {
     Map<String, dynamic> body = {
-      "data": {
-        "project_id": projectId
-      }
+      "data": {"project_id": projectId}
     };
 
     /*try {
@@ -1961,7 +2034,6 @@ class Repository {
     }
     return null;*/
 
-
     try {
       final res = await _dio.post(
         ApiRoutes.userListDropDown,
@@ -1976,21 +2048,24 @@ class Repository {
       return null;
     }
     return null;
-
-
   }
 
-  static Future<AssignUserModel?> postAssignUser({required String orgId, required String subProjectId, required String userId}) async {
-
+  static Future<AssignUserModel?> postAssignUser(
+      {required String orgId,
+      required String subProjectId,
+      required String userId}) async {
     Map<String, dynamic> body = {
       "organization_id": orgId,
-      "sub_project_id" : subProjectId,
-      "user_id" : userId
+      "sub_project_id": subProjectId,
+      "user_id": userId
     };
     try {
       final res = await _dio.post(
         ApiRoutes.assignUser,
-        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        options: Options(headers: {
+          "token": accessToken,
+          "Content-Type": "application/json"
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -2004,18 +2079,24 @@ class Repository {
     return null;
   }
 
-  static Future<UpdateSubProjectModel?> postUpdateSubProject({required String orgId, required String subProjectId, required String projectId, required String name}) async {
-
+  static Future<UpdateSubProjectModel?> postUpdateSubProject(
+      {required String orgId,
+      required String subProjectId,
+      required String projectId,
+      required String name}) async {
     Map<String, dynamic> body = {
       "organization_id": orgId,
-      "project_id" : projectId,
-      "sub_project_id" : subProjectId,
-      "sub_project_name" : name,
+      "project_id": projectId,
+      "sub_project_id": subProjectId,
+      "sub_project_name": name,
     };
     try {
       final res = await _dio.post(
         ApiRoutes.updateSubProject,
-        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        options: Options(headers: {
+          "token": accessToken,
+          "Content-Type": "application/json"
+        }),
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -2032,15 +2113,17 @@ class Repository {
   ///-----------------
 
   static Future<List<EuroclassModel>?> postEuroclass() async {
-
     try {
       final res = await _dio.post(
         ApiRoutes.postEuroclass,
-        options: Options(headers: {"token": accessToken, 'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: {},
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        final List result= res.data;
+        final List result = res.data;
         return result.map(((e) => EuroclassModel.fromJson(e))).toList();
       }
     } catch (e) {
@@ -2054,11 +2137,14 @@ class Repository {
     try {
       final res = await _dio.post(
         ApiRoutes.postVehicle,
-        options: Options(headers: {"token": accessToken,'Content-Type': 'application/json'}),
+        options: Options(headers: {
+          "token": accessToken,
+          'Content-Type': 'application/json'
+        }),
         data: {},
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        final List result= res.data;
+        final List result = res.data;
         return result.map(((e) => VehicleModel.fromJson(e))).toList();
       }
     } catch (e) {
@@ -2069,7 +2155,6 @@ class Repository {
   }
 
   static Future<List<FuelModel>?> postFuel() async {
-
     try {
       final res = await _dio.post(
         ApiRoutes.postFuel,
@@ -2077,7 +2162,7 @@ class Repository {
         data: {},
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        final List result= res.data;
+        final List result = res.data;
         return result.map(((e) => FuelModel.fromJson(e))).toList();
       }
     } catch (e) {
@@ -2087,7 +2172,8 @@ class Repository {
     return null;
   }
 
-  static Future<ResourceListModel?> postResourcesList(String projectId, String organizationId) async {
+  static Future<ResourceListModel?> postResourcesList(
+      String projectId, String organizationId) async {
     Map<String, dynamic> body = {
       "organization_id": orgId,
       "project_id": projectId,
@@ -2100,7 +2186,6 @@ class Repository {
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
         return ResourceListModel.fromJson(res.data);
       }
     } catch (e) {
@@ -2110,7 +2195,8 @@ class Repository {
     return null;
   }
 
-  static Future<ZoneListModel?> postZoneList(String projectId, String organizationId) async {
+  static Future<ZoneListModel?> postZoneList(
+      String projectId, String organizationId) async {
     Map<String, dynamic> body = {
       "organization_id": organizationId,
       "project_id": projectId
@@ -2122,7 +2208,6 @@ class Repository {
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
         return ZoneListModel.fromJson(res.data);
       }
     } catch (e) {
@@ -2132,13 +2217,13 @@ class Repository {
     return null;
   }
 
-
-  static Future<UserListModel?> postUserList(String projectId, String organizationId, String companyId) async {
-    var headers = {
-      'token': accessToken,
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('POST', Uri.parse('https://dev.projsite.com/delivery_management_api/public/api/get_users'));
+  static Future<UserListModel?> postUserList(
+      String projectId, String organizationId, String companyId) async {
+    var headers = {'token': accessToken, 'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://dev.projsite.com/delivery_management_api/public/api/get_users'));
     request.body = json.encode({
       "data": {
         "organization_id": organizationId,
@@ -2154,12 +2239,11 @@ class Repository {
       var data = await response.stream.bytesToString();
       var dataData = jsonDecode(data);
       return UserListModel.fromJson(dataData);
-    }
-    else {
+    } else {
       print(response.reasonPhrase);
     }
 
-  /*  Map<String, dynamic> body = {
+    /*  Map<String, dynamic> body = {
       "organization_id":"5ffeb87c4fdab911f579a042",
       "company_id":"",
       "project_id":"6040da014fdab967583a7eb2"
@@ -2183,9 +2267,7 @@ class Repository {
   }
 
   static Future<List?> postFilterStatus(String id) async {
-    Map<String, dynamic> body = {
-      "id":id
-    };
+    Map<String, dynamic> body = {"id": id};
     try {
       final res = await _dio.post(
         ApiRoutes.postFilterStatus,
@@ -2194,7 +2276,7 @@ class Repository {
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         return res.data["data"].values.toList();
-       // return FilterStatusModel.fromJson(res.data);
+        // return FilterStatusModel.fromJson(res.data);
       }
     } catch (e) {
       print(e);
@@ -2204,9 +2286,7 @@ class Repository {
   }
 
   static Future<List?> postFilterTransportType(String id) async {
-    Map<String, dynamic> body = {
-      "id":id
-    };
+    Map<String, dynamic> body = {"id": id};
     try {
       final res = await _dio.post(
         ApiRoutes.postFilterTransportType,
@@ -2214,7 +2294,6 @@ class Repository {
         data: body,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
         return res.data["data"].values.toList();
       }
     } catch (e) {
@@ -2225,14 +2304,12 @@ class Repository {
   }
 
   static Future<PackageIInformationModel?> postPackageInformation() async {
-
     try {
       final res = await _dio.post(
         ApiRoutes.postPackageInfo,
         options: Options(headers: {"token": accessToken}),
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-
         return PackageIInformationModel.fromJson(res.data);
       }
     } catch (e) {
@@ -2243,20 +2320,18 @@ class Repository {
   }
 
   static Future<EventListModel?> postEventList(
-    String projectId,
-    String organizationId,
-    String mobileOrgId,
-    String startDate,
-    String endDate,
-    bool? isFilter,
-         List? filterResourceArray,
-         List? filterZoneArray,
-         List? filterEntrepreneurArray,
-         List? filterStatusArray,
-         List? filterTransportStatusArray,
-         List? filterSubprojectArray
-  ) async {
-
+      String projectId,
+      String organizationId,
+      String mobileOrgId,
+      String startDate,
+      String endDate,
+      bool? isFilter,
+      List? filterResourceArray,
+      List? filterZoneArray,
+      List? filterEntrepreneurArray,
+      List? filterStatusArray,
+      List? filterTransportStatusArray,
+      List? filterSubprojectArray) async {
     SharedPreferenceService prefs = SharedPreferenceService();
 
     /*Map<dynamic, dynamic> body = {
@@ -2278,43 +2353,51 @@ class Repository {
           };*/
 
     Map<dynamic, dynamic> bodyForDataFilter = {
-      "organization_id": organizationId,//mobileOrgId,
+      "organization_id": organizationId, //mobileOrgId,
       "project_id": projectId,
       "active_one": true,
       "start": startDate,
       "end": endDate,
       "unbooked_type": "regular",
-      "filter_resource_array":filterResourceArray?.length==0 ? null : filterResourceArray,
-      "filter_zone_array":filterZoneArray?.length==0 ? null : filterZoneArray,
-      "filter_entrepreneur_array":filterEntrepreneurArray?.length==0 ? null : filterEntrepreneurArray,
-      "filter_status_array":filterStatusArray?.length==0 ? null : filterStatusArray,
-      "filter_transport_status_array":filterTransportStatusArray?.length==0 ? null : filterTransportStatusArray,
-      "filter_type_array":null,
-      "filter_subproject_array":filterSubprojectArray?.length==0 ? null : filterSubprojectArray,
+      "filter_resource_array":
+          filterResourceArray?.length == 0 ? null : filterResourceArray,
+      "filter_zone_array":
+          filterZoneArray?.length == 0 ? null : filterZoneArray,
+      "filter_entrepreneur_array":
+          filterEntrepreneurArray?.length == 0 ? null : filterEntrepreneurArray,
+      "filter_status_array":
+          filterStatusArray?.length == 0 ? null : filterStatusArray,
+      "filter_transport_status_array": filterTransportStatusArray?.length == 0
+          ? null
+          : filterTransportStatusArray,
+      "filter_type_array": null,
+      "filter_subproject_array":
+          filterSubprojectArray?.length == 0 ? null : filterSubprojectArray,
     };
 
     Map<dynamic, dynamic> bodyForShowData = {
-      "organization_id":  organizationId,//mobileOrgId,
+      "organization_id": organizationId, //mobileOrgId,
       "project_id": projectId,
-      "active_one":true,
+      "active_one": true,
       "start": startDate,
       "end": endDate,
-      "unbooked_type":"regular",
-      "filter_resource_array":null,
-      "filter_zone_array":null,
-      "filter_entrepreneur_array":null,
-      "filter_status_array":null,
-      "filter_transport_status_array":[],
-      "filter_type_array":null,
-      "filter_subproject_array":null
+      "unbooked_type": "regular",
+      "filter_resource_array": null,
+      "filter_zone_array": null,
+      "filter_entrepreneur_array": null,
+      "filter_status_array": null,
+      "filter_transport_status_array": [],
+      "filter_type_array": null,
+      "filter_subproject_array": null
     };
-
-
 
     try {
       final res = await _dio.post(
         ApiRoutes.postEventList,
-        options: Options(headers: {"token": accessToken,"Content-Type":"application/json"}),
+        options: Options(headers: {
+          "token": accessToken,
+          "Content-Type": "application/json"
+        }),
         data: (isFilter == true) ? bodyForDataFilter : bodyForShowData,
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
@@ -2329,9 +2412,7 @@ class Repository {
   }
 
   static Future<RequestDataModel?> postRequestData(String requestId) async {
-    Map<String, dynamic> body = {
-      "request_id":requestId
-    };
+    Map<String, dynamic> body = {"request_id": requestId};
     try {
       final res = await _dio.post(
         ApiRoutes.postRequestData,
@@ -2349,7 +2430,8 @@ class Repository {
     return null;
   }
 
-  static Future<AddBookingModel?> postAddBooking(String requestId, String responsiblePerson) async {
+  static Future<AddBookingModel?> postAddBooking(
+      String requestId, String responsiblePerson) async {
     Map<String, dynamic> body = {
       "request_id": requestId,
       "event": "Pending",
@@ -2372,19 +2454,17 @@ class Repository {
     return null;
   }
 
-  static Future<List<BookingHistoryModel>?> postBookingHistory(String requestId) async {
+  static Future<List<BookingHistoryModel>?> postBookingHistory(
+      String requestId) async {
     try {
       final res = await _dio.post(
         ApiRoutes.postBookingHistory,
         options: Options(headers: {"token": accessToken}),
-        data: {
-          "request_id": requestId
-        },
+        data: {"request_id": requestId},
       );
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         log("booking data=${res.data}");
-        return
-        (res.data as List)
+        return (res.data as List)
             .map((x) => BookingHistoryModel.fromJson(x))
             .toList();
         // final List result = res.data;
@@ -2397,7 +2477,8 @@ class Repository {
     return null;
   }
 
-  static Future<WasteContainerListModel?> postWasteContainerList(String projectId) async {
+  static Future<WasteContainerListModel?> postWasteContainerList(
+      String projectId) async {
     Map<String, dynamic> body = {
       "project_id": projectId,
     };
@@ -2418,7 +2499,8 @@ class Repository {
     return null;
   }
 
-  static Future<WasteFractionListModel?> postWasteFractionList(String projectId) async {
+  static Future<WasteFractionListModel?> postWasteFractionList(
+      String projectId) async {
     Map<String, dynamic> body = {
       "project_id": projectId,
     };
@@ -2454,6 +2536,4 @@ class Repository {
     }
     return null;
   }
-
-
-  }
+}

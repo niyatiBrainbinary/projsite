@@ -15,9 +15,9 @@ class CalenderSetting extends StatefulWidget {
 }
 
 class _CalenderSettingState extends State<CalenderSetting> {
-  bool isZone = false;
-  bool isAutomatic = false;
-  bool isWaste = false;
+  // bool isZone = false;
+  // bool isAutomatic = false;
+  // bool isWaste = false;
   final MaterialStateProperty<Color?> trackColor =
       MaterialStateProperty.resolveWith<Color?>(
     (Set<MaterialState> states) {
@@ -44,8 +44,10 @@ class _CalenderSettingState extends State<CalenderSetting> {
 
   @override
   void initState() {
+
     _projectSettingCubit = BlocProvider.of<ProjectSettingCubit>(context);
-    _projectSettingCubit.GetBookingFormNotification();
+    _projectSettingCubit.GetBookingFormNotification(projectIdMain);
+
   }
 
 
@@ -112,7 +114,15 @@ class _CalenderSettingState extends State<CalenderSetting> {
                           });
                         }),
                     verticalSpaces(context, height: 20),
-                    commonButton(context: context, buttonName: "Save", onTap: (){}),
+                    commonButton(context: context, buttonName: "Save", onTap: (){
+                      _projectSettingCubit.SaveCalender(
+                            type: "calender",
+                            id: _projectSettingCubit.id ?? "",
+                            zone: _projectSettingCubit.zone,
+                            auto: _projectSettingCubit.auto,
+                            waste: _projectSettingCubit.waste,
+                      );
+                    }),
                   ],
                 );
               }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
 import 'package:proj_site/cubits/auth_cubit.dart';
 import 'package:proj_site/cubits/sub_project_user_list_cubit.dart';
@@ -84,15 +85,29 @@ class _ViewSubProjectState extends State<ViewSubProject> {
             getRoundedTexfield(hintText: "Enter Sub Project Name", controller: _subName, ctx: context),
             verticalSpaces(context, height: 10),
             Align(alignment: Alignment.center,
-                child: commonButton(context: context, buttonName: "Submit", onTap: (){
-                  _subProjectUserListCubit.UpdateSubProject(
-                     context: context,
-                    projectId: widget.projectId ?? "",
-                    subProjectId: widget.subProjectId ?? "",
-                    subProjectName:  _subName.text,
-                    orgId: widget.orgId ?? "",
-                  );
-                }),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    commonButton(context: context, buttonName: "Submit", onTap: (){
+                      _subProjectUserListCubit.UpdateSubProject(
+                        context: context,
+                        projectId: widget.projectId ?? "",
+                        subProjectId: widget.subProjectId ?? "",
+                        subProjectName:  _subName.text,
+                        orgId: widget.orgId ?? "",
+                      );
+                    }),
+                    horizontal(context, width: 20),
+                    commonButton(
+                        context: context,
+                        buttonName: "Cancel",
+                        width: 95,
+                        buttonColor: HexColor.Gray53.withOpacity(0.5),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
             )
           ],
         ),

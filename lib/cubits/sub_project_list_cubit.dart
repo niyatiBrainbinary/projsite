@@ -21,8 +21,6 @@ class SubProjectListLoading extends SubProjectListState {}
 class SubProjectListSuccess extends SubProjectListState {}
 class SubProjectListError extends SubProjectListState {}
 
-
-
 class SubProjectListCubit extends Cubit<SubProjectListState> {
   SubProjectListCubit() : super(SubProjectListInitial());
 
@@ -55,7 +53,7 @@ class SubProjectListCubit extends Cubit<SubProjectListState> {
         emit(SubProjectListError());
       }
     } else {
-      snackBar("Error to Load Data", false);
+      //snackBar("Error to Load Data", false);
       emit(SubProjectListError());
     }
 

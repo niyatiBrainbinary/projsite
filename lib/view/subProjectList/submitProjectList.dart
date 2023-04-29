@@ -65,7 +65,23 @@ class _SubmitProjectListState extends State<SubmitProjectList> {
             verticalSpaces(context, height: 100),
             getRoundedTexfield(hintText: "Enter Sub Project Name", controller: _subName, ctx: context),
             verticalSpaces(context, height: 10),
-            Align(alignment: Alignment.center,child: commonButton(context: context, buttonName: "Submit"))
+            Align(alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    commonButton(context: context, buttonName: "Submit"),
+                    horizontal(context, width: 20),
+                    commonButton(
+                        context: context,
+                        buttonName: "Cancel",
+                        width: 95,
+                        buttonColor: HexColor.Gray53.withOpacity(0.5),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+            ),
           ],
         ),
       ),

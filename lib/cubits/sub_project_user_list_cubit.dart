@@ -15,6 +15,7 @@ import 'package:proj_site/api%20service/models/sub_project_models/userListDropDo
 import 'package:proj_site/api%20service/repository.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
 import 'package:proj_site/cubits/auth_cubit.dart';
+import 'package:proj_site/cubits/sub_project_list_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 import 'package:proj_site/services/sharedpreference_service.dart';
 
@@ -189,7 +190,10 @@ class SubProjectUserListCubit extends Cubit<SubProjectUserListState> {
 
     if (response != null) {
       if (response.success == true) {
-
+        late SubProjectListCubit _subProjectListCubit;
+        _subProjectListCubit = BlocProvider.of<SubProjectListCubit>(context);
+        _subProjectListCubit.SubProjectList(
+            projectId, orgId, context);
         Navigator.of(context).pop();
         snackBar("Successfully", true);
         emit(UpdateSubProjectSuccess());

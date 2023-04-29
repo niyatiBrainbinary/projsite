@@ -21,14 +21,14 @@ class SubProjectListModel {
 
   factory SubProjectListModel.fromJson(Map<String, dynamic> json) => SubProjectListModel(
     success: json["success"],
-    subProjects: List<SubProject>.from(json["sub_projects"].map((x) => SubProject.fromJson(x))),
-    projectInfo: ProjectInfo.fromJson(json["project_info"]),
+    subProjects: json["sub_projects"] == null ? [] : List<SubProject>.from(json["sub_projects"]!.map((x) => SubProject.fromJson(x))),
+    projectInfo: json["project_info"] == null ? null : ProjectInfo.fromJson(json["project_info"]),
   );
 
   Map<String, dynamic> toJson() => {
     "success": success,
-    "sub_projects": List<dynamic>.from(subProjects!.map((x) => x.toJson())),
-    "project_info": projectInfo!.toJson(),
+    "sub_projects": subProjects == null ? [] : List<dynamic>.from(subProjects!.map((x) => x.toJson())),
+    "project_info": projectInfo?.toJson(),
   };
 }
 
@@ -44,8 +44,8 @@ class ProjectInfo {
   String? longitude;
   DateTime? updatedAt;
   DateTime? createdAt;
-  Map<String, bool>? projectSettings;
-  MailSmsSettings? mailSmsSettings;
+  ProjectSettings? projectSettings;
+  dynamic mailSmsSettings;
   String? wasteLogoId;
   bool? hasLogisticsModule;
   bool? hasShipmentModule;
@@ -93,10 +93,10 @@ class ProjectInfo {
     status: json["status"],
     latitude: json["latitude"],
     longitude: json["longitude"],
-    updatedAt: DateTime.parse(json["updated_at"]),
-    createdAt: DateTime.parse(json["created_at"]),
-    projectSettings: Map.from(json["project_settings"]).map((k, v) => MapEntry<String, bool>(k, v)),
-    mailSmsSettings: MailSmsSettings.fromJson(json["mail_sms_settings"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    projectSettings: json["project_settings"] == null ? null : ProjectSettings.fromJson(json["project_settings"]),
+    mailSmsSettings: json["mail_sms_settings"],
     wasteLogoId: json["waste_logo_id"],
     hasLogisticsModule: json["has_logistics_module"],
     hasShipmentModule: json["has_shipment_module"],
@@ -106,7 +106,7 @@ class ProjectInfo {
     checkpointLatitude: json["checkpoint_latitude"],
     checkpointLongitude: json["checkpoint_longitude"],
     checkpointPlaceId: json["checkpoint_placeId"],
-    projectTerminals: List<String>.from(json["project_terminals"].map((x) => x)),
+    projectTerminals: json["project_terminals"] == null ? [] : List<String>.from(json["project_terminals"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
@@ -119,10 +119,10 @@ class ProjectInfo {
     "status": status,
     "latitude": latitude,
     "longitude": longitude,
-    "updated_at": updatedAt!.toIso8601String(),
-    "created_at": createdAt!.toIso8601String(),
-    "project_settings": Map.from(projectSettings!.cast<String, bool>()).map((k, v) => MapEntry<String, bool>(k, v)),
-    "mail_sms_settings": mailSmsSettings!.toJson(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
+    "project_settings": projectSettings?.toJson(),
+    "mail_sms_settings": mailSmsSettings,
     "waste_logo_id": wasteLogoId,
     "has_logistics_module": hasLogisticsModule,
     "has_shipment_module": hasShipmentModule,
@@ -132,27 +132,83 @@ class ProjectInfo {
     "checkpoint_latitude": checkpointLatitude,
     "checkpoint_longitude": checkpointLongitude,
     "checkpoint_placeId": checkpointPlaceId,
-    "project_terminals": List<dynamic>.from(projectTerminals!.map((x) => x)),
+    "project_terminals": projectTerminals == null ? [] : List<dynamic>.from(projectTerminals!.map((x) => x)),
   };
 }
 
-class MailSmsSettings {
-  bool? mail;
-  bool? sms;
+class ProjectSettings {
+  bool? resource;
+  bool? zone;
+  bool? contractor;
+  bool? responsiblePerson;
+  bool? zonesSimultaneously;
+  bool? typeOfVehicle;
+  bool? vehicleCapacity;
+  bool? drivingDistance;
+  String? addresses;
+  bool? loadWeight;
+  bool? deliverySupplier;
+  bool? euroClass;
+  bool? typeOfFuel;
+  bool? subProject;
+  bool? autoApproval;
+  bool? wasteDisposal;
 
-  MailSmsSettings({
-    this.mail,
-    this.sms,
+  ProjectSettings({
+    this.resource,
+    this.zone,
+    this.contractor,
+    this.responsiblePerson,
+    this.zonesSimultaneously,
+    this.typeOfVehicle,
+    this.vehicleCapacity,
+    this.drivingDistance,
+    this.addresses,
+    this.loadWeight,
+    this.deliverySupplier,
+    this.euroClass,
+    this.typeOfFuel,
+    this.subProject,
+    this.autoApproval,
+    this.wasteDisposal,
   });
 
-  factory MailSmsSettings.fromJson(Map<String, dynamic> json) => MailSmsSettings(
-    mail: json["mail"],
-    sms: json["sms"],
+  factory ProjectSettings.fromJson(Map<String, dynamic> json) => ProjectSettings(
+    resource: json["resource"],
+    zone: json["zone"],
+    contractor: json["contractor"],
+    responsiblePerson: json["responsible_person"],
+    zonesSimultaneously: json["zones_simultaneously"],
+    typeOfVehicle: json["type_of_vehicle"],
+    vehicleCapacity: json["vehicle_capacity"],
+    drivingDistance: json["driving_distance"],
+    addresses: json["addresses"],
+    loadWeight: json["load_weight"],
+    deliverySupplier: json["delivery_supplier"],
+    euroClass: json["euro_class"],
+    typeOfFuel: json["type_of_fuel"],
+    subProject: json["sub_project"],
+    autoApproval: json["auto_approval"],
+    wasteDisposal: json["waste_disposal"],
   );
 
   Map<String, dynamic> toJson() => {
-    "mail": mail,
-    "sms": sms,
+    "resource": resource,
+    "zone": zone,
+    "contractor": contractor,
+    "responsible_person": responsiblePerson,
+    "zones_simultaneously": zonesSimultaneously,
+    "type_of_vehicle": typeOfVehicle,
+    "vehicle_capacity": vehicleCapacity,
+    "driving_distance": drivingDistance,
+    "addresses": addresses,
+    "load_weight": loadWeight,
+    "delivery_supplier": deliverySupplier,
+    "euro_class": euroClass,
+    "type_of_fuel": typeOfFuel,
+    "sub_project": subProject,
+    "auto_approval": autoApproval,
+    "waste_disposal": wasteDisposal,
   };
 }
 
@@ -181,8 +237,8 @@ class SubProject {
     projectId: json["project_id"],
     organizationId: json["organization_id"],
     isDeleted: json["is_deleted"],
-    updatedAt: DateTime.parse(json["updated_at"]),
-    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -191,7 +247,7 @@ class SubProject {
     "project_id": projectId,
     "organization_id": organizationId,
     "is_deleted": isDeleted,
-    "updated_at": updatedAt!.toIso8601String(),
-    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
   };
 }

@@ -46,7 +46,7 @@ class _BookingFormSettingState extends State<BookingFormSetting> {
   @override
   void initState() {
     _projectSettingCubit = BlocProvider.of<ProjectSettingCubit>(context);
-    _projectSettingCubit.GetBookingFormNotification();
+    _projectSettingCubit.GetBookingFormNotification(projectIdMain);
   }
 
   @override
@@ -133,6 +133,19 @@ with the booking""",
                                 });
                           },
                         ),
+                        verticalSpaces(context, height: 20),
+                        Align(
+                          alignment: Alignment.center,
+                          child: commonButton(context: context, buttonName: "Save", onTap: (){
+                            _projectSettingCubit.SaveBookingFormNotification(
+                                type: "booking",
+                                id: _projectSettingCubit.id ?? "",
+                                shipment: _projectSettingCubit.shipmentData,
+                                environment: _projectSettingCubit.environmentData,
+                            );
+                          }),
+                        ),
+                        verticalSpaces(context, height: 20),
                       ],
                     ),
                   ),
