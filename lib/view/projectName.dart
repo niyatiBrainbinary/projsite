@@ -11,6 +11,7 @@ import 'package:proj_site/view/logisticList/terminalList.dart';
 import 'package:proj_site/view/projectDetails.dart';
 import 'package:proj_site/view/projectName/calenderView.dart';
 import 'package:proj_site/view/rentalList/rentalMainPage.dart';
+import 'package:proj_site/view/statistics/statistic.dart';
 
 class ProjectName extends StatefulWidget {
   static const id = 'ProjectName_screen';
@@ -84,7 +85,7 @@ class _ProjectNameState extends State<ProjectName> {
                       }else if(index == 2){
                         Navigation.instance.navigate(ApdPlanMainPage.id);
                       } else if(index == 3){
-
+                        Navigation.instance.navigate(StatisticScreen.id);
                       }else if(index == 4){
                         Navigation.instance.navigate(TerminalList.id);
                       } else if(index == 5){

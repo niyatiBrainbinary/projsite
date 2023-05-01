@@ -23,6 +23,7 @@ import 'package:proj_site/view/rentalList/rentalMainPage.dart';
 import 'package:proj_site/view/logisticList/transportRequestShipment.dart';
 import 'package:proj_site/view/signIn.dart';
 import 'package:proj_site/view/splash.dart';
+import 'package:proj_site/view/statistics/statistic.dart';
 import 'package:proj_site/view/subProjectList/addNew.dart';
 import 'package:proj_site/view/subProjectList/asignUsers.dart';
 import 'package:proj_site/view/subProjectList/submitProjectList.dart';
@@ -145,6 +146,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case RentalMainPage.id:
       return MaterialPageRoute(
         builder: (context) => RentalMainPage(),
+      );
+    case StatisticScreen.id:
+      return MaterialPageRoute(
+        builder: (context) => StatisticScreen(),
       );
     case RentalInformation.id:
       return MaterialPageRoute(
