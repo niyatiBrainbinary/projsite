@@ -44,8 +44,8 @@ class ProjectInfo {
   String? longitude;
   DateTime? updatedAt;
   DateTime? createdAt;
-  ProjectSettings? projectSettings;
-  dynamic mailSmsSettings;
+  Map<String, bool>? projectSettings;
+  MailSmsSettings? mailSmsSettings;
   String? wasteLogoId;
   bool? hasLogisticsModule;
   bool? hasShipmentModule;
@@ -95,8 +95,8 @@ class ProjectInfo {
     longitude: json["longitude"],
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    projectSettings: json["project_settings"] == null ? null : ProjectSettings.fromJson(json["project_settings"]),
-    mailSmsSettings: json["mail_sms_settings"],
+    projectSettings: Map.from(json["project_settings"]!).map((k, v) => MapEntry<String, bool>(k, v)),
+    mailSmsSettings: json["mail_sms_settings"] == null ? null : MailSmsSettings.fromJson(json["mail_sms_settings"]),
     wasteLogoId: json["waste_logo_id"],
     hasLogisticsModule: json["has_logistics_module"],
     hasShipmentModule: json["has_shipment_module"],
@@ -121,8 +121,8 @@ class ProjectInfo {
     "longitude": longitude,
     "updated_at": updatedAt?.toIso8601String(),
     "created_at": createdAt?.toIso8601String(),
-    "project_settings": projectSettings?.toJson(),
-    "mail_sms_settings": mailSmsSettings,
+    "project_settings": Map.from(projectSettings!).map((k, v) => MapEntry<String, dynamic>(k, v)),
+    "mail_sms_settings": mailSmsSettings?.toJson(),
     "waste_logo_id": wasteLogoId,
     "has_logistics_module": hasLogisticsModule,
     "has_shipment_module": hasShipmentModule,
@@ -136,79 +136,23 @@ class ProjectInfo {
   };
 }
 
-class ProjectSettings {
-  bool? resource;
-  bool? zone;
-  bool? contractor;
-  bool? responsiblePerson;
-  bool? zonesSimultaneously;
-  bool? typeOfVehicle;
-  bool? vehicleCapacity;
-  bool? drivingDistance;
-  String? addresses;
-  bool? loadWeight;
-  bool? deliverySupplier;
-  bool? euroClass;
-  bool? typeOfFuel;
-  bool? subProject;
-  bool? autoApproval;
-  bool? wasteDisposal;
+class MailSmsSettings {
+  bool? mail;
+  bool? sms;
 
-  ProjectSettings({
-    this.resource,
-    this.zone,
-    this.contractor,
-    this.responsiblePerson,
-    this.zonesSimultaneously,
-    this.typeOfVehicle,
-    this.vehicleCapacity,
-    this.drivingDistance,
-    this.addresses,
-    this.loadWeight,
-    this.deliverySupplier,
-    this.euroClass,
-    this.typeOfFuel,
-    this.subProject,
-    this.autoApproval,
-    this.wasteDisposal,
+  MailSmsSettings({
+    this.mail,
+    this.sms,
   });
 
-  factory ProjectSettings.fromJson(Map<String, dynamic> json) => ProjectSettings(
-    resource: json["resource"],
-    zone: json["zone"],
-    contractor: json["contractor"],
-    responsiblePerson: json["responsible_person"],
-    zonesSimultaneously: json["zones_simultaneously"],
-    typeOfVehicle: json["type_of_vehicle"],
-    vehicleCapacity: json["vehicle_capacity"],
-    drivingDistance: json["driving_distance"],
-    addresses: json["addresses"],
-    loadWeight: json["load_weight"],
-    deliverySupplier: json["delivery_supplier"],
-    euroClass: json["euro_class"],
-    typeOfFuel: json["type_of_fuel"],
-    subProject: json["sub_project"],
-    autoApproval: json["auto_approval"],
-    wasteDisposal: json["waste_disposal"],
+  factory MailSmsSettings.fromJson(Map<String, dynamic> json) => MailSmsSettings(
+    mail: json["mail"],
+    sms: json["sms"],
   );
 
   Map<String, dynamic> toJson() => {
-    "resource": resource,
-    "zone": zone,
-    "contractor": contractor,
-    "responsible_person": responsiblePerson,
-    "zones_simultaneously": zonesSimultaneously,
-    "type_of_vehicle": typeOfVehicle,
-    "vehicle_capacity": vehicleCapacity,
-    "driving_distance": drivingDistance,
-    "addresses": addresses,
-    "load_weight": loadWeight,
-    "delivery_supplier": deliverySupplier,
-    "euro_class": euroClass,
-    "type_of_fuel": typeOfFuel,
-    "sub_project": subProject,
-    "auto_approval": autoApproval,
-    "waste_disposal": wasteDisposal,
+    "mail": mail,
+    "sms": sms,
   };
 }
 

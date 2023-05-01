@@ -124,6 +124,8 @@ class ApiRoutes{
   static const String userListDropDown = '/get_users';
   static const String assignUser = '/assign_sub_project_user';
   static const String updateSubProject = '/update_sub_project';
+  static const String createSubProject = '/create_sub_project';
+
 
 
 }

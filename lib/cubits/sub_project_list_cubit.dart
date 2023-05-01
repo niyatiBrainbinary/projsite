@@ -1,10 +1,12 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:proj_site/api%20service/models/project_list_models/project_details_model.dart';
 import 'package:proj_site/api%20service/models/project_list_models/project_list_model.dart';
+import 'package:proj_site/api%20service/models/sub_project_models/add_new_sub_project.dart';
 import 'package:proj_site/api%20service/models/sub_project_models/sub_project_list_model.dart';
 import 'package:proj_site/api%20service/repository.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
@@ -20,6 +22,10 @@ class SubProjectListInitial extends SubProjectListState {}
 class SubProjectListLoading extends SubProjectListState {}
 class SubProjectListSuccess extends SubProjectListState {}
 class SubProjectListError extends SubProjectListState {}
+
+class AddSubProjectLoading extends SubProjectListState {}
+class AddSubProjectSuccess extends SubProjectListState {}
+class AddSubProjectError extends SubProjectListState {}
 
 class SubProjectListCubit extends Cubit<SubProjectListState> {
   SubProjectListCubit() : super(SubProjectListInitial());
@@ -59,21 +65,37 @@ class SubProjectListCubit extends Cubit<SubProjectListState> {
 
   }
 
- /* void ProjectDetails(String projectId) async {
-    emit(ProjectDetailsLoading());
-    projectDetails = await Repository.postProjectDetails(projectId);
+  void AddSubProject({
+    required BuildContext context,
+    required String orgId,
+    required String projectId,
+    required String subProjectName
+  })
+  async {
 
-    if (projectDetails != null) {
-      if (projectDetails!.success == true) {
-        emit(ProjectDetailsSuccess());
+    emit(AddSubProjectLoading());
+
+    AddNewSubProjectModel? response = await Repository.postAddSubProject(orgId: orgId, projectId: projectId, name: subProjectName);
+
+    if (response != null) {
+      if (response.success == true) {
+
+       SubProjectList(projectId, orgId, context);
+
+        Navigator.of(context).pop();
+
+        snackBar("Successfully", true);
+        emit(AddSubProjectSuccess());
+
       } else {
         snackBar("Something Went Wrong", false);
-        emit(ProjectDetailsError());
+        emit(AddSubProjectError());
       }
     } else {
       snackBar("Error to Load Data", false);
-      emit(ProjectDetailsError());
+      emit(AddSubProjectError());
     }
-  }*/
+  }
+
 
 }

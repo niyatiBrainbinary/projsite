@@ -846,10 +846,11 @@ getIconWithUnderlineText(
   );
 }
 
-getSimpleTwoRowText(
-    {required BuildContext ctx,
-    required String tittle1,
-    required String tittle2}) {
+getSimpleTwoRowText({
+  required BuildContext ctx,
+  required String tittle1,
+  required String tittle2,
+}) {
   return getCommonContainer(
     height: screenHeight(ctx, dividedBy: 16),
     width: screenWidth(ctx),
@@ -1066,12 +1067,14 @@ getSwitchWithTittleAndSubTittle(
   );
 }
 
-getSimpleTwoRowTextAndButton(
-    {required BuildContext ctx,
-    required String tittle1,
-    required String tittle2,
-    required String buttonName,
-    }) {
+getSimpleTwoRowTextAndButton({
+  required BuildContext ctx,
+  required String tittle1,
+  required String tittle2,
+  required String buttonName,
+  required String projectId,
+  required String orgId,
+}) {
   return getCommonContainer(
     height: screenHeight(ctx, dividedBy: 10),
     padding: EdgeInsets.all(3),
@@ -1101,10 +1104,14 @@ getSimpleTwoRowTextAndButton(
           buttonName: buttonName,
           buttonTextSize: 12,
           onTap: () {
+            Navigator.of(ctx).push(MaterialPageRoute(
+                builder: (context) => SubmitProjectList(
 
-Navigator.of(ctx).push(MaterialPageRoute(
-builder: (context) => SubmitProjectList(projectName: tittle2,)));
+                      projectName: tittle2,
+projectId: projectId,
+orgId: orgId,
 
+                    )));
           },
         ))
       ],

@@ -110,7 +110,10 @@ class _AddNewState extends State<AddNew> {
                 ctx: context,
                 tittle1: "Sub Project List",
                 tittle2: widget.projectName ?? "",
-                buttonName: 'Add New'),
+                buttonName: 'Add New',
+              projectId: projectIdMain,
+              orgId: authCub.userInfoLogin!.mobileOrganizationId!
+            ),
             verticalSpaces(context, height: 20),
             Expanded(
               child: BlocBuilder<SubProjectListCubit, SubProjectListState>(

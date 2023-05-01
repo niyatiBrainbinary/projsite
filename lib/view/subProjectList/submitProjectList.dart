@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj_site/common/colors/colors.dart';
 import 'package:proj_site/common/image_constant/image_constant.dart';
 import 'package:proj_site/common/widget_constant/widget_constant.dart';
+import 'package:proj_site/cubits/auth_cubit.dart';
+import 'package:proj_site/cubits/sub_project_list_cubit.dart';
 import 'package:proj_site/helper/helper.dart';
 
 class SubmitProjectList extends StatefulWidget {
   static const id = 'SubmitProjectList_screen';
   String? projectName;
+  String? projectId;
+  String? orgId;
 
-  SubmitProjectList({Key? key, this.projectName}) : super(key: key);
+  SubmitProjectList({Key? key, this.projectName, this.projectId, this.orgId}) : super(key: key);
 
   @override
   _SubmitProjectListState createState() => _SubmitProjectListState();
 }
 
 class _SubmitProjectListState extends State<SubmitProjectList> {
-  final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
+  //final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
   TextEditingController _subName = TextEditingController();
+
+  late SubProjectListCubit _subProjectListCubit;
+  late AuthCubit authCub;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    authCub = BlocProvider.of<AuthCubit>(context);
+    _subProjectListCubit = BlocProvider.of<SubProjectListCubit>(context);
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +88,9 @@ class _SubmitProjectListState extends State<SubmitProjectList> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    commonButton(context: context, buttonName: "Submit"),
+                    commonButton(context: context, buttonName: "Submit", onTap: (){
+                      _subProjectListCubit.AddSubProject(context: context, projectId: widget.projectId!, orgId: widget.orgId!, subProjectName: _subName.text.toString());
+                    }),
                     horizontal(context, width: 20),
                     commonButton(
                         context: context,

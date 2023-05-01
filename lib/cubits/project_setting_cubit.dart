@@ -68,7 +68,7 @@ String? id;
          waste = data['waste_disposal'] == "true" ? true : false;
 */
 
-       /*  shipmentData=
+         shipmentData=
          [
            data['resource'],
            data['zone'],
@@ -89,9 +89,9 @@ String? id;
 
          zone = data['zone'] ?? false;
          auto = data['auto_approval'] ?? false;
-         waste = data['waste_disposal'] ?? false;*/
+         waste = data['waste_disposal'] ?? false;
 
-         shipmentData=
+      /*   shipmentData=
          [
            data.resource,
            data.zone,
@@ -112,7 +112,7 @@ String? id;
 
          zone = data.zone ?? false;
          auto = data.autoApproval ?? false;
-         waste = data.wasteDisposal ?? false;
+         waste = data.wasteDisposal ?? false;*/
 
          isMail = data2?.mail ?? false;
          isSms = data2?.sms ?? false;
