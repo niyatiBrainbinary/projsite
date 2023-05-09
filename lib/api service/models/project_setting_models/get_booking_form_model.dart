@@ -46,7 +46,7 @@ class ProjectInfo {
   bool? hasLogisticsModule;
   bool? hasShipmentModule;
   String? placeId;
-  String? checkpoint;
+  bool? checkpoint;
   String? checkpointLocation;
   String? checkpointLatitude;
   String? checkpointLongitude;
