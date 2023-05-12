@@ -767,7 +767,8 @@ class _CalenderViewState extends State<CalenderView>
                                     },
                                   ),
                                 ),
-                                PopupMenuButton(
+                               SizedBox(width: 20),
+                               /* PopupMenuButton(
                                     constraints: BoxConstraints(maxWidth: 150),
                                     icon: Icon(
                                       Icons.more_vert_outlined,
@@ -894,7 +895,7 @@ class _CalenderViewState extends State<CalenderView>
                                                   fontSize: 14),
                                             ),
                                           ),
-                                        ])
+                                        ])*/
                               ],
                             ),
                           ),

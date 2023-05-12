@@ -67,10 +67,8 @@ class AuthCubit extends Cubit<AuthState> {
         userOrganization=response.userOrganization!;
         userInfoLogin=response.userInfo;
 
-        String user = jsonEncode(
-                     UserInfo.fromJson(response.userInfo!.toJson()));
-        String rolle = jsonEncode(
-                     Role.fromJson(response.role!.toJson()));
+        String user = jsonEncode(UserInfo.fromJson(response.userInfo!.toJson()));
+        String rolle =jsonEncode(Role.fromJson(response.role!.toJson()));
 
         for(int i=0; i<response.userOrganization!.length;i++){
           String singleUserOrganization = jsonEncode(
