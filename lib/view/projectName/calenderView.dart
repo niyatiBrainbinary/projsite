@@ -44,8 +44,10 @@ class _CalenderViewState extends State<CalenderView>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
 
+
   final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
-  List<String> _weekDays = ["M", "T", "W", "T", "F", "S", "S"];
+  List<String> _weekDays = ["M", "T", "W", "T", "F"];
+  List<String> _weekDays2 = ["M", "T", "W", "T", "F", "S", "S"];
   List<String> _list = [
     "Not specified",
     "To Terminal Transport",
@@ -647,395 +649,421 @@ class _CalenderViewState extends State<CalenderView>
                 ),
                 BlocBuilder<CalendarCubit, CalendarState>(
                   builder: (context, state) {
-                    return Container(
-                      height: _selectedIndex == 3
-                          ? screenHeight(context, dividedBy: 10)
-                          : screenHeight(context, dividedBy: 5.8),
-                      width: screenWidth(context),
-                      margin: EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: HexColor.Gray53.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: Offset(0, 5), // changes position of shadow
+                    calenderCub.fun();
+                    return Stack(
+                      alignment: Alignment(-0.95,0.4),
+                      children: [
+                        Container(
+                          height: _selectedIndex == 3
+                              ? screenHeight(context, dividedBy: 10)
+                              : screenHeight(context, dividedBy: 5.8),
+                          width: screenWidth(context),
+                          margin: EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: HexColor.Gray53.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 5), // changes position of shadow
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            color: Colors.transparent,
-                            height: 50,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                _selectedIndex == 0
-                                    ? Container(
-                                        width: screenWidth(context,
-                                            dividedBy: 2.5),
-                                        height: screenHeight(context,
-                                            dividedBy: 16),
-                                        alignment: Alignment.center,
-                                        child: commonText(
-                                            DateFormat('MMM dd, yyyy').format(
-                                                DateTime.parse(
-                                                    "${BlocProvider.of<CalendarCubit>(context).projectDate}")),
-                                            color: HexColor.orange,
-                                            fontFamily: LexendBold,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 14))
-                                    : _selectedIndex == 1
+                          child: Column(
+                            children: [
+                              Container(
+                                color: Colors.transparent,
+                                height: 50,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    _selectedIndex == 0
                                         ? Container(
                                             width: screenWidth(context,
                                                 dividedBy: 2.5),
-                                            color: Colors.transparent,
+                                            height: screenHeight(context,
+                                                dividedBy: 16),
                                             alignment: Alignment.center,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                    height: screenHeight(
-                                                        context,
-                                                        dividedBy: 16),
-                                                    alignment: Alignment.center,
-                                                    child: commonText(
-                                                        DateFormat('MMM d-')
-                                                            .format(DateTime.parse(
-                                                                "${BlocProvider.of<CalendarCubit>(context).weekStartDate}")),
-                                                        color: HexColor.orange,
-                                                        fontFamily: LexendBold,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 14)),
-                                                Container(
-                                                    height: screenHeight(
-                                                        context,
-                                                        dividedBy: 16),
-                                                    alignment: Alignment.center,
-                                                    child: commonText(
-                                                        DateFormat(
-                                                                'MMM dd, yyyy')
-                                                            .format(DateTime.parse(
-                                                                "${BlocProvider.of<CalendarCubit>(context).weekEndDate}")),
-                                                        color: HexColor.orange,
-                                                        fontFamily: LexendBold,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 14)),
-                                              ],
-                                            ),
-                                          )
-                                        : _selectedIndex == 2
+                                            child: commonText(
+                                                DateFormat('MMM dd, yyyy').format(
+                                                    DateTime.parse(
+                                                        "${BlocProvider.of<CalendarCubit>(context).projectDate}")),
+                                                color: HexColor.orange,
+                                                fontFamily: LexendBold,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14))
+                                        : _selectedIndex == 1
                                             ? Container(
                                                 width: screenWidth(context,
                                                     dividedBy: 2.5),
-                                                height: screenHeight(context,
-                                                    dividedBy: 16),
+                                                color: Colors.transparent,
                                                 alignment: Alignment.center,
-                                                child: commonText(DateFormat('yyyy-MMM').format(DateTime.parse("${BlocProvider.of<CalendarCubit>(context).projectDate}")),
-                                                    color: HexColor.orange,
-                                                    fontFamily: LexendBold,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 14))
-                                            : _selectedIndex == 3
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                        height: screenHeight(
+                                                            context,
+                                                            dividedBy: 16),
+                                                        alignment: Alignment.center,
+                                                        child: commonText(
+                                                            DateFormat('MMM d-')
+                                                                .format(DateTime.parse(
+                                                                    "${BlocProvider.of<CalendarCubit>(context).weekStartDate}")),
+                                                            color: HexColor.orange,
+                                                            fontFamily: LexendBold,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 14)),
+                                                    Container(
+                                                        height: screenHeight(
+                                                            context,
+                                                            dividedBy: 16),
+                                                        alignment: Alignment.center,
+                                                        child: commonText(
+                                                            DateFormat(
+                                                                    'MMM dd, yyyy')
+                                                                .format(DateTime.parse(
+                                                                    "${BlocProvider.of<CalendarCubit>(context).weekEndDate}")),
+                                                            color: HexColor.orange,
+                                                            fontFamily: LexendBold,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 14)),
+                                                  ],
+                                                ),
+                                              )
+                                            : _selectedIndex == 2
                                                 ? Container(
                                                     width: screenWidth(context,
                                                         dividedBy: 2.5),
                                                     height: screenHeight(context,
                                                         dividedBy: 16),
                                                     alignment: Alignment.center,
-                                                    child: commonText(
-                                                        DateFormat('yyyy-MMM').format(DateTime.parse("${BlocProvider.of<CalendarCubit>(context).projectDate}")),
+                                                    child: commonText(DateFormat('yyyy-MMM').format(DateTime.parse("${BlocProvider.of<CalendarCubit>(context).projectDate}")),
                                                         color: HexColor.orange,
                                                         fontFamily: LexendBold,
                                                         fontWeight: FontWeight.w700,
                                                         fontSize: 14))
-                                                : Container(),
-                                Expanded(
-                                  child: getCommonFourTabBar(
-                                    ctx: context,
-                                    tab1: 'Day',
-                                    tab2: 'Week',
-                                    tab3: 'Month',
-                                    tab4: 'List',
-                                    controller: _tabController,
-                                    onTap: (index) {
-                                      _selectedIndex = index;
-                                    },
-                                  ),
-                                ),
-                               SizedBox(width: 20),
-                               /* PopupMenuButton(
-                                    constraints: BoxConstraints(maxWidth: 150),
-                                    icon: Icon(
-                                      Icons.more_vert_outlined,
-                                      size: 25,
-                                      color: Color(0xFF5F6368),
+                                                : _selectedIndex == 3
+                                                    ? Container(
+                                                        width: screenWidth(context,
+                                                            dividedBy: 2.5),
+                                                        height: screenHeight(context,
+                                                            dividedBy: 16),
+                                                        alignment: Alignment.center,
+                                                        child: commonText(
+                                                            DateFormat('yyyy-MMM').format(DateTime.parse("${BlocProvider.of<CalendarCubit>(context).projectDate}")),
+                                                            color: HexColor.orange,
+                                                            fontFamily: LexendBold,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 14))
+                                                    : Container(),
+                                    Expanded(
+                                      child: getCommonFourTabBar(
+                                        ctx: context,
+                                        tab1: 'Day',
+                                        tab2: 'Week',
+                                        tab3: 'Month',
+                                        tab4: 'List',
+                                        controller: _tabController,
+                                        onTap: (index) {
+                                          _selectedIndex = index;
+                                        },
+                                      ),
                                     ),
-                                    offset: Offset(-20, 50),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0))),
-                                    onSelected: (value) async {
-                                      if (value == 1) {
-                                        // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                        //   return UnbookedShipment();
-                                        // },));
-                                        String? returnVal =
-                                            await Navigator.push(context,
+                                   SizedBox(width: 20),
+                                   /* PopupMenuButton(
+                                        constraints: BoxConstraints(maxWidth: 150),
+                                        icon: Icon(
+                                          Icons.more_vert_outlined,
+                                          size: 25,
+                                          color: Color(0xFF5F6368),
+                                        ),
+                                        offset: Offset(-20, 50),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        onSelected: (value) async {
+                                          if (value == 1) {
+                                            // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                            //   return UnbookedShipment();
+                                            // },));
+                                            String? returnVal =
+                                                await Navigator.push(context,
+                                                    MaterialPageRoute(
+                                              builder: (context) {
+                                                return Shipment(true);
+                                              },
+                                            ));
+                                            if (returnVal == "Success") {
+                                              calenderCub.EventList(
+                                                  projectIdMain,
+                                                  orgId,
+                                                  mobileOrgId,
+                                                  "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}",
+                                                  "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+                                            }
+                                            ;
+                                            setState(() {});
+                                          } else if (value == 2) {
+                                            String? returnVal =
+                                                await Navigator.push(context,
+                                                    MaterialPageRoute(
+                                              builder: (context) {
+                                                return TerminalTransportShipment();
+                                              },
+                                            ));
+                                            if (returnVal == "Success") {
+                                              calenderCub.EventList(
+                                                  projectIdMain,
+                                                  orgId,
+                                                  mobileOrgId,
+                                                  "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}",
+                                                  "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
+                                            }
+                                            ;
+                                            setState(() {});
+                                          } else if (value == 3) {
+                                            Navigator.push(context,
                                                 MaterialPageRoute(
-                                          builder: (context) {
-                                            return Shipment(true);
-                                          },
-                                        ));
-                                        if (returnVal == "Success") {
-                                          calenderCub.EventList(
-                                              projectIdMain,
-                                              orgId,
-                                              mobileOrgId,
-                                              "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}",
-                                              "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
-                                        }
-                                        ;
-                                        setState(() {});
-                                      } else if (value == 2) {
-                                        String? returnVal =
-                                            await Navigator.push(context,
-                                                MaterialPageRoute(
-                                          builder: (context) {
-                                            return TerminalTransportShipment();
-                                          },
-                                        ));
-                                        if (returnVal == "Success") {
-                                          calenderCub.EventList(
-                                              projectIdMain,
-                                              orgId,
-                                              mobileOrgId,
-                                              "${DateTime.now().subtract(Duration(days: 150)).toUtc().millisecondsSinceEpoch}",
-                                              "${DateTime.now().add(Duration(days: 150)).toUtc().millisecondsSinceEpoch}");
-                                        }
-                                        ;
-                                        setState(() {});
-                                      } else if (value == 3) {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                          builder: (context) {
-                                            return WasteDisposal();
-                                          },
-                                        ));
-                                      }
-                                    },
-                                    // onSelected: (value) {
-                                    //   setState(() {
-                                    //     mainIndex = value;
-                                    //     print("main index=${mainIndex}");
-                                    //   });
-                                    // },
-                                    itemBuilder: (BuildContext context) =>
-                                        <PopupMenuEntry<int>>[
-                                          PopupMenuItem(
-                                            height: 35,
-                                            value: 0,
-                                            child: Text(
-                                              'Show Weekends',
-                                              style: TextStyle(
-                                                  color: HexColor.Gray53,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                          PopupMenuDivider(height: 0),
-                                          PopupMenuItem(
-                                            height: 40,
-                                            value: 1,
-                                            child: Text(
-                                              'Unbooked',
-                                              style: TextStyle(
-                                                  color: HexColor.Gray53,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                          PopupMenuDivider(
-                                            height: 0,
-                                          ),
-                                          PopupMenuItem(
-                                            // onTap: () {
-                                            //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                            //     return TerminalTransportShipment();
-                                            //   },));
-                                            //   log("terminalBooking");
-                                            // },
-                                            height: 35,
-                                            value: 2,
-                                            child: Text(
-                                              'Terminal Booking',
-                                              style: TextStyle(
-                                                  color: HexColor.Gray53,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                          PopupMenuDivider(
-                                            height: 0,
-                                          ),
-                                          PopupMenuItem(
-                                            // onTap: () {
-                                            //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                            //     return TerminalTransportShipment();
-                                            //   },));
-                                            //   log("terminalBooking");
-                                            // },
-                                            height: 35,
-                                            value: 3,
-                                            child: Text(
-                                              'Waste Disposal',
-                                              style: TextStyle(
-                                                  color: HexColor.Gray53,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                        ])*/
-                              ],
-                            ),
-                          ),
-                          _selectedIndex == 0
-                              ? WeeklyDatePicker(
-                                  selectedDay:
-                                      BlocProvider.of<CalendarCubit>(context)
-                                          .projectDate,
-                                  changeDay: (value) => setState(() {
-                                    BlocProvider.of<CalendarCubit>(context)
-                                        .projectDate = value;
-                                    log("value=${value}");
-                                  }),
-                                  enableWeeknumberText: false,
-                                  weeknumberColor: Color(0xFF57AF87),
-                                  weeknumberTextColor: Colors.white,
-                                  backgroundColor: Colors.transparent,
-                                  weekdayTextColor: Colors.black,
-                                  digitsColor: Colors.black,
-                                  selectedBackgroundColor: HexColor.orange,
-                                  weekdays: _weekDays,
-                                  daysInWeek: 7,
-                                )
-                              : _selectedIndex == 1
-                                  ? Expanded(
-                                      child: Container(
-                                        width: screenWidth(context),
-                                        color: Colors.transparent,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: screenWidth(context,
-                                                  dividedBy: 7),
-                                              color: Colors.transparent,
-                                            ),
-                                            ...List.generate(
-                                              BlocProvider.of<CalendarCubit>(
-                                                      context)
-                                                  .listDate
-                                                  .length,
-                                              (index) => SizedBox(
-                                                height: 50,
-                                                width: screenWidth(context,
-                                                    dividedBy: 8.2),
-                                                child: Center(
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      commonText(
-                                                          "${_weekDays[index]}",
-                                                          color: Colors.black,
-                                                          fontFamily:
-                                                              LexendRegular,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 14),
-                                                      Container(
-                                                          height: 30,
-                                                          width: 30,
-                                                          alignment:
-                                                              Alignment.center,
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              color: Colors
-                                                                  .transparent),
-                                                          child: commonText(
-                                                              "${BlocProvider.of<CalendarCubit>(context).listDate[index]}",
-                                                              color:
-                                                                  Colors.black,
-                                                              fontFamily:
-                                                                  LexendRegular,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 14)),
-                                                    ],
-                                                  ),
+                                              builder: (context) {
+                                                return WasteDisposal();
+                                              },
+                                            ));
+                                          }
+                                        },
+                                        // onSelected: (value) {
+                                        //   setState(() {
+                                        //     mainIndex = value;
+                                        //     print("main index=${mainIndex}");
+                                        //   });
+                                        // },
+                                        itemBuilder: (BuildContext context) =>
+                                            <PopupMenuEntry<int>>[
+                                              PopupMenuItem(
+                                                height: 35,
+                                                value: 0,
+                                                child: Text(
+                                                  'Show Weekends',
+                                                  style: TextStyle(
+                                                      color: HexColor.Gray53,
+                                                      fontSize: 14),
                                                 ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : _selectedIndex == 2
-                                      ? Expanded(
-                                          child: Container(
-                                            width: screenWidth(context),
-                                            color: Colors.transparent,
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                ...List.generate(
-                                                  BlocProvider.of<
-                                                              CalendarCubit>(
-                                                          context)
-                                                      .listDate
-                                                      .length,
-                                                  (index) => Expanded(
-                                                    child: Container(
-                                                      color: Colors.transparent,
-                                                      child: Center(
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            commonText(
-                                                                "${_weekDays[index]}",
-                                                                color: Colors
-                                                                    .black,
-                                                                fontFamily:
-                                                                    LexendRegular,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontSize: 14),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      : Container(),
-                        ],
-                      ),
+                                              PopupMenuDivider(height: 0),
+                                              PopupMenuItem(
+                                                height: 40,
+                                                value: 1,
+                                                child: Text(
+                                                  'Unbooked',
+                                                  style: TextStyle(
+                                                      color: HexColor.Gray53,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                              PopupMenuDivider(
+                                                height: 0,
+                                              ),
+                                              PopupMenuItem(
+                                                // onTap: () {
+                                                //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                                //     return TerminalTransportShipment();
+                                                //   },));
+                                                //   log("terminalBooking");
+                                                // },
+                                                height: 35,
+                                                value: 2,
+                                                child: Text(
+                                                  'Terminal Booking',
+                                                  style: TextStyle(
+                                                      color: HexColor.Gray53,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                              PopupMenuDivider(
+                                                height: 0,
+                                              ),
+                                              PopupMenuItem(
+                                                // onTap: () {
+                                                //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                                //     return TerminalTransportShipment();
+                                                //   },));
+                                                //   log("terminalBooking");
+                                                // },
+                                                height: 35,
+                                                value: 3,
+                                                child: Text(
+                                                  'Waste Disposal',
+                                                  style: TextStyle(
+                                                      color: HexColor.Gray53,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ])*/
+                                  ],
+                                ),
+                              ),
+                         _selectedIndex == 0
+                             ? WeeklyDatePicker(
+                           selectedDay:
+                           BlocProvider.of<CalendarCubit>(context)
+                               .projectDate,
+                           changeDay: (value) => setState(() {
+                             BlocProvider.of<CalendarCubit>(context)
+                                 .projectDate = value;
+                             log("value=${value}");
+                           }),
+                           enableWeeknumberText: false,
+                           weeknumberColor: Color(0xFF57AF87),
+                           weeknumberTextColor: Colors.white,
+                           backgroundColor: Colors.transparent,
+                           weekdayTextColor: Colors.black,
+                           digitsColor: Colors.black,
+                           selectedBackgroundColor: HexColor.orange,
+                           weekdays: calenderCub.isShowWeekends ? _weekDays2 : _weekDays,
+                           daysInWeek: calenderCub.isShowWeekends ? 7 : 5,
+                         )
+                             : _selectedIndex == 1
+                             ? Expanded(
+                           child: Container(
+                             width: screenWidth(context),
+                             color: Colors.transparent,
+                             child: Row(
+                               crossAxisAlignment:
+                               CrossAxisAlignment.center,
+                               children: [
+                                 Container(
+                                   width: screenWidth(context,
+                                       dividedBy: 7),
+                                   color: Colors.transparent,
+                                 ),
+                                 ...List.generate(
+                                   BlocProvider.of<CalendarCubit>(
+                                       context)
+                                       .listDate
+                                       .length,
+                                       (index) => Expanded(
+                                           child: Container(
+                                         color: Colors.transparent,
+                                         child: Center(
+                                           child: Column(
+                                             mainAxisSize:
+                                             MainAxisSize.min,
+                                             mainAxisAlignment:
+                                             MainAxisAlignment
+                                                 .center,
+                                             children: [
+                                               commonText(
+                                                   "${ calenderCub.isShowWeekends ? _weekDays2[index] : _weekDays[index]}",
+                                                   color: Colors.black,
+                                                   fontFamily:
+                                                   LexendRegular,
+                                                   fontWeight:
+                                                   FontWeight.w400,
+                                                   fontSize: 14),
+                                               Container(
+                                                   height: 30,
+                                                   width: 30,
+                                                   alignment:
+                                                   Alignment.center,
+                                                   decoration: BoxDecoration(
+                                                       shape: BoxShape
+                                                           .circle,
+                                                       color: Colors
+                                                           .transparent),
+                                                   child: commonText(
+                                                       "${BlocProvider.of<CalendarCubit>(context).listDate[index]}",
+                                                       color:
+                                                       Colors.black,
+                                                       fontFamily:
+                                                       LexendRegular,
+                                                       fontWeight:
+                                                       FontWeight
+                                                           .w400,
+                                                       fontSize: 14)),
+                                             ],
+                                           ),
+                                         ),
+                                       )),
+                                 )
+                               ],
+                             ),
+                           ),
+                         )
+                             : _selectedIndex == 2
+                             ? Expanded(
+                           child: Container(
+                             width: screenWidth(context),
+                             color: Colors.transparent,
+                             child: Row(
+                               crossAxisAlignment:
+                               CrossAxisAlignment.center,
+                               children: [
+                                 Container(
+                                   width: screenWidth(context,
+                                       dividedBy: 7),
+                                   color: Colors.transparent,
+                                 ),
+                                 ...List.generate(
+                                   BlocProvider.of<
+                                       CalendarCubit>(
+                                       context)
+                                       .listDate
+                                       .length,
+                                       (index) => Expanded(
+                                     child: Container(
+                                       color: Colors.transparent,
+                                       child: Center(
+                                         child: Column(
+                                           mainAxisSize:
+                                           MainAxisSize.min,
+                                           mainAxisAlignment:
+                                           MainAxisAlignment
+                                               .center,
+                                           children: [
+                                             commonText(
+                                                 "${ calenderCub.isShowWeekends ? _weekDays2[index] :_weekDays[index]}",
+                                                 color: Colors
+                                                     .black,
+                                                 fontFamily:
+                                                 LexendRegular,
+                                                 fontWeight:
+                                                 FontWeight
+                                                     .w400,
+                                                 fontSize: 14),
+                                           ],
+                                         ),
+                                       ),
+                                     ),
+                                   ),
+                                 )
+                               ],
+                             ),
+                           ),
+                         )
+                             : Container(),
+                            ],
+                          ),
+                        ),
+                        (_selectedIndex == 3) ? SizedBox() : commonButton(
+                            context: context,
+                            buttonName: BlocProvider.of<CalendarCubit>(context).isShowWeekends ? "hide" : "Show",
+                            buttonTextSize: 14,
+                            height: 30,
+                            width: 50,
+                            buttonColor: HexColor.Gray53.withOpacity(0.5),
+                            onTap: () {
+                            if(  calenderCub.isShowWeekends == false){
+                             calenderCub.isShowWeekends = true;
+                              setState(() {});
+                            } else{
+                              calenderCub.isShowWeekends = false;
+                              setState(() {});
+                            }
+                            }),
+                      ],
                     );
                   },
                 ),

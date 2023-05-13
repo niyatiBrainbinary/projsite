@@ -45,14 +45,16 @@ class CalendarCubit extends Cubit<CalendarState> {
   List<RequestList> eventList = [];
   RequestDataModel? requestData;
   bool isCalender = false;
+  bool isShowWeekends = false;
 
   fun() {
     listDate = [];
     var now = StarDate;
     weekStartDate = now.subtract(Duration(days: now.weekday - 1));
     weekEndDate = now.subtract(Duration(days: now.weekday - 7));
-    listDate =
-        List.generate(7, (i) => '${weekStartDate.add(Duration(days: i)).day}');
+
+    listDate = List.generate(isShowWeekends ? 7 : 5, (i) => '${weekStartDate.add(Duration(days: i)).day}');
+
   }
 
   setState() {
